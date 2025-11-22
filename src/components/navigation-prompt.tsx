@@ -12,7 +12,7 @@ import {
   UserRoundSearch,
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const pageRoutes = {
   Me: '/me',
@@ -34,12 +34,29 @@ const navConfig = [
 
 interface NavigationPromptProps {
   className?: string;
+  showQuick?: boolean;
+  onToggleQuick?: () => void;
 }
 
-export function NavigationPrompt({ className = '' }: NavigationPromptProps) {
+export function NavigationPrompt({ className = '', showQuick: showQuickProp, onToggleQuick }: NavigationPromptProps) {
   const [input, setInput] = useState('');
-  const [showQuick, setShowQuick] = useState(true);
+  const [internalShowQuick, setInternalShowQuick] = useState(true);
   const router = useRouter();
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Use controlled prop if provided, otherwise use internal state
+  const showQuick = showQuickProp !== undefined ? showQuickProp : internalShowQuick;
+  const toggleQuick = onToggleQuick || (() => setInternalShowQuick(prev => !prev));
+
+  // Auto-focus the input when component mounts
+  useEffect(() => {
+    // Small delay to ensure the page is fully loaded
+    const timer = setTimeout(() => {
+      inputRef.current?.focus();
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSectionNavigation = (key: RouteKey) => {
     router.push(pageRoutes[key]);
@@ -74,7 +91,7 @@ export function NavigationPrompt({ className = '' }: NavigationPromptProps) {
       <div className="mb-2 flex items-center justify-center">
         <button
           type="button"
-          onClick={() => setShowQuick((prev) => !prev)}
+          onClick={toggleQuick}
           className="flex items-center gap-2 text-xs font-medium text-neutral-500 transition hover:text-neutral-300 dark:hover:text-neutral-300"
         >
           {showQuick ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
@@ -119,6 +136,7 @@ export function NavigationPrompt({ className = '' }: NavigationPromptProps) {
       >
         <div className="mx-auto flex items-center rounded-full border border-neutral-200 bg-white/30 py-2.5 pr-2 pl-6 backdrop-blur-lg transition-all hover:border-neutral-300 dark:border-neutral-700 dark:bg-neutral-800 dark:hover:border-neutral-600">
           <input
+            ref={inputRef}
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
