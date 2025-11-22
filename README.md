@@ -1,70 +1,60 @@
-![image](assets/readme-photo.png)
- 
-# World's first AI portfolio 🤖✨  
+# LiquidPortfolio 🎨✨
 
-**Static portfolios are dead.**  
-So I built [toukoum.fr](https://toukoum.fr).
+A modern, interactive portfolio website featuring AI-powered chat, animated liquid borders, and a sleek dark/light mode interface.
 
-Instead of making you scroll endlessly, my portfolio adapts to *you*.  
-Ask a question — my AI avatar replies instantly.
+## ✨ Features
 
-## 👇 What can you ask?
+- **Interactive AI Chat** - Engage with an AI assistant that knows about your portfolio
+- **Animated Liquid Borders** - Beautiful Siri-style colorful borders on hover
+- **Dark/Light Mode** - Seamless theme switching
+- **Responsive Design** - Works perfectly on all devices
+- **Multiple Sections**:
+  - About Me
+  - Skills
+  - Projects
+  - Contact
+  - Fun
 
-- 🧠 **Tech recruiter?** Ask about my stack & results  
-- 💻 **Dev?** Dive into my code & mindset  
-- 🧑‍🤝‍🧑 **Friend or family?** See what I’ve been working on  
-
----
-
-This is not a portfolio.  
-It’s a **conversation tailored to your curiosity**.
-
-➡️ **Try it now:** [https://toukoum.fr](https://toukoum.fr)  
-*What will you ask?*
-
-## 🚀 How to run
-
-Want to run this project locally? Here's what you need:
+## 🚀 How to Run
 
 ### Prerequisites
 - **Node.js** (v18 or higher)
-- **pnpm** package manager
-- **OpenAI API token** (for AI chat functionality)
-- **GitHub token** (for GitHub integration features)
+- **npm** or **pnpm** package manager
 
 ### Setup
+
 1. **Clone the repository**
    ```bash
-   git clone <your-repo-url>
-   cd portfolio
+   git clone https://github.com/Jhymas20/LiquidPortfolio.git
+   cd LiquidPortfolio
    ```
 
 2. **Install dependencies**
    ```bash
+   npm install
+   # or
    pnpm install
    ```
 
-3. **Environment variables**
-   Create a `.env` file in the root directory:
-   ```env
-   OPENAI_API_KEY=your_openai_api_key_here
-   GITHUB_TOKEN=your_github_token_here
-   ```
-
-4. **Run the development server**
+3. **Run the development server**
    ```bash
+   npm run dev
+   # or
    pnpm dev
    ```
 
-5. **Open your browser**
+4. **Open your browser**
    Navigate to `http://localhost:3000`
 
-### Getting your **tokens**
-- **OpenAI API Key**: Get it from [platform.openai.com](https://platform.openai.com/api-keys)
-- **GitHub Token**: Generate one at [github.com/settings/tokens](https://github.com/settings/personal-access-tokens) with repo access
+## 🛠️ Built With
 
+- **Next.js 15** - React framework
+- **React 19** - UI library
+- **TailwindCSS v4** - Styling
+- **Framer Motion** - Animations
+- **TypeScript** - Type safety
+- **AI SDK** - AI chat functionality
 
+## 📝 License
 
-#### 🔖 Tags
-
-`#AIPortfolio` `#InnovationInTech` `#DigitalResume` `#JobSearch` `#TechInnovation` `#WebDevelopment` `#FutureTech`
+This project is open source and available for personal and commercial use.

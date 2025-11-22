@@ -5,20 +5,18 @@ import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Toukoum Portfolio',
+  title: 'Jordan Hymas Portfolio',
   description:
-    'Interactive portfolio with an AI-powered Memoji that answers questions about me, my skills, and my experience',
+    'Interactive portfolio with an AI-powered assistant that answers questions about my skills, projects, and experience',
   keywords: [
-    'Toukoum',
+    'Jordan Hymas',
     'Portfolio',
     'Developer',
     'AI',
     'Interactive',
-    'Memoji',
     'Web Development',
     'Full Stack',
     'Next.js',
@@ -26,26 +24,23 @@ export const metadata: Metadata = {
   ],
   authors: [
     {
-      name: 'Toukoum',
-      url: 'https://toukoum.fr',
+      name: 'Jordan Hymas',
     },
   ],
-  creator: 'Toukoum',
+  creator: 'Jordan Hymas',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://toukoum.fr',
-    title: 'Toukoum Portfolio',
+    title: 'Jordan Hymas Portfolio',
     description:
-      'Interactive portfolio with an AI-powered Memoji that answers questions about me',
-    siteName: 'Toukoum Portfolio',
+      'Interactive portfolio with an AI-powered assistant that answers questions about my skills and experience',
+    siteName: 'Jordan Hymas Portfolio',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Toukoum Portfolio',
+    title: 'Jordan Hymas Portfolio',
     description:
-      'Interactive portfolio with an AI-powered Memoji that answers questions about me',
-    creator: '@toukoum',
+      'Interactive portfolio with an AI-powered assistant that answers questions about my skills and experience',
   },
   icons: {
     icon: [
@@ -72,13 +67,6 @@ export default function RootLayout({
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
         <link rel="icon" href="/favicon.svg" sizes="any" />
-        <Script
-          defer
-          data-website-id="68e067ba369b1b7f1f096056"
-          data-domain="toukoum.fr"
-          data-allow-localhost="true"
-          src="https://datafa.st/js/script.js"
-        ></Script>
       </head>
       <body
         className={cn('bg-background min-h-screen font-sans antialiased')}
