@@ -145,14 +145,14 @@ export default function Home() {
       </motion.div>
 
       {/* centre memoji */}
-      <div className="relative z-10 h-40 w-40 overflow-hidden sm:h-52 sm:w-52 md:h-60 md:w-60">
+      <div className="relative z-10 h-52 w-52 sm:h-64 sm:w-64 md:h-72 md:w-72 rounded-full overflow-hidden">
         <Image
-          src="/landing-memojis.png"
+          src="/faceNoBackground.png"
           alt="Hero memoji"
           width={2000}
           height={2000}
           priority
-          className="translate-y-14 scale-[2] object-cover"
+          className="object-cover w-full h-full"
         />
       </div>
 

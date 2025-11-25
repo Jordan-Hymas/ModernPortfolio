@@ -18,7 +18,7 @@ export function ProfileCardMobile() {
   const profile = {
     name: 'Jordan Hymas',
     title: 'Full Stack Developer',
-    avatar: '/profil-raph.png',
+    avatar: '/faceWithBackground.jpg',
     email: 'jordanhymas24@gmail.com',
     location: 'Idaho, USA',
     availableForWork: true,
@@ -48,7 +48,7 @@ export function ProfileCardMobile() {
               alt={profile.name}
               width={128}
               height={128}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover object-[center_80%]"
             />
           </div>
           {/* Online Status Indicator */}

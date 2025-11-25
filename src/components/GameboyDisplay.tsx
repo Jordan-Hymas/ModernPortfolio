@@ -46,7 +46,7 @@ export function GameboyDisplay({ onGameOver }: GameboyDisplayProps) {
         <div className="absolute top-12 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#b0b0b0] dark:via-[#909090] to-transparent opacity-40" />
 
         {/* Screen Container - Indented */}
-        <div className="bg-[#a0a0a0] dark:bg-[#808080] rounded-lg p-[2px] shadow-inner mb-1.5 mt-4 xl:mt-6 2xl:mt-8">
+        <div className="bg-[#a0a0a0] dark:bg-[#808080] rounded-lg p-[2px] shadow-inner mb-1.5 mt-4 md:mt-16 lg:mt-20 xl:mt-6 2xl:mt-8">
           <div className="bg-[#2a2a2a] dark:bg-[#1a1a1a] rounded-lg p-1.5 xl:p-2 shadow-inner">
             <div className="bg-[#0f380f] rounded-md p-1 xl:p-1.5 shadow-inner">
               <div className="bg-[#9bbc0f] rounded-sm p-0.5 xl:p-1">

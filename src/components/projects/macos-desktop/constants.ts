@@ -125,11 +125,11 @@ export const ICON_CONFIGS: IconConfig[] = [
     icon: '/minishellpreview.png',
     size: { width: 90, height: 75 },
     positions: {
-      mobile: { x: 40, y: 61 },
-      tablet: { x: 40, y: 61 },
-      laptop: { x: 40, y: 61 },
-      desktop: { x: 40, y: 61 },
-      ultrawide: { x: 40, y: 61 }
+      mobile: { x: 35, y: 61 },
+      tablet: { x: 35, y: 61 },
+      laptop: { x: 35, y: 61 },
+      desktop: { x: 35, y: 61 },
+      ultrawide: { x: 35, y: 61 }
     }
   },
   {

@@ -7,8 +7,21 @@ import { StrategicPathway } from '@/components/strategic-pathway';
 import Resume from '@/components/resume';
 import NavigationPrompt from '@/components/navigation-prompt';
 import { SiriBorderCard } from '@/components/siri-border-card';
+import { useEffect } from 'react';
 
 export default function MePage() {
+  useEffect(() => {
+    // Scroll to top immediately
+    window.scrollTo(0, 0);
+
+    // Also scroll to top after a brief delay to override any auto-focus scrolling
+    const timer = setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-neutral-50 px-4 py-8 dark:from-neutral-950 dark:to-neutral-950 lg:px-8">
       <div className="mx-auto flex w-full max-w-7xl gap-8">

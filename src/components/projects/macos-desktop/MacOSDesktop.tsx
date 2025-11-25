@@ -150,14 +150,14 @@ export function MacOSDesktop() {
   }, [openWindows, nextZIndex]);
 
   return (
-    <div className="fixed inset-0 overflow-hidden bg-black">
+    <div className="fixed inset-0 overflow-hidden bg-white dark:bg-black">
       {/* Desktop Background */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-center bg-no-repeat dark:opacity-80"
         style={{
-          backgroundImage: 'url(/templateMe.avif)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundImage: 'url(/sidewaysBlackWhite.png)',
+          backgroundSize: 'contain',
+          backgroundPosition: 'center center',
         }}
       />
 
