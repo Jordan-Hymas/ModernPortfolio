@@ -4,72 +4,58 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import {
   VIEWPORT_CONFIG,
   titleScrollVariants,
-  minimalistCardVariants,
 } from '@/lib/animations';
 import { motion } from 'framer-motion';
-import { Code, Cpu, PenTool, Users } from 'lucide-react';
+import SkillIcon from './skills/SkillIcon';
+
+// Skill interface
+interface Skill {
+  name: string;
+  icon?: string;
+  fallbackColor: string;
+}
 
 const Skills = () => {
-  const skillsData = [
-    {
-      category: 'JavaScript Frameworks',
-      icon: Code,
-      skills: [
-        'React',
-        'Next.js 15.2.3',
-        'TypeScript',
-        'Vercel AI SDK',
-      ],
-      iconColor: '#329696', // Cyan
-    },
-    {
-      category: 'UI Frameworks & Styling',
-      icon: PenTool,
-      skills: [
-        'Tailwind CSS',
-        'Radix UI',
-        'Framer Motion',
-        'Lucide Icons',
-      ],
-      iconColor: '#856ED9', // Purple
-    },
-    {
-      category: 'Backend & Tools',
-      icon: Cpu,
-      skills: [
-        'Node.js',
-        'PostgreSQL',
-        'Prisma',
-        'Git',
-        'Docker',
-        'Webpack',
-      ],
-      iconColor: '#3E9858', // Emerald
-    },
-    {
-      category: 'AI & Machine Learning',
-      icon: Cpu,
-      skills: [
-        'OpenAI (ChatGPT, Whisper)',
-        'Claude',
-        'Groq',
-        'AI Agents',
-        'RAG (Retrieval-Augmented Generation)',
-        'Vector Databases',
-        'Prompt Engineering',
-      ],
-      iconColor: '#C19433', // Gold
-    },
-    {
-      category: 'Design & Creative',
-      icon: PenTool,
-      skills: ['Figma', 'Illustrator', 'DaVinci Resolve', 'Three.js'],
-      iconColor: '#B95F9D', // Pink
-    },
+  // Flat array of all skills matching the exact icons in public/icons/skills
+  const skillsData: Skill[] = [
+    // Programming Languages
+    { name: 'Python', icon: '/icons/skills/python.svg', fallbackColor: '#3776AB' },
+    { name: 'C', icon: '/icons/skills/c.svg', fallbackColor: '#A8B9CC' },
+    { name: 'C++', icon: '/icons/skills/c++.svg', fallbackColor: '#00599C' },
+    { name: 'C#', icon: '/icons/skills/cSharp.svg', fallbackColor: '#239120' },
+    { name: 'Bash', icon: '/icons/skills/bash.svg', fallbackColor: '#4EAA25' },
+
+    // Web Languages
+    { name: 'HTML', icon: '/icons/skills/httml.svg', fallbackColor: '#E34F26' },
+    { name: 'CSS', icon: '/icons/skills/css.svg', fallbackColor: '#1572B6' },
+    { name: 'JavaScript', icon: '/icons/skills/javascript.svg', fallbackColor: '#F7DF1E' },
+    { name: 'TypeScript', icon: '/icons/skills/typescript.svg', fallbackColor: '#3178C6' },
+    { name: 'Tailwind', icon: '/icons/skills/tailwind.svg', fallbackColor: '#06B6D4' },
+
+    // Operating Systems
+    { name: 'macOS', icon: '/icons/skills/mac.svg', fallbackColor: '#000000' },
+    { name: 'Linux', icon: '/icons/skills/linux.svg', fallbackColor: '#FCC624' },
+    { name: 'Windows', icon: '/icons/skills/windows.svg', fallbackColor: '#0078D6' },
+    { name: 'Git', icon: '/icons/skills/git.svg', fallbackColor: '#F05032' },
+    { name: 'GitHub', icon: '/icons/skills/github.svg', fallbackColor: '#181717' },
+
+    // Tools & Frameworks
+    { name: 'Docker', icon: '/icons/skills/docker.svg', fallbackColor: '#2496ED' },
+    { name: 'NPM', icon: '/icons/skills/npm.svg', fallbackColor: '#CB3837' },
+    { name: 'React', icon: '/icons/skills/react.svg', fallbackColor: '#61DAFB' },
+    { name: 'Kali', icon: '/icons/skills/kali.svg', fallbackColor: '#557C94' },
+    { name: 'Node.js', icon: '/icons/skills/nodeJS.svg', fallbackColor: '#339933' },
+
+    // Databases & IDEs
+    { name: 'SQLite', icon: '/icons/skills/sqlLight.svg', fallbackColor: '#003B57' },
+    { name: 'MySQL', icon: '/icons/skills/mySql.svg', fallbackColor: '#4479A1' },
+    { name: 'OpenAI', icon: '/icons/skills/openai.svg', fallbackColor: '#10A37F' },
+    { name: 'VS Code', icon: '/icons/skills/vscode.svg', fallbackColor: '#007ACC' },
+    { name: 'VS Studio', icon: '/icons/skills/vsStudio.svg', fallbackColor: '#5C2D91' },
   ];
 
   return (
-    <div className="mx-auto w-full max-w-4xl px-4">
+    <div className="mx-auto w-full max-w-6xl px-4">
       <Card className="w-full border-none bg-transparent shadow-none">
         {/* Header Section */}
         <CardHeader className="px-0 pb-8">
@@ -85,60 +71,19 @@ const Skills = () => {
           </motion.div>
         </CardHeader>
 
-        {/* Skills Categories */}
-        <CardContent className="space-y-6 px-0">
-          {skillsData.map((section, index) => {
-            const Icon = section.icon;
-            return (
-              <motion.div
+        {/* Launchpad Grid - Single Continuous Grid */}
+        <CardContent className="px-0">
+          <div className="grid grid-cols-5 gap-6 sm:gap-8 lg:gap-10 px-2">
+            {skillsData.map((skill, index) => (
+              <SkillIcon
                 key={index}
-                custom={index}
-                whileInView="visible"
-                initial="hidden"
-                viewport={VIEWPORT_CONFIG.default}
-                variants={minimalistCardVariants}
-                whileHover={{
-                  scale: 1.01,
-                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
-                  transition: { duration: 0.3, ease: 'easeOut' },
-                }}
-                className="rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm transition-shadow dark:border-neutral-800 dark:bg-neutral-900"
-              >
-                {/* Category Header */}
-                <div className="mb-4 flex items-center gap-3">
-                  <motion.div
-                    whileHover={{
-                      rotate: 5,
-                      scale: 1.1,
-                      transition: { duration: 0.3 },
-                    }}
-                  >
-                    <Icon
-                      className="h-6 w-6"
-                      style={{ color: section.iconColor }}
-                    />
-                  </motion.div>
-                  <h3 className="text-2xl font-semibold text-neutral-900 dark:text-white">
-                    {section.category}
-                  </h3>
-                </div>
-
-                {/* Skills List with Bullets */}
-                <div className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400">
-                  {section.skills.map((skill, idx) => (
-                    <span key={idx}>
-                      {skill}
-                      {idx < section.skills.length - 1 && (
-                        <span className="px-2 text-neutral-400 dark:text-neutral-600">
-                          •
-                        </span>
-                      )}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            );
-          })}
+                name={skill.name}
+                icon={skill.icon}
+                fallbackColor={skill.fallbackColor}
+                index={index}
+              />
+            ))}
+          </div>
         </CardContent>
       </Card>
     </div>

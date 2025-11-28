@@ -82,8 +82,8 @@ const PROJECT_CONTENT = [
     title: 'CyberCodex.io',
     description:
       "CyberCodex.io is a comprehensive cybersecurity learning platform featuring interactive courses, hands-on labs, and a vibrant community. Master security skills from beginner to advanced with structured pathways and real-world scenarios.",
-    techStack: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Node.js'],
-    date: '2024',
+    techStack: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+    date: '2025',
     links: [
       {
         name: 'website',
@@ -115,51 +115,48 @@ const PROJECT_CONTENT = [
     ],
   },
   {
-    title: 'Defai',
+    title: 'First Portfolio',
     description:
-      "We Win ETHOXford hackathon by building DEFAI. DEFAI stands for Decentralized Finance Artificial Intelligence. It's an AI-powered chat interface that simplifies on-chain operations on the Avalanche blockchain by allowing users to interact using natural language. This makes complex DeFi operations accessible even for those with limited technical expertise.",
+      "This is my very first portfolio website, built from scratch as I was learning web development. Created with pure HTML, CSS, and vanilla JavaScript, this project represents my foundation in web design and development. It features smooth scroll animations powered by Swiper, interactive contact forms using EmailJS for seamless communication, and fast content delivery through jsDelivr CDN. While simple compared to my current work, this portfolio marks the beginning of my journey as a developer and showcases my early understanding of responsive design, DOM manipulation, and user interface principles.",
     techStack: [
-      'Next.js',
-      'TailwindCSS',
-      'shadcn-ui',
-      'Vercel AI SDK',
-      'TypeScript',
+      'HTML',
+      'CSS',
+      'JavaScript',
+      'Swiper',
+      'EmailJS',
+      'jsDelivr',
     ],
-    date: '2025',
+    date: '2023',
     links: [
       {
-        name: 'website',
-        url: 'https://dorahacks.io/buidl/22605',
+        name: 'Website',
+        url: 'https://toukoum.github.io/oldPortfolio/',
       },
       {
-        name: 'github',
-        url: 'https://github.com/toukoum/DEFAI',
+        name: 'GitHub',
+        url: 'https://github.com/toukoum/portfolio',
       },
-      {
-        name: 'LinkedIn',
-        url: 'https://www.linkedin.com/feed/update/urn:li:activity:7299337190151483392/',
-      },
-      {
-        name: 'Youtube Video',
-        url: 'https://www.youtube.com/watch?v=N9O7los4-ng&t=34s&ab_channel=Toukoum',
-      }
     ],
     images: [
       {
-        src: '/defai1.png',
-        alt: 'Landing Page of Defai',
+        src: '/Projects/OldPortfolio/home.webp',
+        alt: 'Old Portfolio homepage',
       },
       {
-        src: '/defai2.png',
-        alt: 'Confirmation popup of Defai',
+        src: '/Projects/OldPortfolio/projects.webp',
+        alt: 'Old Portfolio projects section',
       },
       {
-        src: '/defai3.png',
-        alt: 'Chatbot of Defai',
+        src: '/Projects/OldPortfolio/posts.webp',
+        alt: 'Old Portfolio blog posts',
       },
       {
-        src: '/defai4.jpeg',
-        alt: 'Winner team',
+        src: '/Projects/OldPortfolio/contact.webp',
+        alt: 'Old Portfolio contact page',
+      },
+      {
+        src: '/Projects/OldPortfolio/resume.webp',
+        alt: 'Old Portfolio resume section',
       },
     ],
   },
@@ -187,27 +184,18 @@ const PROJECT_CONTENT = [
     ],
   },
   {
-    title: 'Datai',
+    title: 'Server Room (NPCE)',
     description:
-      "DATAI is an AI-powered agent that lets non-technical users query a database using natural language without writing SQL. Built using Next.js, TailwindCSS, shadcn-ui, and Anthropic's Claude API, this project focuses on simplicity, speed, and user-friendly design.",
+      "I recently built a complete enterprise-grade server room and esports network for the Boys & Girls Clubs of the Lewis-Clark Valley. Starting from an empty space, I deployed a full UniFi infrastructure including PoE switches, structured cabling, UniFi Protect cameras, and a CloudKey Gen2 Plus for centralized network and video management. I also assisted in configuring a SonicWall next-generation firewall to deliver secure, segmented networking throughout the facility. MXnet was implemented to control and distribute content across all building displays, ensuring synchronized and flexible media routing. The project included setting up multiple low-latency esports stations with optimized networking and workstation layouts. The final result is a scalable, secure, and high-performance infrastructure that supports daily operations, youth programs, and future expansion.",
     techStack: [
-      'Next.js',
-      'TailwindCSS',
-      'shadcn-ui',
-      'Claude API',
-      'TypeScript',
+      'MXnet Video Ecosystem',
+      'SonicWall',
+      'Ubiquiti CloudKey',
+      'Ubiquiti Cameras',
+      'Ubiquiti UniFi Switches',
     ],
     date: '2024',
-    links: [
-      {
-        name: 'GitHub',
-        url: 'https://github.com/toukoum/datai',
-      },
-      {
-        name: 'Youtube Video Demo',
-        url: 'https://youtu.be/iE0RXjdbQsw',
-      }
-    ],
+    links: [],
     images: [
       {
         src: '/projects/BGCLCV/teenCenterPc.webp',
@@ -299,29 +287,20 @@ const PROJECT_CONTENT = [
     ],
   },
   {
-    title: 'YouBot',
+    title: 'Retro Snake',
     description:
-      'YouBot is a Python Bot that Scrapes Videos from Pexels, adds a random song from a Songs Folder, then auto-uploads the videos to your YouTube Channel for continuous content generation.',
-    techStack: ['Python', 'YouTube API', 'Pexels API'],
-    date: '2022',
-    links: [
-      {
-        name: "YouTube Video",
-        url: "https://youtu.be/vp1v5mBG7rA "
-      },
-      {
-        name: 'GitHub',
-        url: 'https://github.com/toukoum/YouBot',
-      }
-    ],
+      "This is one of the first projects I ever worked on during my early programming journey. Built entirely in C++ with a Bash-based build system, this classic Snake game recreation represents my initial steps into game development and systems programming. While it's a simple implementation by today's standards, I've included it here for sentimental value and to showcase my growth as a developer. It's not a reflection of my current work capabilities, but rather a reminder of where I started and how far I've come in my development journey.",
+    techStack: ['C++', 'Bash'],
+    date: '2023',
+    links: [],
     images: [
       {
-        src: '/youbot1.jpg',
-        alt: 'Youbot landing page',
+        src: '/Projects/Snake/snake.webp',
+        alt: 'Retro Snake gameplay',
       },
       {
-        src: '/youbot2.png',
-        alt: 'Youbot chatbot',
+        src: '/Projects/Snake/menu.webp',
+        alt: 'Retro Snake menu',
       },
     ],
   },
@@ -519,7 +498,7 @@ const ProjectContent = ({ project }: { project: ProjectProps }) => {
                       src={image.src}
                       alt={image.alt}
                       fill
-                      className="object-cover"
+                      className="object-contain"
                     />
                   )}
                 </div>
@@ -547,10 +526,10 @@ export const data = [
     content: <ProjectContent project={{ title: 'CyberCodex.io', category: 'Cybersecurity Platform', thumbnail: '/Projects/Cybercodex.io/courses.webp' }} />,
   },
   {
-    category: 'Hackathon Winner',
-    title: 'Defai',
-    src: '/defaipreview.png',
-    content: <ProjectContent project={{ title: 'Defai', category: 'Hackathon Winner', thumbnail: '/defaipreview.png' }} />,
+    category: 'Web Development',
+    title: 'First Portfolio',
+    src: '/Projects/OldPortfolio/home.webp',
+    content: <ProjectContent project={{ title: 'First Portfolio', category: 'Web Development', thumbnail: '/Projects/OldPortfolio/home.webp' }} />,
   },
   {
     category: 'Hackathon Winner',
@@ -559,10 +538,10 @@ export const data = [
     content: <ProjectContent project={{ title: 'Fitgear', category: 'Hackathon Winner', thumbnail: '/fitgearpreview.png' }} />,
   },
   {
-    category: 'Business Intelligence',
-    title: 'Server Room',
+    category: 'Infrastructure & Networking',
+    title: 'Server Room (NPCE)',
     src: '/projects/BGCLCV/teenCenterPc.webp',
-    content: <ProjectContent project={{ title: 'Datai', category: 'Business Intelligence', thumbnail: '/projects/BGCLCV/teenCenterPc.webp' }} />,
+    content: <ProjectContent project={{ title: 'Server Room (NPCE)', category: 'Infrastructure & Networking', thumbnail: '/projects/BGCLCV/teenCenterPc.webp' }} />,
   },
   {
     category: '42 Project',
@@ -577,10 +556,10 @@ export const data = [
     content: <ProjectContent project={{ title: 'Minishell', category: '42 Project', thumbnail: '/minishellpreview.png' }} />,
   },
   {
-    category: 'Automation',
-    title: 'YouBot',
-    src: '/youbotpreview.png',
-    content: <ProjectContent project={{ title: 'YouBot', category: 'Automation', thumbnail: '/youbotpreview.png' }} />,
+    category: 'Game Development',
+    title: 'Retro Snake',
+    src: '/Projects/Snake/snake.webp',
+    content: <ProjectContent project={{ title: 'Retro Snake', category: 'Game Development', thumbnail: '/Projects/Snake/snake.webp' }} />,
   },
   {
     category: 'Web Development',

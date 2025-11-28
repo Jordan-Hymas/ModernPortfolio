@@ -35,10 +35,10 @@ export const ICON_CONFIGS: IconConfig[] = [
     }
   },
   {
-    id: 'defai',
-    title: 'Defai',
+    id: 'firstportfolio',
+    title: 'First Portfolio',
     projectIndex: 2,
-    icon: '/defaipreview.png',
+    icon: '/Projects/OldPortfolio/home.webp',
     size: { width: 75, height: 75 },
     positions: {
       mobile: { x: 44, y: 17 },
@@ -91,11 +91,11 @@ export const ICON_CONFIGS: IconConfig[] = [
     }
   },
   {
-    id: 'youbot',
-    title: 'YouBot',
+    id: 'retrosnake',
+    title: 'Retro Snake',
     projectIndex: 7,
-    icon: '/youbotpreview.png',
-    size: { width: 70, height: 85 },
+    icon: '/Projects/Snake/snake.webp',
+    size: { width: 80, height: 80 },
     positions: {
       mobile: { x: 80, y: 43 },
       tablet: { x: 82, y: 43 },

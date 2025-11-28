@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "optimize:images": "node scripts/optimize.js",
+    "optimize:svg": "node scripts/optimize-svg.js"
   },
   "dependencies": {
     "@ai-sdk/openai": "^1.2.7",
@@ -52,9 +54,11 @@
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-prettier": "^5.2.3",
     "eslint-plugin-tailwindcss": "^3.18.0",
+    "glob": "^13.0.0",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "sharp": "^0.34.5",
+    "svgo": "^4.0.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
