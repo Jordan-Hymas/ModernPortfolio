@@ -47,7 +47,7 @@ export default function ProjectsPage() {
 
   // Mobile view - carousel with header
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-neutral-50 px-4 py-12 dark:from-neutral-900 dark:to-neutral-950">
+    <div className="min-h-screen bg-gradient-to-b from-white to-neutral-50 px-4 pt-12 pb-24 sm:pb-12 dark:from-neutral-900 dark:to-neutral-950">
       <div className="mx-auto flex w-full max-w-full sm:max-w-3xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-7xl flex-col gap-6">
         <div className="space-y-2 text-center sm:text-left">
           <p className="text-xs sm:text-sm font-semibold uppercase text-neutral-500 dark:text-neutral-400">
@@ -57,7 +57,7 @@ export default function ProjectsPage() {
             Projects
           </h1>
           <p className="text-neutral-600 dark:text-neutral-300">
-            Browse shipped products, hackathon wins, and experiments.
+            A collection of my projects spanning websites, mobile apps, networking, and cybersecurity.
           </p>
         </div>
 

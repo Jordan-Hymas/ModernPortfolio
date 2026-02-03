@@ -53,7 +53,7 @@ const SkillIcon = ({ name, icon, fallbackColor, index }: SkillIconProps) => {
       className="group flex flex-col items-center gap-2 cursor-default"
     >
       {/* macOS-style App Icon Container */}
-      <div className="relative h-20 w-20 sm:h-24 sm:w-24">
+      <div className="relative h-14 w-14 sm:h-20 sm:w-20 md:h-24 md:w-24">
         {/* Outer glow - light shining out */}
         <div
           className="pointer-events-none absolute -inset-[4px] rounded-[22%] opacity-0 blur-lg transition-opacity duration-500 group-hover:opacity-25"
@@ -152,7 +152,7 @@ const SkillIcon = ({ name, icon, fallbackColor, index }: SkillIconProps) => {
       </div>
 
       {/* App Label (macOS style) */}
-      <span className="w-20 sm:w-24 text-center text-[11px] sm:text-xs font-medium text-neutral-900 dark:text-neutral-100 line-clamp-2 leading-tight drop-shadow-sm">
+      <span className="w-14 sm:w-20 md:w-24 text-center text-[10px] sm:text-[11px] md:text-xs font-medium text-neutral-900 dark:text-neutral-100 line-clamp-2 leading-tight drop-shadow-sm">
         {name}
       </span>
 

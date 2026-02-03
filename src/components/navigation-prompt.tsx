@@ -59,14 +59,14 @@ export const NavigationPrompt = forwardRef<NavigationPromptHandle, NavigationPro
     },
   }));
 
-  // Auto-focus the input when component mounts
+  // Auto-focus the input when component mounts (desktop only to avoid mobile keyboard)
   useEffect(() => {
-    // Small delay to ensure the page is fully loaded
-    const timer = setTimeout(() => {
-      inputRef.current?.focus();
-    }, 100);
-
-    return () => clearTimeout(timer);
+    if (window.matchMedia('(min-width: 640px)').matches) {
+      const timer = setTimeout(() => {
+        inputRef.current?.focus();
+      }, 100);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   const handleSectionNavigation = (key: RouteKey) => {
@@ -115,23 +115,23 @@ export const NavigationPrompt = forwardRef<NavigationPromptHandle, NavigationPro
       </div>
 
       {showQuick && (
-        <div className="flex w-full flex-wrap justify-center gap-2 sm:gap-3">
+        <div className="flex w-full justify-evenly gap-1 sm:flex-wrap sm:justify-center sm:gap-3">
           {navConfig.map(({ key, color, icon: Icon }) => (
             <Button
               key={key}
               onClick={() => handleSectionNavigation(key)}
               variant="outline"
-              className="border-border hover:bg-border/30 h-12 sm:h-14 lg:h-16 min-w-[80px] sm:min-w-[92px] lg:min-w-[104px] flex-shrink-0 rounded-2xl border bg-white/30 px-3 sm:px-4 lg:px-5 py-2 sm:py-3 lg:py-4 shadow-none backdrop-blur-lg active:scale-95 dark:border-neutral-700 dark:bg-neutral-800/50 dark:hover:bg-neutral-700/50"
+              className="border-border hover:bg-border/30 h-12 sm:h-14 lg:h-16 min-w-0 sm:min-w-[92px] lg:min-w-[104px] flex-1 sm:flex-initial rounded-2xl border bg-white/30 px-2 sm:px-4 lg:px-5 py-2 sm:py-3 lg:py-4 shadow-none backdrop-blur-lg active:scale-95 dark:border-neutral-700 dark:bg-neutral-800/50 dark:hover:bg-neutral-700/50"
             >
-              <div className="flex items-center gap-2 text-gray-700 dark:text-neutral-200">
-                <Icon size={18} strokeWidth={2} color={color} />
-                <span className="text-sm font-medium">{key}</span>
+              <div className="flex items-center gap-1 sm:gap-2 text-gray-700 dark:text-neutral-200">
+                <Icon className="h-4 w-4 shrink-0 sm:h-[18px] sm:w-[18px]" strokeWidth={2} color={color} />
+                <span className="text-[clamp(0.6rem,2.5vw,0.8rem)] sm:text-sm font-medium">{key}</span>
               </div>
             </Button>
           ))}
           <Button
             variant="outline"
-            className="border-border hover:bg-border/30 h-12 sm:h-14 lg:h-16 min-w-[64px] sm:min-w-[72px] lg:min-w-[80px] flex-shrink-0 rounded-2xl border bg-white/30 px-2 sm:px-3 lg:px-4 py-2 sm:py-3 lg:py-4 shadow-none backdrop-blur-lg active:scale-95 dark:border-neutral-700 dark:bg-neutral-800/50 dark:hover:bg-neutral-700/50"
+            className="border-border hover:bg-border/30 hidden sm:flex h-14 lg:h-16 min-w-[72px] lg:min-w-[80px] flex-shrink-0 rounded-2xl border bg-white/30 px-3 lg:px-4 py-3 lg:py-4 shadow-none backdrop-blur-lg active:scale-95 dark:border-neutral-700 dark:bg-neutral-800/50 dark:hover:bg-neutral-700/50"
             aria-label="More"
             onClick={() => handleSectionNavigation('Me')}
           >

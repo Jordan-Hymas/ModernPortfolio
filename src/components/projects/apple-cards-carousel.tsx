@@ -128,16 +128,12 @@ export const Carousel = ({
     }
   };
 
-  const isMobile = () => {
-    return window && window.innerWidth < 768;
-  };
-
+  // Mouse-only drag for desktop — touch scrolling is handled natively by the browser
   const startDrag = (clientX: number) => {
     if (!carouselRef.current) return;
     isPointerDown.current = true;
     dragStartX.current = clientX;
     dragStartScroll.current = carouselRef.current.scrollLeft;
-    // Prevent text selection while dragging
     document.body.style.userSelect = 'none';
   };
 
@@ -159,7 +155,7 @@ export const Carousel = ({
     >
       <div className="relative w-full">
         <div
-          className="flex w-full overflow-x-scroll overscroll-x-auto scroll-smooth py-10 [scrollbar-width:none]"
+          className="flex w-full overflow-x-scroll overscroll-x-auto py-10 [scrollbar-width:none] [-webkit-overflow-scrolling:touch]"
           ref={carouselRef}
           onScroll={checkScrollability}
           onMouseDown={(e) => startDrag(e.clientX)}
@@ -171,15 +167,6 @@ export const Carousel = ({
           }}
           onMouseLeave={endDrag}
           onMouseUp={endDrag}
-          onTouchStart={(e) => {
-            if (e.touches[0]) startDrag(e.touches[0].clientX);
-          }}
-          onTouchMove={(e) => {
-            if (e.touches[0]) {
-              handlePointerMove(e.touches[0].clientX);
-            }
-          }}
-          onTouchEnd={endDrag}
         >
           <div
             className={cn(
@@ -337,9 +324,10 @@ export const Card = ({
         onClick={handleOpen}
         className={cn(
           "relative z-10 flex flex-col items-start justify-start overflow-hidden rounded-3xl bg-gray-100 dark:bg-neutral-900",
+          "h-72 w-48",
           card.orientation === 'vertical'
-            ? "h-96 w-56 sm:h-[26rem] sm:w-60 md:h-[30rem] md:w-64 lg:h-[34rem] lg:w-[19rem]"
-            : "h-64 w-48 sm:h-72 sm:w-52 md:h-80 md:w-56 lg:h-96 lg:w-64"
+            ? "sm:h-[26rem] sm:w-60 md:h-[30rem] md:w-64 lg:h-[34rem] lg:w-[19rem]"
+            : "sm:h-72 sm:w-52 md:h-80 md:w-56 lg:h-96 lg:w-64"
         )}
       >
         <div className="absolute inset-x-0 top-0 z-30 h-full cursor-pointer bg-gradient-to-b from-black hover:scale-110 via-transparent to-transparent" />
@@ -389,7 +377,7 @@ export const BlurImage = ({
       src={src}
       width={width}
       height={height}
-      loading="lazy"
+      loading="eager"
       decoding="async"
       blurDataURL={typeof src === 'string' ? src : undefined}
       alt={alt ? alt : 'Background of a beautiful view'}

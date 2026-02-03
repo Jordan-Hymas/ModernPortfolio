@@ -1,6 +1,7 @@
 import { ThemeProvider } from '@/components/theme-provider';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { HomeButton } from '@/components/home-button';
+import { ScrollToTop } from '@/components/scroll-to-top';
 import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
 import { Analytics } from '@vercel/analytics/react';
@@ -77,6 +78,7 @@ export default function RootLayout({
           enableSystem={true}
           disableTransitionOnChange
         >
+          <ScrollToTop />
           <ThemeToggle />
           <HomeButton />
           <main className="flex min-h-screen flex-col">{children}</main>

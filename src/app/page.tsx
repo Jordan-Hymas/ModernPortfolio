@@ -106,13 +106,14 @@ export default function Home() {
     document.head.appendChild(linkMp4);
   }, []);
 
-  // Auto-focus the input when component mounts
+  // Auto-focus the input when component mounts (desktop only to avoid mobile keyboard)
   useEffect(() => {
-    const timer = setTimeout(() => {
-      inputRef.current?.focus();
-    }, 100);
-
-    return () => clearTimeout(timer);
+    if (window.matchMedia('(min-width: 640px)').matches) {
+      const timer = setTimeout(() => {
+        inputRef.current?.focus();
+      }, 100);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   return (
@@ -137,10 +138,10 @@ export default function Home() {
         animate="visible"
       >
         <h2 className="text-secondary-foreground text-xl font-semibold md:text-2xl dark:text-neutral-300">
-          Hey, I'm Jordan 👋
+          Computer science, cybersecurity, and real-world systems engineering.
         </h2>
         <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl lg:text-7xl dark:text-white">
-          AI Portfolio
+          Portfolio
         </h1>
       </motion.div>
 
