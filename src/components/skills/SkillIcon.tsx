@@ -46,8 +46,7 @@ const SkillIcon = ({ name, icon, fallbackColor, index }: SkillIconProps) => {
       custom={index}
       variants={iconVariants}
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
+      animate="visible"
       whileHover={{ scale: 1.08, y: -6 }}
       whileTap={{ scale: 0.95 }}
       className="group flex flex-col items-center gap-2 cursor-default"
