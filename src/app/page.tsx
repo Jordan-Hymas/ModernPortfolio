@@ -137,12 +137,12 @@ export default function Home() {
         initial="hidden"
         animate="visible"
       >
-        <h2 className="text-secondary-foreground text-xl font-semibold md:text-2xl dark:text-neutral-300">
-          Computer science, cybersecurity, and real-world systems engineering.
-        </h2>
-        <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl lg:text-7xl dark:text-white">
-          Portfolio
+        <h1 className="text-3xl font-black tracking-tight sm:text-4xl md:text-5xl dark:text-white">
+          Welcome to My Portfolio
         </h1>
+        <p className="text-secondary-foreground mt-2 max-w-xl text-base font-medium md:text-lg dark:text-neutral-300">
+          Computer science, cybersecurity &amp; real-world systems engineering.
+        </p>
       </motion.div>
 
       {/* centre memoji */}
