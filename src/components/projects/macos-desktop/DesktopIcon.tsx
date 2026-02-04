@@ -83,6 +83,7 @@ export function DesktopIcon({ icon, onOpen, onPositionChange }: DesktopIconProps
           alt={icon.title}
           width={iconSize.width}
           height={iconSize.height}
+          sizes="80px"
           className="w-full h-full object-cover"
           draggable={false}
         />

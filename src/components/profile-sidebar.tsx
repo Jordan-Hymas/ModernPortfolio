@@ -18,7 +18,7 @@ export function ProfileSidebar() {
   const profile = {
     name: 'Jordan Hymas',
     title: 'Full Stack Developer',
-    avatar: '/faceWithBackground.jpg',
+    avatar: '/faceWithBackground.webp',
     email: 'jordanhymas24@gmail.com',
     location: 'Idaho, USA',
     availableForWork: true,

@@ -53,27 +53,27 @@ const PROJECT_CONTENT = [
     ],
     images: [
       {
-        src: '/synto1.png',
+        src: '/synto1.webp',
         alt: 'Synto landing page',
       },
       {
-        src: '/synto2.png',
+        src: '/synto2.webp',
         alt: 'Synto chat interface',
       },
       {
-        src: '/synto3.png',
+        src: '/synto3.webp',
         alt: 'Synto chat interface',
       },
       {
-        src: '/synto4.png',
+        src: '/synto4.webp',
         alt: 'Synto chat interface',
       },
       {
-        src: '/synto5.png',
+        src: '/synto5.webp',
         alt: 'Synto chat interface',
       },
       {
-        src: '/synto6.png',
+        src: '/synto6.webp',
         alt: 'Synto chat interface',
       },
     ],
@@ -242,15 +242,15 @@ const PROJECT_CONTENT = [
         alt: 'Teen Center PC Setup',
       },
       {
-        src: '/projects/BGCLCV/serverRoom.jpeg',
+        src: '/projects/BGCLCV/serverRoom.webp',
         alt: 'Server Room',
       },
       {
-        src: '/projects/BGCLCV/serverRoomAngle.jpeg',
+        src: '/projects/BGCLCV/serverRoomAngle.webp',
         alt: 'Server Room Angle View',
       },
       {
-        src: '/projects/BGCLCV/serverSonicwall.jpeg',
+        src: '/projects/BGCLCV/serverSonicwall.webp',
         alt: 'Server Sonicwall Setup',
       },
       {
@@ -281,7 +281,7 @@ const PROJECT_CONTENT = [
     ],
     images: [
       {
-        src: '/trans1.png',
+        src: '/trans1.webp',
         alt: 'Transcendance landing page',
       },
       {
@@ -289,19 +289,19 @@ const PROJECT_CONTENT = [
         alt: 'Transcendance game',
       },
       {
-        src: '/trans3.png',
+        src: '/trans3.webp',
         alt: 'Transcendance game',
       },
       {
-        src: '/trans4.png',
+        src: '/trans4.webp',
         alt: 'Transcendance game',
       },
       {
-        src: '/trans5.png',
+        src: '/trans5.webp',
         alt: 'Transcendance game',
       },
       {
-        src: '/trans6.png',
+        src: '/trans6.webp',
         alt: 'Transcendance game',
       }
 
@@ -321,7 +321,7 @@ const PROJECT_CONTENT = [
     ],
     images: [
       {
-        src: '/minishell1.png',
+        src: '/minishell1.webp',
         alt: 'Minishell landing page',
       }
     ],
@@ -430,6 +430,7 @@ const ProjectContent = ({ project }: { project: ProjectProps }) => {
                   src={project.thumbnail}
                   alt={projectData.title}
                   fill
+                  sizes="64px"
                   className="object-cover"
                 />
               </div>
@@ -439,6 +440,7 @@ const ProjectContent = ({ project }: { project: ProjectProps }) => {
                   src={projectData.images[0].src}
                   alt={projectData.title}
                   fill
+                  sizes="64px"
                   className="object-cover"
                 />
               </div>
@@ -611,6 +613,7 @@ const ProjectContent = ({ project }: { project: ProjectProps }) => {
                       src={image.src}
                       alt={image.alt}
                       fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
                       className="object-contain"
                     />
                   )}
@@ -629,8 +632,8 @@ export const data = [
   {
     category: 'Startup Project',
     title: 'CyberCodex.io',
-    src: '/syntopreview.png',
-    content: <ProjectContent project={{ title: 'Synto', category: 'Startup Project', thumbnail: '/syntopreview.png' }} />,
+    src: '/syntopreview.webp',
+    content: <ProjectContent project={{ title: 'Synto', category: 'Startup Project', thumbnail: '/syntopreview.webp' }} />,
   },
   {
     category: 'Cybersecurity Platform',
@@ -660,14 +663,14 @@ export const data = [
   {
     category: '42 Project',
     title: '3d Pong Game',
-    src: '/transcendancepreview.png',
-    content: <ProjectContent project={{ title: '3d Pong Game', category: '42 Project', thumbnail: '/transcendancepreview.png' }} />,
+    src: '/transcendancepreview.webp',
+    content: <ProjectContent project={{ title: '3d Pong Game', category: '42 Project', thumbnail: '/transcendancepreview.webp' }} />,
   },
   {
     category: '42 Project',
     title: 'Minishell',
-    src: '/minishellpreview.png',
-    content: <ProjectContent project={{ title: 'Minishell', category: '42 Project', thumbnail: '/minishellpreview.png' }} />,
+    src: '/minishellpreview.webp',
+    content: <ProjectContent project={{ title: 'Minishell', category: '42 Project', thumbnail: '/minishellpreview.webp' }} />,
   },
   {
     category: 'Game Development',

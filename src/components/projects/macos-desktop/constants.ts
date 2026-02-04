@@ -24,7 +24,7 @@ export const ICON_CONFIGS: IconConfig[] = [
     id: 'synto',
     title: 'Synto',
     projectIndex: 0,
-    icon: '/syntopreview.png',
+    icon: '/syntopreview.webp',
     size: { width: 85, height: 85 },
     positions: {
       mobile: { x: 12, y: 20 },
@@ -108,7 +108,7 @@ export const ICON_CONFIGS: IconConfig[] = [
     id: '3dpong',
     title: '3D Pong',
     projectIndex: 5,
-    icon: '/transcendancepreview.png',
+    icon: '/transcendancepreview.webp',
     size: { width: 65, height: 65 },
     positions: {
       mobile: { x: 10, y: 69 },
@@ -122,7 +122,7 @@ export const ICON_CONFIGS: IconConfig[] = [
     id: 'minishell',
     title: 'Minishell',
     projectIndex: 6,
-    icon: '/minishellpreview.png',
+    icon: '/minishellpreview.webp',
     size: { width: 90, height: 75 },
     positions: {
       mobile: { x: 35, y: 61 },

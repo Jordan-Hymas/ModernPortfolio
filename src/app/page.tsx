@@ -91,7 +91,7 @@ export default function Home() {
   useEffect(() => {
     // Précharger les assets visuels en arrière-plan
     const img = new window.Image();
-    img.src = '/landing-memojis.png';
+    img.src = '/landing-memojis.webp';
 
     const linkWebm = document.createElement('link');
     linkWebm.rel = 'prefetch'; // Non-blocking resource hint
@@ -152,6 +152,7 @@ export default function Home() {
           alt="Hero memoji"
           width={2000}
           height={2000}
+          sizes="(max-width: 640px) 208px, (max-width: 768px) 256px, 288px"
           priority
           className="object-cover w-full h-full"
         />
