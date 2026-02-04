@@ -20,7 +20,7 @@ const pageRoutes = {
   Me: '/me',
   Projects: '/projects',
   Skills: '/skills',
-  Fun: '/fun',
+  More: '/more',
   Contact: '/contact',
 } as const;
 type RouteKey = keyof typeof pageRoutes;
@@ -29,7 +29,7 @@ const questionConfig = [
   { key: 'Me', color: '#329696', icon: Laugh },
   { key: 'Projects', color: '#3E9858', icon: BriefcaseBusiness },
   { key: 'Skills', color: '#856ED9', icon: Layers },
-  { key: 'Fun', color: '#B95F9D', icon: PartyPopper },
+  { key: 'More', color: '#B95F9D', icon: PartyPopper },
   { key: 'Contact', color: '#C19433', icon: UserRoundSearch },
 ] as const satisfies { key: RouteKey; color: string; icon: typeof Laugh }[];
 
@@ -63,8 +63,8 @@ export default function Home() {
       router.push(pageRoutes.Contact);
       return;
     }
-    if (normalized.includes('fun') || normalized.includes('hobby')) {
-      router.push(pageRoutes.Fun);
+    if (normalized.includes('more') || normalized.includes('fun') || normalized.includes('hobby')) {
+      router.push(pageRoutes.More);
       return;
     }
     router.push(pageRoutes.Me);

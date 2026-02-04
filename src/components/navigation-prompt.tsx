@@ -18,7 +18,7 @@ const pageRoutes = {
   Me: '/me',
   Projects: '/projects',
   Skills: '/skills',
-  Fun: '/fun',
+  More: '/more',
   Contact: '/contact',
 } as const;
 
@@ -28,7 +28,7 @@ const navConfig = [
   { key: 'Me', color: '#329696', icon: Laugh },
   { key: 'Projects', color: '#3E9858', icon: BriefcaseBusiness },
   { key: 'Skills', color: '#856ED9', icon: Layers },
-  { key: 'Fun', color: '#B95F9D', icon: PartyPopper },
+  { key: 'More', color: '#B95F9D', icon: PartyPopper },
   { key: 'Contact', color: '#C19433', icon: UserRoundSearch },
 ] as const satisfies { key: RouteKey; color: string; icon: typeof Laugh }[];
 
@@ -44,7 +44,7 @@ export interface NavigationPromptHandle {
 
 export const NavigationPrompt = forwardRef<NavigationPromptHandle, NavigationPromptProps>(({ className = '', showQuick: showQuickProp, onToggleQuick }, ref) => {
   const [input, setInput] = useState('');
-  const [internalShowQuick, setInternalShowQuick] = useState(false); // Changed to false - hide quick questions by default
+  const [internalShowQuick, setInternalShowQuick] = useState(true);
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -93,8 +93,8 @@ export const NavigationPrompt = forwardRef<NavigationPromptHandle, NavigationPro
       router.push(pageRoutes.Contact);
       return;
     }
-    if (normalized.includes('fun') || normalized.includes('hobby')) {
-      router.push(pageRoutes.Fun);
+    if (normalized.includes('more') || normalized.includes('fun') || normalized.includes('hobby')) {
+      router.push(pageRoutes.More);
       return;
     }
     router.push(pageRoutes.Me);
@@ -102,7 +102,7 @@ export const NavigationPrompt = forwardRef<NavigationPromptHandle, NavigationPro
 
   return (
     <div className={`flex w-full flex-col items-center justify-center ${className}`}>
-      {/* toggle quick questions */}
+      {/* toggle navigation */}
       <div className="mb-2 flex items-center justify-center">
         <button
           type="button"
@@ -110,7 +110,7 @@ export const NavigationPrompt = forwardRef<NavigationPromptHandle, NavigationPro
           className="flex items-center gap-2 text-xs font-medium text-neutral-500 transition hover:text-neutral-300 dark:hover:text-neutral-300"
         >
           {showQuick ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
-          {showQuick ? 'Hide quick questions' : 'Show quick questions'}
+          {showQuick ? 'Hide navigation' : 'Show navigation'}
         </button>
       </div>
 
@@ -155,7 +155,7 @@ export const NavigationPrompt = forwardRef<NavigationPromptHandle, NavigationPro
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask me anything..."
+            placeholder="Open page…"
             className="w-full border-none bg-transparent text-sm sm:text-base lg:text-lg text-neutral-800 placeholder:text-neutral-500 focus:outline-none dark:text-neutral-200 dark:placeholder:text-neutral-500"
           />
           <button

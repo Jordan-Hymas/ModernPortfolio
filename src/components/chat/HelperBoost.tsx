@@ -36,7 +36,7 @@ const questions = {
   Me: 'Who are you? I want to know more about you.',
   Projects: 'What are your projects? What are you working on right now?',
   Skills: 'What are your skills? Give me a list of your soft and hard skills.',
-  Fun: "What the craziest thing you've ever done? (mb?) What are your hobbies? ",
+  More: "What the craziest thing you've ever done? (mb?) What are your hobbies? ",
   Contact:
     'How can I reach you? What kind of project would make you say "yes" immediately?',
 };
@@ -45,7 +45,7 @@ const questionConfig = [
   { key: 'Me', color: '#329696', icon: Laugh },
   { key: 'Projects', color: '#3E9858', icon: BriefcaseBusiness },
   { key: 'Skills', color: '#856ED9', icon: Layers },
-  { key: 'Fun', color: '#B95F9D', icon: PartyPopper },
+  { key: 'More', color: '#B95F9D', icon: PartyPopper },
   { key: 'Contact', color: '#C19433', icon: UserRoundSearch },
 ];
 
@@ -101,7 +101,7 @@ const questionsByCategory = [
   },
   {
     id: 'fun',
-    name: 'Fun',
+    name: 'More',
     icon: PartyPopper,
     questions: [
       'Mountain Bike you said?? Show me!',
@@ -184,12 +184,12 @@ export default function HelperBoost({
               {isVisible ? (
                 <>
                   <ChevronDown size={14} />
-                  Hide quick questions
+                  Hide navigation
                 </>
               ) : (
                 <>
                   <ChevronUp size={14} />
-                  Show quick questions
+                  Show navigation
                 </>
               )}
             </button>

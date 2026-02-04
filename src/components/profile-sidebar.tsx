@@ -27,7 +27,7 @@ export function ProfileSidebar() {
       { icon: TikTokIcon, url: 'https://www.tiktok.com/@node.io', label: 'TikTok' },
       { icon: Linkedin, url: 'https://www.linkedin.com/in/jordan-hymas/', label: 'LinkedIn' },
       { icon: Instagram, url: 'https://www.instagram.com/jordan.hymas/', label: 'Instagram' },
-      { icon: Dribbble, url: '/fun', label: 'Fun' },
+      { icon: Dribbble, url: '/more', label: 'More' },
     ],
   };
 

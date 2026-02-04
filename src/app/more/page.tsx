@@ -521,7 +521,7 @@ export default function FunPage() {
 
       {/* Fixed Navigation at Bottom */}
       <div className="fixed bottom-0 left-0 right-0 mx-auto w-full max-w-6xl px-4 py-4 md:py-6 pb-12 z-50">
-        <NavigationPrompt ref={navigationPromptRef} showQuick={true} />
+        <NavigationPrompt ref={navigationPromptRef} />
       </div>
     </div>
   );
