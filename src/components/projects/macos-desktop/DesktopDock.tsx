@@ -107,7 +107,23 @@ const AppIcon = ({ icon, label }: { icon: string; label: string }) => {
     );
   }
 
-  // Default emoji fallback (includes Trash)
+  // Trash - custom image (scaled up to compensate for transparent padding in source)
+  if (label === 'Trash') {
+    return (
+      <div className="w-full h-full rounded-xl overflow-hidden shadow-lg">
+        <Image
+          src="/Projects/Dock/trashcan.webp"
+          alt="Trash"
+          width={96}
+          height={96}
+          quality={100}
+          className="w-full h-full object-cover scale-[1.5]"
+        />
+      </div>
+    );
+  }
+
+  // Default emoji fallback
   return (
     <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-300 rounded-xl flex items-center justify-center shadow-lg text-2xl">
       {icon}
@@ -119,9 +135,12 @@ interface DesktopDockProps {
   showQuickQuestions?: boolean;
   onNotesClick?: () => void;
   onPhotosClick?: () => void;
+  onTrashClick?: () => void;
+  trashVisible?: boolean;
+  trashDisabled?: boolean;
 }
 
-export function DesktopDock({ showQuickQuestions = true, onNotesClick, onPhotosClick }: DesktopDockProps) {
+export function DesktopDock({ showQuickQuestions = true, onNotesClick, onPhotosClick, onTrashClick, trashVisible = true, trashDisabled }: DesktopDockProps) {
   const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
 
   // Adjust position based on whether quick questions are shown
@@ -131,19 +150,48 @@ export function DesktopDock({ showQuickQuestions = true, onNotesClick, onPhotosC
     <div className={`fixed ${bottomPosition} left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ease-in-out`}>
       <div className="bg-white/20 dark:bg-neutral-800/80 backdrop-blur-2xl border border-white/30 dark:border-neutral-700/50 rounded-2xl px-3 py-2.5 shadow-2xl">
         <div className="flex items-end gap-2.5">
-          {DOCK_ICONS.map((dockIcon, index) => (
+          {DOCK_ICONS.map((dockIcon, index) => {
+            const isTrash = dockIcon.id === 'trash';
+            // Non-trash icons get staggered index for hide/show animation
+            const nonTrashIndex = isTrash ? 0 : DOCK_ICONS.slice(0, index).filter(d => d.id !== 'trash').length;
+
+            return (
             <div key={dockIcon.id} className="flex items-end gap-2">
               {/* Separator/Divider */}
-              {dockIcon.separator && (
+              {dockIcon.separator && !isTrash && (
+                <motion.div
+                  className="h-12 w-[1px] bg-white/30 mx-1"
+                  animate={{
+                    opacity: trashVisible ? 1 : 0,
+                    scale: trashVisible ? 1 : 0,
+                  }}
+                  transition={{ duration: 0.2, delay: trashVisible ? 0.3 : 0.48 + nonTrashIndex * 0.08 }}
+                />
+              )}
+              {dockIcon.separator && isTrash && (
                 <div className="h-12 w-[1px] bg-white/30 mx-1" />
               )}
 
               {/* Icon with tooltip */}
-              <div className="relative">
+              <motion.div
+                className="relative"
+                animate={isTrash ? {} : {
+                  opacity: trashVisible ? 1 : 0,
+                  scale: trashVisible ? 1 : 0.8,
+                  filter: trashVisible ? 'blur(0px)' : 'blur(4px)',
+                }}
+                transition={isTrash ? {} : {
+                  duration: 0.3,
+                  delay: trashVisible ? 0.3 + nonTrashIndex * 0.05 : 0.48 + nonTrashIndex * 0.08,
+                }}
+                style={isTrash ? {} : { pointerEvents: trashVisible ? 'auto' : 'none' }}
+              >
                 <motion.div
                   onClick={(e) => {
                     e.preventDefault();
-                    if (dockIcon.id === 'notes' && onNotesClick) {
+                    if (isTrash && onTrashClick && !trashDisabled) {
+                      onTrashClick();
+                    } else if (dockIcon.id === 'notes' && onNotesClick) {
                       onNotesClick();
                     } else if (dockIcon.id === 'photos' && onPhotosClick) {
                       onPhotosClick();
@@ -180,9 +228,10 @@ export function DesktopDock({ showQuickQuestions = true, onNotesClick, onPhotosC
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </div>
+              </motion.div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

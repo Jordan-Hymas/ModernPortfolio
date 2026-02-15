@@ -11,6 +11,9 @@ import { data as projectsData } from '../Data';
 import NavigationPrompt from '@/components/navigation-prompt';
 import { NotesContent } from './NotesContent';
 import { PhotosContent } from './PhotosContent';
+import { useTrashInteraction } from './useTrashInteraction';
+import { TrashConfirmModal } from './TrashConfirmModal';
+import { TrashErrorScreen } from './TrashErrorScreen';
 
 export function MacOSDesktop() {
   // Icons with responsive positions
@@ -18,6 +21,18 @@ export function MacOSDesktop() {
   const [openWindows, setOpenWindows] = useState<OpenWindow[]>([]);
   const [nextZIndex, setNextZIndex] = useState(WINDOW_Z_INDEX_START);
   const [showQuickQuestions, setShowQuickQuestions] = useState(false); // Default to hidden
+
+  // Trash interaction state machine
+  const {
+    trashState,
+    desktopVisible,
+    trashDisabled,
+    triggerTrash,
+    cancelEmpty,
+    confirmEmpty,
+    restoreFromConfirm,
+    confirmDelete,
+  } = useTrashInteraction();
 
   // Animation variants for Projects title
   const topElementVariants = {
@@ -178,28 +193,58 @@ export function MacOSDesktop() {
         initial="hidden"
         animate="visible"
       >
-        <div
-          className="bg-gradient-to-b from-neutral-400/70 via-neutral-400/60 to-neutral-400/50 bg-clip-text text-[8vw] leading-none font-black text-transparent select-none sm:text-[9vw] md:text-[10vw] lg:text-[11vw] xl:text-[12vw] 2xl:text-[13vw] dark:from-neutral-400/10 dark:via-neutral-400/8 dark:to-neutral-400/5"
-          style={{
-            writingMode: 'vertical-rl',
-            WebkitTextStroke: '1px rgba(255, 255, 255, 0.3)',
+        <motion.div
+          animate={{
+            opacity: desktopVisible ? 1 : 0,
+            scale: desktopVisible ? 1 : 0.8,
+            filter: desktopVisible ? 'blur(0px)' : 'blur(4px)',
           }}
+          transition={{ duration: 0.4, delay: desktopVisible ? 0.2 : 0.5 }}
         >
-          Projects
-        </div>
+          <div
+            className="bg-gradient-to-b from-neutral-400/70 via-neutral-400/60 to-neutral-400/50 bg-clip-text text-[8vw] leading-none font-black text-transparent select-none sm:text-[9vw] md:text-[10vw] lg:text-[11vw] xl:text-[12vw] 2xl:text-[13vw] dark:from-neutral-400/10 dark:via-neutral-400/8 dark:to-neutral-400/5"
+            style={{
+              writingMode: 'vertical-rl',
+              WebkitTextStroke: '1px rgba(255, 255, 255, 0.3)',
+            }}
+          >
+            Projects
+          </div>
+        </motion.div>
       </motion.div>
 
       {/* Desktop Icons */}
-      {icons.map((icon) => (
-        <DesktopIcon
+      {icons.map((icon, index) => (
+        <motion.div
           key={icon.id}
-          icon={icon}
-          onOpen={(position) => handleIconOpen(icon, position)}
-          onPositionChange={handleIconPositionChange}
-        />
+          animate={{
+            opacity: desktopVisible ? 1 : 0,
+            scale: desktopVisible ? 1 : 0.8,
+            filter: desktopVisible ? 'blur(0px)' : 'blur(4px)',
+          }}
+          transition={{
+            duration: 0.3,
+            delay: desktopVisible ? index * 0.06 : index * 0.08,
+          }}
+          style={{ pointerEvents: desktopVisible ? 'auto' : 'none' }}
+        >
+          <DesktopIcon
+            icon={icon}
+            onOpen={(position) => handleIconOpen(icon, position)}
+            onPositionChange={handleIconPositionChange}
+          />
+        </motion.div>
       ))}
 
       {/* Open Windows */}
+      <motion.div
+        animate={{
+          opacity: desktopVisible ? 1 : 0,
+          scale: desktopVisible ? 1 : 0.95,
+        }}
+        transition={{ duration: 0.3 }}
+        style={{ pointerEvents: desktopVisible ? 'auto' : 'none' }}
+      >
       <AnimatePresence>
         {openWindows.map((window) => {
           // Handle special windows (like Notes and Photos)
@@ -250,23 +295,59 @@ export function MacOSDesktop() {
           );
         })}
       </AnimatePresence>
+      </motion.div>
 
       {/* Dock */}
       <DesktopDock
         showQuickQuestions={showQuickQuestions}
         onNotesClick={handleNotesClick}
         onPhotosClick={handlePhotosClick}
+        onTrashClick={triggerTrash}
+        trashVisible={desktopVisible}
+        trashDisabled={trashDisabled}
       />
 
       {/* Navigation Section - Positioned below dock with proper spacing */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 px-2 sm:px-4 pb-4 sm:pb-6">
+      <motion.div
+        className="fixed bottom-0 left-0 right-0 z-40 px-2 sm:px-4 pb-4 sm:pb-6"
+        animate={{
+          opacity: desktopVisible ? 1 : 0,
+          y: desktopVisible ? 0 : 20,
+        }}
+        transition={{ duration: 0.3, delay: desktopVisible ? 0.1 : 0.6 }}
+        style={{ pointerEvents: desktopVisible ? 'auto' : 'none' }}
+      >
         <div className="mx-auto w-full max-w-full sm:max-w-3xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl">
           <NavigationPrompt
             showQuick={showQuickQuestions}
             onToggleQuick={() => setShowQuickQuestions(prev => !prev)}
           />
         </div>
-      </div>
+      </motion.div>
+
+      {/* Trash Error Screen (below modals) */}
+      <TrashErrorScreen
+        visible={trashState === 'confirmDelete' || trashState === 'deletedTemp'}
+        fullScreen={trashState === 'deletedTemp'}
+      />
+
+      {/* Trash Confirm Modals */}
+      <AnimatePresence mode="wait">
+        {trashState === 'confirmEmpty' && (
+          <TrashConfirmModal
+            variant="empty"
+            onCancel={cancelEmpty}
+            onConfirm={confirmEmpty}
+          />
+        )}
+        {trashState === 'confirmDelete' && (
+          <TrashConfirmModal
+            variant="delete"
+            onCancel={restoreFromConfirm}
+            onConfirm={confirmDelete}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -27,3 +27,11 @@ export interface DockIcon {
   href?: string;
   separator?: boolean; // If true, add a divider before this icon
 }
+
+export type TrashState =
+  | 'idle'
+  | 'confirmEmpty'
+  | 'emptying'
+  | 'confirmDelete'
+  | 'deletedTemp'
+  | 'restoring';

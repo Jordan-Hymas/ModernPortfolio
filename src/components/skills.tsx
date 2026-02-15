@@ -54,7 +54,7 @@ const Skills = () => {
       <Card className="w-full border-none bg-transparent shadow-none">
         {/* Launchpad Grid - Single Continuous Grid */}
         <CardContent className="px-0">
-          <div className="grid grid-cols-4 gap-4 sm:grid-cols-5 sm:gap-8 lg:gap-10 px-2">
+          <div className="grid grid-cols-4 gap-3 sm:grid-cols-5 sm:gap-5 lg:gap-7 px-2">
             {skillsData.map((skill, index) => (
               <SkillIcon
                 key={index}
