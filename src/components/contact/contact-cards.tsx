@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import type { WindowsViewportDensity } from '@/hooks/useWindowsViewportDensity';
 
 // Inline SVG Icons
 const MailIcon = () => (
@@ -65,36 +66,88 @@ const socialLinks = [
   },
 ];
 
-export function ContactCards() {
+interface ContactCardsProps {
+  density?: WindowsViewportDensity;
+}
+
+export function ContactCards({ density = 'default' }: ContactCardsProps) {
+  const isCompactDensity = density === 'compact' || density === 'tight';
+  const isTightDensity = density === 'tight';
+  const layoutClass = isTightDensity
+    ? 'grid grid-cols-1 gap-4 lg:grid-cols-2'
+    : isCompactDensity
+      ? 'grid grid-cols-1 gap-5 lg:grid-cols-2'
+      : 'grid grid-cols-1 gap-6 lg:grid-cols-2';
+  const emailCardClass = isTightDensity
+    ? 'group cursor-pointer rounded-3xl border border-neutral-200 bg-white/30 p-5 backdrop-blur-lg shadow-lg transition-all hover:bg-white/40 hover:shadow-xl dark:border-neutral-800 dark:bg-neutral-800/50 dark:hover:bg-neutral-800/70 animate-fade-in-up'
+    : isCompactDensity
+      ? 'group cursor-pointer rounded-3xl border border-neutral-200 bg-white/30 p-6 backdrop-blur-lg shadow-lg transition-all hover:bg-white/40 hover:shadow-xl dark:border-neutral-800 dark:bg-neutral-800/50 dark:hover:bg-neutral-800/70 animate-fade-in-up'
+      : 'group cursor-pointer rounded-3xl border border-neutral-200 bg-white/30 backdrop-blur-lg p-8 shadow-lg transition-all hover:bg-white/40 hover:shadow-xl dark:border-neutral-800 dark:bg-neutral-800/50 dark:hover:bg-neutral-800/70 animate-fade-in-up';
+  const emailInnerClass = isTightDensity
+    ? 'flex flex-col items-center gap-4 text-center'
+    : isCompactDensity
+      ? 'flex flex-col items-center gap-5 text-center'
+      : 'flex flex-col items-center gap-6 text-center';
+  const emailIconWrapClass = isTightDensity
+    ? 'rounded-2xl bg-cyan-500/10 p-4 text-cyan-500 dark:bg-cyan-400/10 dark:text-cyan-400'
+    : isCompactDensity
+      ? 'rounded-2xl bg-cyan-500/10 p-5 text-cyan-500 dark:bg-cyan-400/10 dark:text-cyan-400'
+      : 'rounded-2xl bg-cyan-500/10 p-6 text-cyan-500 dark:bg-cyan-400/10 dark:text-cyan-400';
+  const emailIconScaleClass = isTightDensity
+    ? 'scale-90'
+    : isCompactDensity
+      ? 'scale-95'
+      : '';
+  const emailTitleClass = isTightDensity
+    ? 'text-base font-semibold text-neutral-900 dark:text-white'
+    : 'text-lg font-semibold text-neutral-900 dark:text-white';
+  const emailTextClass = isTightDensity
+    ? 'text-lg font-bold text-neutral-900 dark:text-white'
+    : isCompactDensity
+      ? 'text-[1.15rem] font-bold text-neutral-900 dark:text-white'
+      : 'text-xl font-bold text-neutral-900 dark:text-white';
+  const socialGridClass = isTightDensity
+    ? 'grid grid-cols-2 gap-2.5'
+    : isCompactDensity
+      ? 'grid grid-cols-2 gap-3'
+      : 'grid grid-cols-2 gap-4';
+  const socialCardClass = isTightDensity
+    ? 'flex flex-col items-center justify-center gap-1.5 rounded-2xl border border-neutral-200 bg-white/30 p-3 backdrop-blur-lg transition-all hover:bg-white/40 dark:border-neutral-700 dark:bg-neutral-800/50 dark:hover:bg-neutral-800/70 animate-fade-in-up'
+    : isCompactDensity
+      ? 'flex flex-col items-center justify-center gap-2 rounded-2xl border border-neutral-200 bg-white/30 p-3.5 backdrop-blur-lg transition-all hover:bg-white/40 dark:border-neutral-700 dark:bg-neutral-800/50 dark:hover:bg-neutral-800/70 animate-fade-in-up'
+      : 'flex flex-col items-center justify-center gap-2 rounded-2xl border border-neutral-200 bg-white/30 p-4 backdrop-blur-lg transition-all hover:bg-white/40 dark:border-neutral-700 dark:bg-neutral-800/50 dark:hover:bg-neutral-800/70 animate-fade-in-up';
+  const socialIconScaleClass = isTightDensity
+    ? 'scale-90'
+    : isCompactDensity
+      ? 'scale-95'
+      : '';
+  const socialLabelClass = isTightDensity
+    ? 'text-[11px] font-medium text-neutral-900 dark:text-white'
+    : 'text-xs font-medium text-neutral-900 dark:text-white';
+
   const handleEmailClick = () => {
     window.location.href = 'mailto:jordanhymas24@gmail.com';
   };
 
   return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-      {/* Email Card (Left, prominent) */}
+    <div className={layoutClass}>
       <div
         onClick={handleEmailClick}
-        className="group cursor-pointer rounded-3xl border border-neutral-200 bg-white/30 backdrop-blur-lg p-8 shadow-lg transition-all hover:bg-white/40 hover:shadow-xl dark:border-neutral-800 dark:bg-neutral-800/50 dark:hover:bg-neutral-800/70 animate-fade-in-up"
+        className={emailCardClass}
         style={{ animationDelay: '0ms' }}
       >
-        <div className="flex flex-col items-center gap-6 text-center">
-          {/* Email Icon */}
-          <div className="rounded-2xl bg-cyan-500/10 p-6 dark:bg-cyan-400/10 text-cyan-500 dark:text-cyan-400">
-            <MailIcon />
+        <div className={emailInnerClass}>
+          <div className={emailIconWrapClass}>
+            <div className={emailIconScaleClass}>
+              <MailIcon />
+            </div>
           </div>
 
-          {/* Email Address */}
           <div className="space-y-2">
-            <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">
-              Email Me Directly
-            </h3>
-            <p className="text-xl font-bold text-neutral-900 dark:text-white">
-              jordanhymas24@gmail.com
-            </p>
+            <h3 className={emailTitleClass}>Email Me Directly</h3>
+            <p className={emailTextClass}>jordanhymas24@gmail.com</p>
           </div>
 
-          {/* CTA Button */}
           <Button
             className="w-full rounded-full bg-[#0171E3] text-white transition-all hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
             onClick={handleEmailClick}
@@ -104,8 +157,7 @@ export function ContactCards() {
         </div>
       </div>
 
-      {/* Social Media Grid (Right, 2x2) */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className={socialGridClass}>
         {socialLinks.map((social, index) => {
           const Icon = social.icon;
           return (
@@ -115,15 +167,13 @@ export function ContactCards() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={social.name}
-              className="flex flex-col items-center justify-center gap-2 rounded-2xl border border-neutral-200 bg-white/30 p-4 backdrop-blur-lg transition-all hover:bg-white/40 dark:border-neutral-700 dark:bg-neutral-800/50 dark:hover:bg-neutral-800/70 animate-fade-in-up"
+              className={socialCardClass}
               style={{ animationDelay: `${(index + 1) * 150}ms` }}
             >
-              <div className={social.color}>
+              <div className={`${social.color} ${socialIconScaleClass}`}>
                 <Icon />
               </div>
-              <span className="text-xs font-medium text-neutral-900 dark:text-white">
-                {social.name}
-              </span>
+              <span className={socialLabelClass}>{social.name}</span>
             </a>
           );
         })}

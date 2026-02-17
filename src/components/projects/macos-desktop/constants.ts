@@ -28,11 +28,11 @@ export const ICON_CONFIGS: IconConfig[] = [
     icon: '/Projects/HomeLab/Main.webp',
     size: { width: 65, height: 80 },
     positions: {
-      mobile: { x: 14, y: 13 },
-      tablet: { x: 14, y: 13 },
-      laptop: { x: 14, y: 13 },
-      desktop: { x: 14, y: 13 },
-      ultrawide: { x: 14, y: 13 }
+      mobile: { x: 14, y: 20 },
+      tablet: { x: 14, y: 20 },
+      laptop: { x: 14, y: 20 },
+      desktop: { x: 14, y: 20 },
+      ultrawide: { x: 14, y: 20 }
     }
   },
   // LEFT SIDE - Column 2 (Row 1)
@@ -43,11 +43,11 @@ export const ICON_CONFIGS: IconConfig[] = [
     icon: '/syntopreview.webp',
     size: { width: 75, height: 80 },
     positions: {
-      mobile: { x: 21, y: 13 },
-      tablet: { x: 21, y: 13 },
-      laptop: { x: 21, y: 13 },
-      desktop: { x: 21, y: 13 },
-      ultrawide: { x: 21, y: 13 }
+      mobile: { x: 21, y: 20 },
+      tablet: { x: 21, y: 20 },
+      laptop: { x: 21, y: 20 },
+      desktop: { x: 21, y: 20 },
+      ultrawide: { x: 21, y: 20 }
     }
   },
   // LEFT SIDE - Column 3 (Row 1)
@@ -58,11 +58,11 @@ export const ICON_CONFIGS: IconConfig[] = [
     icon: '/Projects/OldPortfolio/home.webp',
     size: { width: 55, height: 80 },
     positions: {
-      mobile: { x: 28, y: 13 },
-      tablet: { x: 28, y: 13 },
-      laptop: { x: 28, y: 13 },
-      desktop: { x: 28, y: 13 },
-      ultrawide: { x: 28, y: 13 }
+      mobile: { x: 28, y: 20 },
+      tablet: { x: 28, y: 20 },
+      laptop: { x: 28, y: 20 },
+      desktop: { x: 28, y: 20 },
+      ultrawide: { x: 28, y: 20 }
     }
   },
   // LEFT SIDE - Column 1 (Row 2)
@@ -73,11 +73,11 @@ export const ICON_CONFIGS: IconConfig[] = [
     icon: '/Projects/Cybercodex.io/courses.webp',
     size: { width: 55, height: 80 },
     positions: {
-      mobile: { x: 14, y: 33 },
-      tablet: { x: 14, y: 33 },
-      laptop: { x: 14, y: 33 },
-      desktop: { x: 14, y: 33 },
-      ultrawide: { x: 14, y: 33 }
+      mobile: { x: 14, y: 42 },
+      tablet: { x: 14, y: 42 },
+      laptop: { x: 14, y: 42 },
+      desktop: { x: 14, y: 42 },
+      ultrawide: { x: 14, y: 42 }
     }
   },
   // RIGHT SIDE - Column 1 (Row 1)
@@ -88,11 +88,11 @@ export const ICON_CONFIGS: IconConfig[] = [
     icon: '/minishellpreview.webp',
     size: { width: 80, height: 80 },
     positions: {
-      mobile: { x: 71, y: 13 },
-      tablet: { x: 71, y: 13 },
-      laptop: { x: 71, y: 13 },
-      desktop: { x: 71, y: 13 },
-      ultrawide: { x: 71, y: 13 }
+      mobile: { x: 71, y: 20 },
+      tablet: { x: 71, y: 20 },
+      laptop: { x: 71, y: 20 },
+      desktop: { x: 71, y: 20 },
+      ultrawide: { x: 71, y: 20 }
     }
   },
   // RIGHT SIDE - Column 2 (Row 1)
@@ -103,11 +103,11 @@ export const ICON_CONFIGS: IconConfig[] = [
     icon: '/transcendancepreview.webp',
     size: { width: 80, height: 80 },
     positions: {
-      mobile: { x: 78, y: 13 },
-      tablet: { x: 78, y: 13 },
-      laptop: { x: 78, y: 13 },
-      desktop: { x: 78, y: 13 },
-      ultrawide: { x: 78, y: 13 }
+      mobile: { x: 78, y: 20 },
+      tablet: { x: 78, y: 20 },
+      laptop: { x: 78, y: 20 },
+      desktop: { x: 78, y: 20 },
+      ultrawide: { x: 78, y: 20 }
     }
   },
   // RIGHT SIDE - Column 3 (Row 1)
@@ -118,11 +118,11 @@ export const ICON_CONFIGS: IconConfig[] = [
     icon: '/Projects/Snake/snake.webp',
     size: { width: 90, height: 80 },
     positions: {
-      mobile: { x: 85, y: 13 },
-      tablet: { x: 85, y: 13 },
-      laptop: { x: 85, y: 13 },
-      desktop: { x: 85, y: 13 },
-      ultrawide: { x: 85, y: 13 }
+      mobile: { x: 85, y: 20 },
+      tablet: { x: 85, y: 20 },
+      laptop: { x: 85, y: 20 },
+      desktop: { x: 85, y: 20 },
+      ultrawide: { x: 85, y: 20 }
     }
   },
   // RIGHT SIDE - Column 1 (Row 2)
@@ -133,11 +133,11 @@ export const ICON_CONFIGS: IconConfig[] = [
     icon: '/Projects/Proxmox/mainProxmox.webp',
     size: { width: 100, height: 80 },
     positions: {
-      mobile: { x: 71, y: 33 },
-      tablet: { x: 71, y: 33 },
-      laptop: { x: 71, y: 33 },
-      desktop: { x: 71, y: 33 },
-      ultrawide: { x: 71, y: 33 }
+      mobile: { x: 71, y: 42 },
+      tablet: { x: 71, y: 42 },
+      laptop: { x: 71, y: 42 },
+      desktop: { x: 71, y: 42 },
+      ultrawide: { x: 71, y: 42 }
     }
   },
   // RIGHT SIDE - Column 2 (Row 2)
@@ -148,11 +148,11 @@ export const ICON_CONFIGS: IconConfig[] = [
     icon: '/projects/BGCLCV/teenCenterPc.webp',
     size: { width: 80, height: 80 },
     positions: {
-      mobile: { x: 80, y: 33 },
-      tablet: { x: 80, y: 33 },
-      laptop: { x: 80, y: 33 },
-      desktop: { x: 80, y: 33 },
-      ultrawide: { x: 80, y: 33 }
+      mobile: { x: 80, y: 42 },
+      tablet: { x: 80, y: 42 },
+      laptop: { x: 80, y: 42 },
+      desktop: { x: 80, y: 42 },
+      ultrawide: { x: 80, y: 42 }
     }
   },
 ];
@@ -174,11 +174,11 @@ const getPositionForScreenSize = (config: IconConfig, viewportWidth: number) => 
 
 // Helper function to calculate icon positions based on current viewport
 // Uses percentage-based positioning with media query breakpoints
-export const calculateIconPositions = (viewportWidth: number, viewportHeight: number, showQuickQuestions: boolean = false): DesktopIconData[] => {
+export const calculateIconPositions = (viewportWidth: number, viewportHeight: number): DesktopIconData[] => {
   // Calculate reserved bottom space as percentage of viewport height
-  // Dock: ~5vh, Navigation: ~8vh base, ~18vh with quick questions
+  // Dock: ~5vh, Navigation: ~10vh
   const dockHeightVh = 5;
-  const navHeightVh = showQuickQuestions ? 18 : 10;
+  const navHeightVh = 10;
   const totalReservedVh = dockHeightVh + navHeightVh;
 
   // Convert vh to pixels
@@ -202,16 +202,16 @@ export const calculateIconPositions = (viewportWidth: number, viewportHeight: nu
       icon: config.icon,
       size: config.size,
       position: {
-        // Ensure icons stay within bounds with 10px margins
+        // Ensure icons stay within bounds and below the fixed nav bar (buttons end at ~62px + padding)
         x: Math.max(10, Math.min(xPos, viewportWidth - config.size.width - 10)),
-        y: Math.max(10, Math.min(yPos, usableHeight - config.size.height - 10)),
+        y: Math.max(80, Math.min(yPos, usableHeight - config.size.height - 10)),
       },
     };
   });
 };
 
 // Initial positions (fallback for SSR)
-export const INITIAL_DESKTOP_ICONS: DesktopIconData[] = calculateIconPositions(1200, 800, true);
+export const INITIAL_DESKTOP_ICONS: DesktopIconData[] = calculateIconPositions(1200, 800);
 
 // Legacy fallback (kept for backwards compatibility)
 export const DEFAULT_ICON_POSITIONS: DesktopIconData[] = INITIAL_DESKTOP_ICONS;

@@ -1,6 +1,7 @@
 import { ThemeProvider } from '@/components/theme-provider';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { HomeButton } from '@/components/home-button';
+import { SiteNav } from '@/components/site-nav';
 import { ScrollToTop } from '@/components/scroll-to-top';
 import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
@@ -81,6 +82,7 @@ export default function RootLayout({
           <ScrollToTop />
           <ThemeToggle />
           <HomeButton />
+          <SiteNav />
           <main className="flex min-h-screen flex-col">{children}</main>
           <Toaster />
         </ThemeProvider>

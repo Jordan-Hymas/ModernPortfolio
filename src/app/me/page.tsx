@@ -4,15 +4,45 @@ import { ProfileSidebar } from '@/components/profile-sidebar';
 import { ProfileCardMobile } from '@/components/profile-card-mobile';
 import { Milestones } from '@/components/milestones';
 import { StrategicPathway } from '@/components/strategic-pathway';
-import NavigationPrompt from '@/components/navigation-prompt';
 import { SiriBorderCard } from '@/components/siri-border-card';
+import { MobileMeLayout } from '@/components/me/mobile-me-layout';
 import { Download } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useTheme } from 'next-themes';
+import { useWindowsViewportDensity } from '@/hooks/useWindowsViewportDensity';
 
 export default function MePage() {
-  const [showQuickQuestions, setShowQuickQuestions] = useState(true);
+  const { setTheme } = useTheme();
+  const hasAppliedDefaultThemeRef = useRef(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { isCompact, isTight } = useWindowsViewportDensity();
+  const pagePaddingClass = isTight ? 'pt-20 pb-6' : isCompact ? 'pt-20 pb-7' : 'pt-20 pb-8';
+  const contentGapClass = isTight ? 'gap-6' : 'gap-8';
 
   useEffect(() => {
+    if (hasAppliedDefaultThemeRef.current) return;
+    hasAppliedDefaultThemeRef.current = true;
+    setTheme('dark');
+  }, [setTheme]);
+
+  useEffect(() => {
+    setMounted(true);
+
+    const checkScreenSize = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+
+    checkScreenSize();
+
+    let resizeTimeout: NodeJS.Timeout;
+    const debouncedResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(checkScreenSize, 120);
+    };
+
+    window.addEventListener('resize', debouncedResize);
+
     // Scroll to top immediately
     window.scrollTo(0, 0);
 
@@ -21,12 +51,24 @@ export default function MePage() {
       window.scrollTo({ top: 0, behavior: 'instant' });
     }, 100);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(resizeTimeout);
+      window.removeEventListener('resize', debouncedResize);
+    };
   }, []);
 
+  if (!mounted) {
+    return <div className="min-h-screen bg-gradient-to-b from-white to-neutral-50 dark:from-neutral-950 dark:to-neutral-950" />;
+  }
+
+  if (!isDesktop) {
+    return <MobileMeLayout />;
+  }
+
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-white to-neutral-50 px-4 py-8 dark:from-neutral-950 dark:to-neutral-950 lg:px-8">
-      <div className="mx-auto flex w-full max-w-7xl gap-8 pb-32">
+    <div className={`relative min-h-screen bg-gradient-to-b from-white to-neutral-50 px-4 dark:from-neutral-950 dark:to-neutral-950 lg:px-8 ${pagePaddingClass}`}>
+      <div className={`mx-auto flex w-full max-w-7xl pb-8 ${contentGapClass}`}>
         {/* Left Sidebar - Hidden on mobile, shown on larger screens */}
         <aside className="hidden w-80 shrink-0 lg:block">
           <ProfileSidebar />
@@ -46,7 +88,7 @@ export default function MePage() {
               </div>
               <div className="space-y-4 text-neutral-700 dark:text-neutral-300">
                 <p className="leading-relaxed">
-                  I’m a full-stack developer and IT technician with experience building web apps, mobile apps, automation tools, and backend systems. I combine software engineering, cybersecurity fundamentals, and hands-on IT work to create fast, reliable, and practical solutions.
+                  I&apos;m a full-stack developer and IT technician with experience building web apps, mobile apps, automation tools, and backend systems. I combine software engineering, cybersecurity fundamentals, and hands-on IT work to create fast, reliable, and practical solutions.
                 </p>
                 <p className="leading-relaxed">
                   From building local AI assistants to designing modern websites and deploying infrastructure for real clients, I love turning ideas into working systems.
@@ -73,16 +115,6 @@ export default function MePage() {
           {/* Strategic Implementation Pathway */}
           <StrategicPathway />
         </main>
-      </div>
-
-      {/* Sticky Navigation Prompt - Fixed at bottom with blur */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 backdrop-blur-lg bg-white/70 dark:bg-neutral-950/70 border-t border-neutral-200/50 dark:border-neutral-800/50">
-        <div className="mx-auto w-full max-w-7xl px-4 py-4 lg:px-8">
-          <NavigationPrompt
-            showQuick={showQuickQuestions}
-            onToggleQuick={() => setShowQuickQuestions(prev => !prev)}
-          />
-        </div>
       </div>
     </div>
   );

@@ -10,9 +10,14 @@ const AppIcon = ({ icon, label }: { icon: string; label: string }) => {
   // GitHub - dark theme
   if (label === 'GitHub') {
     return (
-      <div className="w-full h-full bg-[#181717] rounded-xl flex items-center justify-center shadow-lg">
-        <svg viewBox="0 0 24 24" className="w-8 h-8" fill="white" style={{ shapeRendering: 'geometricPrecision' }}>
-          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+      <div className="flex h-full w-full items-center justify-center rounded-xl bg-[#181717] shadow-lg">
+        <svg
+          viewBox="0 0 24 24"
+          className="h-8 w-8"
+          fill="white"
+          style={{ shapeRendering: 'geometricPrecision' }}
+        >
+          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
         </svg>
       </div>
     );
@@ -21,9 +26,14 @@ const AppIcon = ({ icon, label }: { icon: string; label: string }) => {
   // TikTok - black background
   if (label === 'TikTok') {
     return (
-      <div className="w-full h-full bg-black rounded-xl flex items-center justify-center shadow-lg relative overflow-hidden">
-        <svg viewBox="0 0 24 24" className="w-8 h-8" fill="white" style={{ shapeRendering: 'geometricPrecision' }}>
-          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+      <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-xl bg-black shadow-lg">
+        <svg
+          viewBox="0 0 24 24"
+          className="h-8 w-8"
+          fill="white"
+          style={{ shapeRendering: 'geometricPrecision' }}
+        >
+          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
         </svg>
       </div>
     );
@@ -32,14 +42,14 @@ const AppIcon = ({ icon, label }: { icon: string; label: string }) => {
   // Apple Notes - custom image
   if (label === 'Notes') {
     return (
-      <div className="w-full h-full rounded-xl overflow-hidden shadow-lg">
+      <div className="h-full w-full overflow-hidden rounded-xl shadow-lg">
         <Image
           src="/notesPortfolio.avif"
           alt="Notes"
           width={96}
           height={96}
           quality={100}
-          className="w-full h-full object-cover"
+          className="h-full w-full object-cover"
           unoptimized
         />
       </div>
@@ -49,14 +59,14 @@ const AppIcon = ({ icon, label }: { icon: string; label: string }) => {
   // Instagram - custom image
   if (label === 'Instagram') {
     return (
-      <div className="w-full h-full rounded-xl overflow-hidden shadow-lg">
+      <div className="h-full w-full overflow-hidden rounded-xl shadow-lg">
         <Image
           src="/instagramPortfolio.webp"
           alt="Instagram"
           width={96}
           height={96}
           quality={100}
-          className="w-full h-full object-cover"
+          className="h-full w-full object-cover"
         />
       </div>
     );
@@ -65,9 +75,14 @@ const AppIcon = ({ icon, label }: { icon: string; label: string }) => {
   // LinkedIn - blue theme
   if (label === 'LinkedIn') {
     return (
-      <div className="w-full h-full bg-[#0077B5] rounded-xl flex items-center justify-center shadow-lg">
-        <svg viewBox="0 0 24 24" className="w-8 h-8" fill="white" style={{ shapeRendering: 'geometricPrecision' }}>
-          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+      <div className="flex h-full w-full items-center justify-center rounded-xl bg-[#0077B5] shadow-lg">
+        <svg
+          viewBox="0 0 24 24"
+          className="h-8 w-8"
+          fill="white"
+          style={{ shapeRendering: 'geometricPrecision' }}
+        >
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
         </svg>
       </div>
     );
@@ -76,14 +91,14 @@ const AppIcon = ({ icon, label }: { icon: string; label: string }) => {
   // Photos - custom image
   if (label === 'Photos') {
     return (
-      <div className="w-full h-full rounded-xl overflow-hidden shadow-lg">
+      <div className="h-full w-full overflow-hidden rounded-xl shadow-lg">
         <Image
           src="/photoPortfolio.avif"
           alt="Photos"
           width={96}
           height={96}
           quality={100}
-          className="w-full h-full object-cover"
+          className="h-full w-full object-cover"
           unoptimized
         />
       </div>
@@ -93,14 +108,14 @@ const AppIcon = ({ icon, label }: { icon: string; label: string }) => {
   // Mail - custom image
   if (label === 'Mail') {
     return (
-      <div className="w-full h-full rounded-xl overflow-hidden shadow-lg">
+      <div className="h-full w-full overflow-hidden rounded-xl shadow-lg">
         <Image
           src="/emailPortfolio.avif"
           alt="Mail"
           width={96}
           height={96}
           quality={100}
-          className="w-full h-full object-cover"
+          className="h-full w-full object-cover"
           unoptimized
         />
       </div>
@@ -110,14 +125,14 @@ const AppIcon = ({ icon, label }: { icon: string; label: string }) => {
   // Trash - custom image (scaled up to compensate for transparent padding in source)
   if (label === 'Trash') {
     return (
-      <div className="w-full h-full rounded-xl overflow-hidden shadow-lg">
+      <div className="h-full w-full overflow-hidden rounded-xl shadow-lg">
         <Image
           src="/Projects/Dock/trashcan.webp"
           alt="Trash"
           width={96}
           height={96}
           quality={100}
-          className="w-full h-full object-cover scale-[1.5]"
+          className="h-full w-full scale-[1.5] object-cover"
         />
       </div>
     );
@@ -125,111 +140,151 @@ const AppIcon = ({ icon, label }: { icon: string; label: string }) => {
 
   // Default emoji fallback
   return (
-    <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-300 rounded-xl flex items-center justify-center shadow-lg text-2xl">
+    <div className="flex h-full w-full items-center justify-center rounded-xl bg-gradient-to-br from-gray-100 to-gray-300 text-2xl shadow-lg">
       {icon}
     </div>
   );
 };
 
 interface DesktopDockProps {
-  showQuickQuestions?: boolean;
   onNotesClick?: () => void;
   onPhotosClick?: () => void;
   onTrashClick?: () => void;
   trashVisible?: boolean;
   trashDisabled?: boolean;
+  density?: 'default' | 'compact' | 'tight';
 }
 
-export function DesktopDock({ showQuickQuestions = true, onNotesClick, onPhotosClick, onTrashClick, trashVisible = true, trashDisabled }: DesktopDockProps) {
+export function DesktopDock({
+  onNotesClick,
+  onPhotosClick,
+  onTrashClick,
+  trashVisible = true,
+  trashDisabled,
+  density = 'default',
+}: DesktopDockProps) {
   const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
 
-  // Adjust position based on whether quick questions are shown
-  const bottomPosition = showQuickQuestions ? 'bottom-[260px]' : 'bottom-[140px]';
+  const isCompact = density === 'compact';
+  const isTight = density === 'tight';
+  const dockScale = isTight ? 0.78 : isCompact ? 0.88 : 1;
+  const bottomOffset = isTight ? 96 : isCompact ? 112 : 140;
 
   return (
-    <div className={`fixed ${bottomPosition} left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ease-in-out`}>
-      <div className="bg-white/20 dark:bg-neutral-800/80 backdrop-blur-2xl border border-white/30 dark:border-neutral-700/50 rounded-2xl px-3 py-2.5 shadow-2xl">
+    <div
+      className="fixed left-1/2 z-50 transition-all duration-300 ease-in-out"
+      style={{
+        bottom: `${bottomOffset}px`,
+        transform: `translateX(-50%) scale(${dockScale})`,
+        transformOrigin: 'bottom center',
+      }}
+    >
+      <div className="rounded-2xl border border-white/30 bg-white/20 px-3 py-2.5 shadow-2xl backdrop-blur-2xl dark:border-neutral-700/50 dark:bg-neutral-800/80">
         <div className="flex items-end gap-2.5">
           {DOCK_ICONS.map((dockIcon, index) => {
             const isTrash = dockIcon.id === 'trash';
             // Non-trash icons get staggered index for hide/show animation
-            const nonTrashIndex = isTrash ? 0 : DOCK_ICONS.slice(0, index).filter(d => d.id !== 'trash').length;
+            const nonTrashIndex = isTrash
+              ? 0
+              : DOCK_ICONS.slice(0, index).filter((d) => d.id !== 'trash')
+                  .length;
 
             return (
-            <div key={dockIcon.id} className="flex items-end gap-2">
-              {/* Separator/Divider */}
-              {dockIcon.separator && !isTrash && (
-                <motion.div
-                  className="h-12 w-[1px] bg-white/30 mx-1"
-                  animate={{
-                    opacity: trashVisible ? 1 : 0,
-                    scale: trashVisible ? 1 : 0,
-                  }}
-                  transition={{ duration: 0.2, delay: trashVisible ? 0.3 : 0.48 + nonTrashIndex * 0.08 }}
-                />
-              )}
-              {dockIcon.separator && isTrash && (
-                <div className="h-12 w-[1px] bg-white/30 mx-1" />
-              )}
+              <div key={dockIcon.id} className="flex items-end gap-2">
+                {/* Separator/Divider */}
+                {dockIcon.separator && !isTrash && (
+                  <motion.div
+                    className="mx-1 h-12 w-[1px] bg-white/30"
+                    animate={{
+                      opacity: trashVisible ? 1 : 0,
+                      scale: trashVisible ? 1 : 0,
+                    }}
+                    transition={{
+                      duration: 0.2,
+                      delay: trashVisible ? 0.3 : 0.48 + nonTrashIndex * 0.08,
+                    }}
+                  />
+                )}
+                {dockIcon.separator && isTrash && (
+                  <div className="mx-1 h-12 w-[1px] bg-white/30" />
+                )}
 
-              {/* Icon with tooltip */}
-              <motion.div
-                className="relative"
-                animate={isTrash ? {} : {
-                  opacity: trashVisible ? 1 : 0,
-                  scale: trashVisible ? 1 : 0.8,
-                  filter: trashVisible ? 'blur(0px)' : 'blur(4px)',
-                }}
-                transition={isTrash ? {} : {
-                  duration: 0.3,
-                  delay: trashVisible ? 0.3 + nonTrashIndex * 0.05 : 0.48 + nonTrashIndex * 0.08,
-                }}
-                style={isTrash ? {} : { pointerEvents: trashVisible ? 'auto' : 'none' }}
-              >
+                {/* Icon with tooltip */}
                 <motion.div
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (isTrash && onTrashClick && !trashDisabled) {
-                      onTrashClick();
-                    } else if (dockIcon.id === 'notes' && onNotesClick) {
-                      onNotesClick();
-                    } else if (dockIcon.id === 'photos' && onPhotosClick) {
-                      onPhotosClick();
-                    } else if (dockIcon.href && dockIcon.href !== '#') {
-                      if (dockIcon.href.startsWith('mailto:')) {
-                        window.location.href = dockIcon.href;
-                      } else {
-                        window.open(dockIcon.href, '_blank', 'noopener,noreferrer');
-                      }
-                    }
-                  }}
-                  onHoverStart={() => setHoveredIcon(dockIcon.id)}
-                  onHoverEnd={() => setHoveredIcon(null)}
-                  whileHover={{ scale: 1.3, y: -8 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-14 h-14 flex items-center justify-center cursor-pointer transition-transform"
+                  className="relative"
+                  animate={
+                    isTrash
+                      ? {}
+                      : {
+                          opacity: trashVisible ? 1 : 0,
+                          scale: trashVisible ? 1 : 0.8,
+                          filter: trashVisible ? 'blur(0px)' : 'blur(4px)',
+                        }
+                  }
+                  transition={
+                    isTrash
+                      ? {}
+                      : {
+                          duration: 0.3,
+                          delay: trashVisible
+                            ? 0.3 + nonTrashIndex * 0.05
+                            : 0.48 + nonTrashIndex * 0.08,
+                        }
+                  }
+                  style={
+                    isTrash
+                      ? {}
+                      : { pointerEvents: trashVisible ? 'auto' : 'none' }
+                  }
                 >
-                  <AppIcon icon={dockIcon.icon} label={dockIcon.label} />
-                </motion.div>
+                  <motion.div
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (isTrash && onTrashClick && !trashDisabled) {
+                        onTrashClick();
+                      } else if (dockIcon.id === 'notes' && onNotesClick) {
+                        onNotesClick();
+                      } else if (dockIcon.id === 'photos' && onPhotosClick) {
+                        onPhotosClick();
+                      } else if (dockIcon.href && dockIcon.href !== '#') {
+                        if (dockIcon.href.startsWith('mailto:')) {
+                          window.location.href = dockIcon.href;
+                        } else {
+                          window.open(
+                            dockIcon.href,
+                            '_blank',
+                            'noopener,noreferrer'
+                          );
+                        }
+                      }
+                    }}
+                    onHoverStart={() => setHoveredIcon(dockIcon.id)}
+                    onHoverEnd={() => setHoveredIcon(null)}
+                    whileHover={{ scale: 1.3, y: -8 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex h-14 w-14 cursor-pointer items-center justify-center transition-transform"
+                  >
+                    <AppIcon icon={dockIcon.icon} label={dockIcon.label} />
+                  </motion.div>
 
-                {/* Tooltip */}
-                <AnimatePresence>
-                  {hoveredIcon === dockIcon.id && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      transition={{ duration: 0.15 }}
-                      className="absolute -top-12 left-1/2 -translate-x-1/2 whitespace-nowrap"
-                    >
-                      <div className="bg-gray-800/95 text-white text-xs px-2 py-1 rounded shadow-lg">
-                        {dockIcon.label}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            </div>
+                  {/* Tooltip */}
+                  <AnimatePresence>
+                    {hoveredIcon === dockIcon.id && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        transition={{ duration: 0.15 }}
+                        className="absolute -top-12 left-1/2 -translate-x-1/2 whitespace-nowrap"
+                      >
+                        <div className="rounded bg-gray-800/95 px-2 py-1 text-xs text-white shadow-lg">
+                          {dockIcon.label}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              </div>
             );
           })}
         </div>

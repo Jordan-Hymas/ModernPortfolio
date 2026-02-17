@@ -1,12 +1,9 @@
 'use client';
 
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import {
-  VIEWPORT_CONFIG,
-  titleScrollVariants,
-} from '@/lib/animations';
-import { motion } from 'framer-motion';
+import { useCallback, useEffect, useState } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
 import SkillIcon from './skills/SkillIcon';
+import type { WindowsViewportDensity } from '@/hooks/useWindowsViewportDensity';
 
 // Skill interface
 interface Skill {
@@ -15,7 +12,15 @@ interface Skill {
   fallbackColor: string;
 }
 
-const Skills = () => {
+interface SkillsProps {
+  density?: WindowsViewportDensity;
+}
+
+const Skills = ({ density = 'default' }: SkillsProps) => {
+  const [isMobileRipple, setIsMobileRipple] = useState(false);
+  const [rippleCenterIndex, setRippleCenterIndex] = useState<number | null>(null);
+  const [rippleWaveId, setRippleWaveId] = useState(0);
+
   // Flat array of all skills matching the exact icons in public/icons/skills
   const skillsData: Skill[] = [
     // Programming Languages
@@ -49,12 +54,46 @@ const Skills = () => {
     { name: 'SQLite', icon: '/icons/skills/sqlLight.svg', fallbackColor: '#003B57' },
   ];
 
+  const isCompactDensity = density === 'compact' || density === 'tight';
+  const isTightDensity = density === 'tight';
+  const gridClass = isTightDensity
+    ? 'grid grid-cols-4 gap-2 px-1 sm:grid-cols-5 sm:gap-3 lg:gap-4'
+    : isCompactDensity
+      ? 'grid grid-cols-4 gap-2.5 px-1 sm:grid-cols-5 sm:gap-4 lg:gap-5'
+      : 'grid grid-cols-4 gap-3 px-2 sm:grid-cols-5 sm:gap-5 lg:gap-7';
+
+  useEffect(() => {
+    const mobileQuery = window.matchMedia('(max-width: 639px)');
+    const update = (matches: boolean) => {
+      setIsMobileRipple(matches);
+    };
+    update(mobileQuery.matches);
+
+    const onChange = (event: MediaQueryListEvent) => {
+      update(event.matches);
+    };
+
+    if (typeof mobileQuery.addEventListener === 'function') {
+      mobileQuery.addEventListener('change', onChange);
+      return () => mobileQuery.removeEventListener('change', onChange);
+    }
+
+    mobileQuery.addListener(onChange);
+    return () => mobileQuery.removeListener(onChange);
+  }, []);
+
+  const triggerRipple = useCallback((centerIndex: number) => {
+    if (!isMobileRipple) return;
+    setRippleCenterIndex(centerIndex);
+    setRippleWaveId(prev => prev + 1);
+  }, [isMobileRipple]);
+
   return (
     <div className="mx-auto w-full max-w-6xl px-4">
       <Card className="w-full border-none bg-transparent shadow-none">
         {/* Launchpad Grid - Single Continuous Grid */}
         <CardContent className="px-0">
-          <div className="grid grid-cols-4 gap-3 sm:grid-cols-5 sm:gap-5 lg:gap-7 px-2">
+          <div className={gridClass}>
             {skillsData.map((skill, index) => (
               <SkillIcon
                 key={index}
@@ -62,6 +101,11 @@ const Skills = () => {
                 icon={skill.icon}
                 fallbackColor={skill.fallbackColor}
                 index={index}
+                density={density}
+                rippleCenterIndex={isMobileRipple ? rippleCenterIndex : null}
+                rippleWaveId={isMobileRipple ? rippleWaveId : 0}
+                rippleColumns={4}
+                onTriggerRipple={isMobileRipple ? () => triggerRipple(index) : undefined}
               />
             ))}
           </div>

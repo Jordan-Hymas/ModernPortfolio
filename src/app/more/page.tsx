@@ -1,14 +1,13 @@
 'use client';
 
-import { NavigationPrompt, NavigationPromptHandle } from '@/components/navigation-prompt';
-import { useRef, useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 export default function FunPage() {
-  const navigationPromptRef = useRef<NavigationPromptHandle>(null);
   const { scrollYProgress } = useScroll();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isIOSMobile, setIsIOSMobile] = useState(false);
 
   // Parallax effects
   const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
@@ -16,6 +15,21 @@ export default function FunPage() {
 
   // Track mouse position for hero section
   useEffect(() => {
+    const userAgent = window.navigator.userAgent;
+    const isAppleMobileUa = /iPad|iPhone|iPod/i.test(userAgent);
+    const isIpadDesktopMode =
+      window.navigator.platform === 'MacIntel' && window.navigator.maxTouchPoints > 1;
+    const isIOS = isAppleMobileUa || isIpadDesktopMode;
+    const mobileViewport = window.innerWidth < 768;
+    setIsIOSMobile(isIOS && mobileViewport);
+
+    if (isIOS) {
+      window.scrollTo(0, 0);
+      requestAnimationFrame(() => {
+        window.scrollTo(0, 0);
+      });
+    }
+
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
@@ -24,35 +38,21 @@ export default function FunPage() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Auto-focus navigation input on keypress
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      // Only auto-focus if user is typing a letter/number and not already focused on an input
-      if (
-        e.target === document.body &&
-        !e.metaKey &&
-        !e.ctrlKey &&
-        !e.altKey &&
-        e.key.length === 1
-      ) {
-        navigationPromptRef.current?.focus();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, []);
+  const heroSectionClass = `relative ${isIOSMobile ? 'h-[50vh] min-h-[360px]' : 'h-[46vh]'} sm:h-screen flex items-center justify-center overflow-hidden`;
+  const aboutSectionClass = isIOSMobile
+    ? 'relative min-h-[46vh] sm:min-h-screen flex items-start sm:items-center justify-center px-4 pt-16 pb-2 sm:py-20 bg-gradient-to-b from-white to-neutral-100 dark:from-black dark:to-neutral-900 overflow-hidden'
+    : 'relative min-h-[54vh] sm:min-h-screen flex items-start sm:items-center justify-center px-4 py-2 sm:py-20 bg-gradient-to-b from-white to-neutral-100 dark:from-black dark:to-neutral-900 overflow-hidden';
 
   return (
     <div className="relative bg-white dark:bg-black overflow-x-hidden">
       {/* Hero Section - Fixed Height */}
       <motion.section
-        style={{ opacity: heroOpacity, scale: heroScale }}
-        className="relative h-screen flex items-center justify-center overflow-hidden"
+        style={isIOSMobile ? undefined : { opacity: heroOpacity, scale: heroScale }}
+        className={heroSectionClass}
       >
         {/* Mouse-Following Dot Pattern - Very Back - Light Mode */}
         <div
-          className="absolute inset-0 pointer-events-none z-0 dark:hidden"
+          className="absolute inset-x-0 bottom-0 top-5 pointer-events-none z-0 dark:hidden sm:inset-0"
           style={{
             backgroundImage: 'radial-gradient(circle, rgb(0, 0, 0) 2.5px, transparent 2.5px)',
             backgroundSize: '35px 35px',
@@ -63,7 +63,7 @@ export default function FunPage() {
         />
         {/* Mouse-Following Dot Pattern - Very Back - Dark Mode */}
         <div
-          className="absolute inset-0 pointer-events-none z-0 hidden dark:block"
+          className="absolute inset-x-0 bottom-0 top-5 pointer-events-none z-0 hidden dark:block sm:inset-0"
           style={{
             backgroundImage: 'radial-gradient(circle, rgb(255, 255, 255) 2.5px, transparent 2.5px)',
             backgroundSize: '35px 35px',
@@ -74,37 +74,43 @@ export default function FunPage() {
         />
 
         {/* Background Text */}
-        <div className="absolute inset-0 flex flex-col justify-center px-2 sm:px-4 md:px-6 lg:px-8 select-none pointer-events-none overflow-hidden z-10">
-          <h1 className="w-full text-[16vw] sm:text-[15vw] md:text-[13vw] lg:text-[12vw] xl:text-[11vw] 2xl:text-[10vw] font-black leading-[0.75] sm:leading-[0.78] md:leading-[0.8] tracking-[-0.08em] text-neutral-900 dark:text-white uppercase">
+        <div
+          className={`absolute inset-0 flex flex-col justify-center px-2 ${isIOSMobile ? 'pt-[10rem]' : 'pt-[7.5rem]'} sm:px-4 sm:pt-0 md:px-6 lg:px-8 select-none pointer-events-none overflow-hidden z-10`}
+        >
+          <h1 className="w-full text-[14vw] sm:text-[15vw] md:text-[13vw] lg:text-[12vw] xl:text-[11vw] 2xl:text-[10vw] font-black leading-[0.75] sm:leading-[0.78] md:leading-[0.8] tracking-[-0.08em] text-neutral-900 dark:text-white uppercase">
             FULL STACK
           </h1>
-          <h1 className="w-full text-[16vw] sm:text-[15vw] md:text-[13vw] lg:text-[12vw] xl:text-[11vw] 2xl:text-[10vw] font-black leading-[0.75] sm:leading-[0.78] md:leading-[0.8] tracking-[-0.08em] text-neutral-900 dark:text-white uppercase">
+          <h1 className="w-full text-[14vw] sm:text-[15vw] md:text-[13vw] lg:text-[12vw] xl:text-[11vw] 2xl:text-[10vw] font-black leading-[0.75] sm:leading-[0.78] md:leading-[0.8] tracking-[-0.08em] text-neutral-900 dark:text-white uppercase">
             DEVELOPER
           </h1>
-          <h1 className="w-full text-[16vw] sm:text-[15vw] md:text-[13vw] lg:text-[12vw] xl:text-[11vw] 2xl:text-[10vw] font-black leading-[0.75] sm:leading-[0.78] md:leading-[0.8] tracking-[-0.08em] text-neutral-900 dark:text-white uppercase">
+          <h1 className="w-full text-[14vw] sm:text-[15vw] md:text-[13vw] lg:text-[12vw] xl:text-[11vw] 2xl:text-[10vw] font-black leading-[0.75] sm:leading-[0.78] md:leading-[0.8] tracking-[-0.08em] text-neutral-900 dark:text-white uppercase">
             & CREATIVE
           </h1>
-          <h1 className="w-full text-[16vw] sm:text-[15vw] md:text-[13vw] lg:text-[12vw] xl:text-[11vw] 2xl:text-[10vw] font-black leading-[0.75] sm:leading-[0.78] md:leading-[0.8] tracking-[-0.08em] text-neutral-900 dark:text-white uppercase">
+          <h1 className="w-full text-[14vw] sm:text-[15vw] md:text-[13vw] lg:text-[12vw] xl:text-[11vw] 2xl:text-[10vw] font-black leading-[0.75] sm:leading-[0.78] md:leading-[0.8] tracking-[-0.08em] text-neutral-900 dark:text-white uppercase">
             ENGINEER
           </h1>
         </div>
 
         {/* Descriptive Text - Right Side */}
-        <div className="absolute top-[22%] md:top-[40%] right-4 md:right-8 lg:right-12 xl:right-16 text-right select-none pointer-events-none z-20">
-          <p className="text-neutral-700 dark:text-white text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-light tracking-wide">
+        <div className="absolute right-4 top-[112px] text-right select-none pointer-events-none z-20 sm:top-[40%] sm:right-8 lg:right-12 xl:right-16">
+          <p className="text-neutral-700 dark:text-white text-[11px] leading-[1.15] sm:text-sm md:text-base lg:text-lg xl:text-xl font-light tracking-wide">
             / WEB DEVELOPMENT
           </p>
-          <p className="text-neutral-700 dark:text-white text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-light tracking-wide">
+          <p className="text-neutral-700 dark:text-white text-[11px] leading-[1.15] sm:text-sm md:text-base lg:text-lg xl:text-xl font-light tracking-wide">
             / UI/UX DESIGN
           </p>
-          <p className="text-neutral-700 dark:text-white text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-light tracking-wide">
+          <p className="text-neutral-700 dark:text-white text-[11px] leading-[1.15] sm:text-sm md:text-base lg:text-lg xl:text-xl font-light tracking-wide">
             / FULL STACK
           </p>
         </div>
 
         {/* Person Image */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-15">
-          <div className="relative w-[70vw] sm:w-[65vw] md:w-[55vw] lg:w-[45vw] xl:w-[40vw] 2xl:w-[35vw] h-[55vh] sm:h-[60vh] md:h-[65vh] lg:h-[70vh] xl:h-[75vh]">
+        <div
+          className={`absolute inset-0 flex items-center justify-center ${isIOSMobile ? 'pt-[9rem]' : 'pt-[6.5rem]'} sm:pt-0 pointer-events-none z-15`}
+        >
+          <div
+            className={`relative w-[42vw] sm:w-[65vw] md:w-[55vw] lg:w-[45vw] xl:w-[40vw] 2xl:w-[35vw] ${isIOSMobile ? 'h-[26vh]' : 'h-[30vh]'} sm:h-[60vh] md:h-[65vh] lg:h-[70vh] xl:h-[75vh]`}
+          >
             <Image
               src="/sidewaysBlackWhite.webp"
               alt="Profile"
@@ -116,14 +122,14 @@ export default function FunPage() {
         </div>
 
         {/* Top Left - Name/Brand */}
-        <div className="absolute top-[15%] md:top-[12%] left-4 md:left-8 lg:left-12 xl:left-16 select-none pointer-events-none z-30">
+        <div className="absolute left-4 top-[78px] select-none pointer-events-none z-30 sm:top-[12%] md:left-8 lg:left-12 xl:left-16">
           <p className="text-neutral-700 dark:text-white text-xs sm:text-sm md:text-base lg:text-lg font-light tracking-widest uppercase">
-            Jordan Hymas ©
+            Jordan Hymas &copy;
           </p>
         </div>
 
         {/* Top Right - Theme Switch Text */}
-        <div className="absolute top-[15%] md:top-[12%] right-4 md:right-8 lg:right-12 xl:right-16 select-none pointer-events-none z-30">
+        <div className="absolute right-4 top-[78px] select-none pointer-events-none z-30 sm:top-[12%] md:right-8 lg:right-12 xl:right-16">
           <p className="text-neutral-700 dark:text-white text-xs sm:text-sm md:text-base lg:text-lg font-light tracking-widest uppercase">
             Switch Light/Dark Theme
           </p>
@@ -131,7 +137,7 @@ export default function FunPage() {
       </motion.section>
 
       {/* About Section */}
-      <section className="relative min-h-screen flex items-center justify-center px-4 py-20 bg-gradient-to-b from-white to-neutral-100 dark:from-black dark:to-neutral-900 overflow-hidden">
+      <section className={aboutSectionClass}>
         {/* Dot Pattern Background */}
         <div className="absolute inset-0 opacity-40 dark:opacity-30">
           <div className="absolute inset-0" style={{
@@ -152,37 +158,33 @@ export default function FunPage() {
 
         <div className="max-w-6xl mx-auto relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 100 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 48 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            viewport={{ once: false, amount: 0.3 }}
           >
             <h2 className="text-6xl md:text-8xl lg:text-9xl font-black text-neutral-900 dark:text-white mb-8">
               WHO AM I?
             </h2>
             <motion.p
               initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: false, amount: 0.3 }}
               className="text-2xl md:text-3xl lg:text-4xl text-neutral-700 dark:text-neutral-300 font-light leading-relaxed"
             >
               I&apos;m an IT engineer and developer who builds real systems, not just apps. My background spans cybersecurity, networking, Linux administration, frontend/mobile development, and AI automation.
             </motion.p>
             <motion.p
               initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              viewport={{ once: false, amount: 0.3 }}
               className="text-2xl md:text-3xl lg:text-4xl text-neutral-700 dark:text-neutral-300 font-light leading-relaxed mt-6"
             >
               I work hands-on with servers, infrastructure, and multi-site networks while also designing modern web and mobile experiences. I enjoy blending software, hardware, and automation to solve real-world problems.
             </motion.p>
             <motion.p
               initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              viewport={{ once: false, amount: 0.3 }}
               className="text-2xl md:text-3xl lg:text-4xl text-neutral-700 dark:text-neutral-300 font-light leading-relaxed mt-6"
             >
               When I&apos;m not coding or managing systems, I&apos;m usually experimenting in my homelab, building AI tools, or refining my custom interfaces.
@@ -533,11 +535,6 @@ export default function FunPage() {
           }
         `}</style>
       </section>
-
-      {/* Fixed Navigation at Bottom */}
-      <div className="fixed bottom-0 left-0 right-0 mx-auto w-full max-w-6xl px-4 py-4 md:py-6 pb-12 z-50">
-        <NavigationPrompt ref={navigationPromptRef} />
-      </div>
     </div>
   );
 }
