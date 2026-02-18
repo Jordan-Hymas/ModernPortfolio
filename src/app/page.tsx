@@ -2,53 +2,34 @@
 
 import FluidCursor from '@/components/FluidCursor';
 import { MobileScrollLayout } from '@/components/home/mobile-scroll-layout';
-import { Button } from '@/components/ui/button';
-import { motion, type Variants } from 'framer-motion';
-import {
-  ArrowRight,
-  BriefcaseBusiness,
-  Laugh,
-  Layers,
-  PartyPopper,
-  UserRoundSearch,
-} from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { Manrope, Sora } from 'next/font/google';
+import { motion } from 'framer-motion';
+import { Anton, Sora } from 'next/font/google';
+import Link from 'next/link';
 import { useTheme } from 'next-themes';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useState, type CSSProperties } from 'react';
 
-const pageRoutes = {
-  Me: '/me',
-  Projects: '/projects',
-  Skills: '/skills',
-  More: '/more',
-  Contact: '/contact',
-} as const;
-type RouteKey = keyof typeof pageRoutes;
-
-const questionConfig = [
-  { key: 'Me', color: '#329696', icon: Laugh },
-  { key: 'Projects', color: '#3E9858', icon: BriefcaseBusiness },
-  { key: 'Skills', color: '#856ED9', icon: Layers },
-  { key: 'More', color: '#B95F9D', icon: PartyPopper },
-  { key: 'Contact', color: '#C19433', icon: UserRoundSearch },
-] as const satisfies { key: RouteKey; color: string; icon: typeof Laugh }[];
-
-const MOBILE_BARS = 5;
-const DESKTOP_BARS = 11;
-const END_SCALE_BOOST = 1.6;
-const heroTitleFont = Sora({
+const chromeFont = Anton({
   subsets: ['latin'],
-  weight: ['700', '800'],
-  display: 'swap',
-});
-const heroSubtitleFont = Manrope({
-  subsets: ['latin'],
-  weight: ['500', '600'],
+  weight: '400',
   display: 'swap',
 });
 
-/* ---------- component ---------- */
+const bodyFont = Sora({
+  subsets: ['latin'],
+  weight: ['400', '600', '700'],
+  display: 'swap',
+});
+
+const desktopNavLinks = [
+  { label: 'HOME', href: '/' },
+  { label: 'ME', href: '/me' },
+  { label: 'PROJECTS', href: '/projects' },
+  { label: 'MORE', href: '/more' },
+  { label: 'SKILLS', href: '/skills' },
+  { label: 'CONTACT', href: '/contact' },
+] as const;
+const DESKTOP_LINE_POSITIONS = [20, 40, 60, 80] as const;
+
 export default function Home() {
   const { setTheme } = useTheme();
   const [isDesktop, setIsDesktop] = useState(false);
@@ -91,735 +72,161 @@ export default function Home() {
     return <MobileScrollLayout />;
   }
 
-  return <DesktopHome />;
+  return <DesktopHomeReference />;
 }
 
-function DesktopHome() {
-  const [input, setInput] = useState('');
-  const router = useRouter();
-  const inputRef = useRef<HTMLInputElement>(null);
-  const logoTargetRef = useRef<HTMLDivElement>(null);
-
-  /* bar animation state */
-  const [phase, setPhase] = useState<
-    'start' | 'expanded' | 'image' | 'shrunk' | 'done'
-  >('start');
-  const [showFinalColumns, setShowFinalColumns] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 });
-  const [logoTarget, setLogoTarget] = useState({ x: 0, y: 0, height: 0 });
-
-  const measureLogoTarget = useCallback(() => {
-    const rect = logoTargetRef.current?.getBoundingClientRect();
-    if (!rect) return;
-
-    setLogoTarget({
-      x: rect.left + rect.width / 2 - window.innerWidth / 2,
-      y: rect.top + rect.height / 2 - window.innerHeight / 2,
-      height: rect.height,
-    });
-  }, []);
-
-  useEffect(() => {
-    const update = () => {
-      setIsMobile(window.innerWidth < 768);
-      setViewportSize({ width: window.innerWidth, height: window.innerHeight });
-      measureLogoTarget();
-    };
-    update();
-    window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
-  }, [measureLogoTarget]);
-
-  useEffect(() => {
-    const frame = window.requestAnimationFrame(measureLogoTarget);
-    return () => window.cancelAnimationFrame(frame);
-  }, [phase, measureLogoTarget]);
-
-  const barCount = isMobile ? MOBILE_BARS : DESKTOP_BARS;
-
-  useEffect(() => {
-    const t1 = setTimeout(() => setPhase('expanded'), 300);
-    const t2 = setTimeout(() => setPhase('image'), 1200);
-    const t3 = setTimeout(() => setPhase('shrunk'), 2200);
-    const t4 = setTimeout(() => setPhase('done'), 3000);
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-      clearTimeout(t4);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (phase !== 'done') {
-      setShowFinalColumns(false);
-      return;
-    }
-    const timer = setTimeout(() => setShowFinalColumns(true), 80);
-    return () => clearTimeout(timer);
-  }, [phase]);
-
-  const showImage = phase === 'image' || phase === 'shrunk' || phase === 'done';
-  const isExpanded = phase !== 'start';
-  const shouldAnchorAnimation = phase === 'shrunk' || phase === 'done';
-  const showFinalShowcase = phase === 'done';
-  const activeBarGap = '4%';
-  const barLayerZIndex = phase === 'done' ? 8 : 20;
-  const isShortViewport = viewportSize.height > 0 && viewportSize.height < 920;
-  const isVeryShortViewport =
-    viewportSize.height > 0 && viewportSize.height < 820;
-  const isUltraShortViewport =
-    viewportSize.height > 0 && viewportSize.height < 760;
-  const isExtremeShortViewport =
-    viewportSize.height > 0 && viewportSize.height < 690;
-  const isCompactDesktopUi =
-    !isMobile &&
-    ((viewportSize.height > 0 && viewportSize.height < 860) ||
-      (viewportSize.width > 0 && viewportSize.width < 1500));
-  const isTightDesktopUi =
-    !isMobile &&
-    ((viewportSize.height > 0 && viewportSize.height < 740) ||
-      (viewportSize.width > 0 && viewportSize.width < 1280));
-  const expandedPanelHeight =
-    viewportSize.width > 0 && viewportSize.height > 0
-      ? Math.min(viewportSize.height * 0.85, viewportSize.width * 1.2)
-      : 1;
-  const baseShrinkScale =
-    logoTarget.height > 0
-      ? logoTarget.height / expandedPanelHeight
-      : isMobile
-        ? 0.35
-        : 0.2;
-  const shrinkScale = Math.min(
-    1,
-    Math.max(0.1, baseShrinkScale * END_SCALE_BOOST)
+function DesktopHomeReference() {
+  const lineBursts = useMemo(
+    () =>
+      DESKTOP_LINE_POSITIONS.map((_, lineIndex) =>
+        Array.from({ length: 1 }, (_, burstIndex) => ({
+          id: `${lineIndex}-${burstIndex}`,
+          duration: 8.2 + Math.random() * 4.4,
+          delay: Math.random() * 5.6 + lineIndex * 0.9 + burstIndex * 2.6,
+          opacity: 0.42 + Math.random() * 0.24,
+          height: 30 + Math.random() * 44,
+          blur: 0.35 + Math.random() * 1.1,
+        }))
+      ),
+    []
   );
-  const headerMarginTopPx = isMobile
-    ? isVeryShortViewport
-      ? -2
-      : -14
-    : isExtremeShortViewport
-      ? 10
-      : isUltraShortViewport
-        ? 2
-        : isVeryShortViewport
-          ? -8
-          : isShortViewport
-            ? -24
-            : -176;
-  const headerMarginBottomPx = isMobile
-    ? 30
-    : isExtremeShortViewport
-      ? 18
-      : isUltraShortViewport
-        ? 22
-        : isVeryShortViewport
-          ? 30
-          : isShortViewport
-            ? 36
-            : 56;
-  const logoSlotHeightPx = isMobile
-    ? isVeryShortViewport
-      ? 104
-      : 120
-    : isExtremeShortViewport
-      ? 122
-      : isUltraShortViewport
-        ? 142
-        : isVeryShortViewport
-          ? 166
-          : isShortViewport
-            ? 196
-            : 230;
-  const logoSlotMarginTopPx = isMobile
-    ? 10
-    : isExtremeShortViewport
-      ? 14
-      : isUltraShortViewport
-        ? 20
-        : isVeryShortViewport
-          ? 34
-          : isShortViewport
-            ? 28
-            : 20;
-  const logoSlotMarginBottomPx = isMobile
-    ? 28
-    : isExtremeShortViewport
-      ? 20
-      : isUltraShortViewport
-        ? 26
-        : isVeryShortViewport
-          ? 58
-          : isShortViewport
-            ? 52
-            : 40;
-  const navMarginTopPx = isMobile
-    ? 24
-    : isExtremeShortViewport
-      ? 10
-      : isUltraShortViewport
-        ? 18
-        : isVeryShortViewport
-          ? 42
-      : isShortViewport
-        ? 38
-        : 56;
-  const logoHeightBoostPx = isMobile
-    ? isVeryShortViewport
-      ? 8
-      : 12
-    : isExtremeShortViewport
-      ? 8
-      : isUltraShortViewport
-        ? 12
-        : isVeryShortViewport
-          ? 16
-          : isShortViewport
-            ? 22
-            : 30;
-  const logoExtraTopSpacingPx = Math.round(logoHeightBoostPx * 0.28);
-  const logoExtraBottomSpacingPx = Math.round(logoHeightBoostPx * 0.42);
-  const logoExtraNavSpacingPx = Math.round(logoHeightBoostPx * 0.36);
-  const compactDesktopOverlapFix =
-    !isMobile && (isVeryShortViewport || isUltraShortViewport);
-  const resolvedHeaderTopPx = compactDesktopOverlapFix
-    ? Math.max(headerMarginTopPx, -2)
-    : headerMarginTopPx;
-  const resolvedHeaderBottomPx = compactDesktopOverlapFix
-    ? headerMarginBottomPx + 14
-    : headerMarginBottomPx;
-  const resolvedLogoHeightPx = logoSlotHeightPx + logoHeightBoostPx;
-  const resolvedLogoMarginTopPx = compactDesktopOverlapFix
-    ? logoSlotMarginTopPx + 10 + logoExtraTopSpacingPx
-    : logoSlotMarginTopPx + logoExtraTopSpacingPx;
-  const resolvedLogoMarginBottomPx = compactDesktopOverlapFix
-    ? logoSlotMarginBottomPx + 16 + logoExtraBottomSpacingPx
-    : logoSlotMarginBottomPx + logoExtraBottomSpacingPx;
-  const resolvedNavMarginTopPx = compactDesktopOverlapFix
-    ? navMarginTopPx + 20 + logoExtraNavSpacingPx
-    : navMarginTopPx + logoExtraNavSpacingPx;
-  const searchWidthClass = isCompactDesktopUi ? 'max-w-md' : 'max-w-lg';
-  const searchInputTextClass = isCompactDesktopUi
-    ? 'text-sm'
-    : 'text-sm sm:text-base';
-  const searchRowDensityClass = isCompactDesktopUi
-    ? 'py-2 pl-4 sm:pl-5'
-    : 'py-2.5 pl-4 sm:pl-6';
-  const navGridClass = isCompactDesktopUi
-    ? 'mt-3 max-w-xl gap-2 sm:mt-3 sm:gap-2.5'
-    : 'mt-3 max-w-2xl gap-2 sm:mt-4 sm:gap-3';
-  const navButtonSizeClass = isTightDesktopUi
-    ? 'h-11 sm:h-12 md:h-12 px-1 py-1.5 sm:px-1.5 sm:py-1.5 md:px-1.5 md:py-1.5'
-    : isCompactDesktopUi
-      ? 'h-12 sm:h-14 md:h-14 px-1 py-1.5 sm:px-2 sm:py-1.5 md:px-2 md:py-1.5'
-      : 'h-14 sm:h-16 md:h-16 px-1 py-2 sm:px-2 sm:py-2 md:px-2 md:py-2';
-  const navIconSize =
-    isMobile || isTightDesktopUi ? 14 : isCompactDesktopUi ? 16 : 22;
-  const navLabelClass = isTightDesktopUi
-    ? 'text-[10px] font-medium sm:text-[11px] md:text-xs'
-    : 'text-[10px] font-medium sm:text-xs md:text-sm';
-  const finalColumnWeights = isMobile
-    ? [1.4, 1.4, 3.12, 1.4, 1.4]
-    : [1.44, 1.44, 3.24, 1.44, 1.44];
-  const finalColumnGapPercent = isMobile ? 0.72 : 0.6;
-  const morphStartGapPercent = 4;
-  const morphStartWidthPercent =
-    (100 - morphStartGapPercent * (barCount - 1)) / barCount;
-  const finalWeightSum = finalColumnWeights.reduce(
-    (total, weight) => total + weight,
-    0
-  );
-  const finalColumnAvailableWidth = 100 - finalColumnGapPercent * 4;
-  const finalColumnWidths = finalColumnWeights.map(
-    (weight) => (weight / finalWeightSum) * finalColumnAvailableWidth
-  );
-  const finalColumnLefts: number[] = [];
-  let runningLeft = 0;
-  finalColumnWidths.forEach((width, index) => {
-    finalColumnLefts.push(runningLeft);
-    runningLeft +=
-      width + (index < finalColumnWidths.length - 1 ? finalColumnGapPercent : 0);
-  });
-  const imageSpanWidth = finalColumnWidths.reduce((total, width) => total + width, 0);
-  const panelSliceLeftsNoGap: number[] = [];
-  let runningSliceLeft = 0;
-  finalColumnWidths.forEach((width) => {
-    panelSliceLeftsNoGap.push(runningSliceLeft);
-    runningSliceLeft += width;
-  });
-  const panelSliceMetrics = finalColumnWidths.map((panelWidth, index) => ({
-    innerWidthPercent: (imageSpanWidth / panelWidth) * 100,
-    innerLeftPercent: -((panelSliceLeftsNoGap[index] / panelWidth) * 100),
-  }));
-  const finalImageLeftShiftPercent = isMobile ? 3.9 : 3.3;
-  const columnGroupMap =
-    barCount === 11
-      ? [0, 0, 1, 1, 2, 2, 2, 3, 3, 4, 4]
-      : barCount === 5
-        ? [0, 1, 2, 3, 4]
-        : Array.from({ length: barCount }, (_, index) =>
-            Math.min(4, Math.floor((index * 5) / barCount))
-          );
-  const groupCounts = [0, 0, 0, 0, 0];
-  columnGroupMap.forEach((groupIndex) => {
-    groupCounts[groupIndex] += 1;
-  });
-  const groupSeen = [0, 0, 0, 0, 0];
-  const barTargetStyles = Array.from({ length: barCount }, (_, index) => {
-    const groupIndex = columnGroupMap[index];
-    const order = groupSeen[groupIndex];
-    groupSeen[groupIndex] += 1;
-    const groupCount = groupCounts[groupIndex];
-    const targetWidth = finalColumnWidths[groupIndex] * (isMobile ? 0.91 : 0.93);
-    const spread =
-      groupCount <= 1
-        ? 0
-        : ((order - (groupCount - 1) / 2) / Math.max(1, groupCount - 1)) *
-          (isMobile ? 0.22 : 0.3);
-    const startLeft = index * (morphStartWidthPercent + morphStartGapPercent);
-    const targetLeft =
-      finalColumnLefts[groupIndex] +
-      (finalColumnWidths[groupIndex] - targetWidth) / 2 +
-      spread;
-
-    return {
-      startLeft,
-      targetLeft,
-      startWidth: morphStartWidthPercent,
-      targetWidth,
-    };
-  });
-
-  const handleSectionNavigation = (key: RouteKey) => {
-    router.push(pageRoutes[key]);
-  };
-
-  const handleQueryNavigation = (query: string) => {
-    const normalized = query.trim().toLowerCase();
-    if (!normalized) return;
-
-    if (normalized.includes('home')) {
-      router.push('/');
-      return;
-    }
-    if (normalized.includes('project') || normalized.includes('portfolio')) {
-      router.push(pageRoutes.Projects);
-      return;
-    }
-    if (normalized.includes('skill')) {
-      router.push(pageRoutes.Skills);
-      return;
-    }
-    if (normalized.includes('contact') || normalized.includes('email')) {
-      router.push(pageRoutes.Contact);
-      return;
-    }
-    if (
-      normalized.includes('more') ||
-      normalized.includes('fun') ||
-      normalized.includes('hobby')
-    ) {
-      router.push(pageRoutes.More);
-      return;
-    }
-    router.push(pageRoutes.Me);
-  };
-
-  /* hero animations — triggered after bar animation completes */
-  const topElementVariants: Variants = {
-    hidden: { opacity: 0, y: -60 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: 'tween' as const,
-        ease: 'easeOut' as const,
-        duration: 0.8,
-      },
-    },
-  };
-  const bottomElementVariants: Variants = {
-    hidden: { opacity: 0, y: 80 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: 'tween' as const,
-        ease: 'easeOut' as const,
-        duration: 0.8,
-        delay: 0.2,
-      },
-    },
-  };
-
-  // Auto-focus the input when animation completes (desktop only to avoid mobile keyboard)
-  useEffect(() => {
-    if (phase !== 'done') return;
-    if (window.matchMedia('(min-width: 640px)').matches) {
-      const timer = setTimeout(() => {
-        inputRef.current?.focus();
-      }, 100);
-      return () => clearTimeout(timer);
-    }
-  }, [phase]);
 
   return (
-    <div className="relative flex h-[100dvh] min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-4">
-      {/* big blurred footer word — slides up after animation */}
-      <motion.div
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex justify-center overflow-visible"
-        initial={{ opacity: 0, y: 60 }}
-        animate={
-          phase === 'done' ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }
-        }
-        transition={{
-          type: 'tween',
-          ease: 'easeOut',
-          duration: 0.8,
-          delay: 0.1,
-        }}
-      >
-        <div
-          className="-mb-3 hidden bg-gradient-to-b from-neutral-400/70 via-neutral-400/55 to-neutral-400/0 bg-clip-text text-[10vw] leading-none font-black whitespace-nowrap text-transparent select-none sm:-mb-4 sm:block sm:text-[11vw] md:-mb-5 md:text-[12vw] lg:-mb-6 lg:text-[13vw] xl:-mb-7 xl:text-[14vw] 2xl:-mb-8 2xl:text-[15vw] dark:from-neutral-400/10 dark:via-neutral-400/8 dark:to-neutral-400/0"
-          style={{
-            WebkitTextStroke: '1px rgba(255, 255, 255, 0.3)',
-          }}
-        >
-          Jordan Hymas
-        </div>
-      </motion.div>
-
-      {/* header — animates in after bars finish */}
-      <motion.div
-        className="z-20 flex flex-col items-center text-center"
-        style={{
-          marginTop: `${resolvedHeaderTopPx}px`,
-          marginBottom: `${resolvedHeaderBottomPx}px`,
-        }}
-        variants={topElementVariants}
-        initial="hidden"
-        animate={phase === 'done' ? 'visible' : 'hidden'}
-      >
-        <h1
-          className={`${heroTitleFont.className} text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl ${isUltraShortViewport ? 'md:text-4xl' : 'md:text-5xl'} dark:text-slate-100`}
-        >
-          Modern Systems Engineering
-        </h1>
-        <p
-          className={`${heroSubtitleFont.className} mt-2 max-w-xl px-2 text-sm font-semibold tracking-[0.01em] text-slate-600 sm:text-base md:px-0 ${isUltraShortViewport ? 'md:text-base' : 'md:text-lg'} dark:text-slate-300`}
-        >
-          Cybersecurity • Systems • Computer Science
-        </p>
-      </motion.div>
-
-      <div
-        ref={logoTargetRef}
-        aria-hidden="true"
-        className="relative z-10 w-full max-w-2xl"
-        style={{
-          height: `${resolvedLogoHeightPx}px`,
-          marginTop: `${resolvedLogoMarginTopPx}px`,
-          marginBottom: `${resolvedLogoMarginBottomPx}px`,
-        }}
-      />
-
-      {/* bar animation — one continuous movement into the logo slot */}
-      <div
-        className="pointer-events-none fixed inset-0 z-20 text-neutral-900 dark:text-neutral-100"
-        style={{
-          zIndex: barLayerZIndex,
-          transform: shouldAnchorAnimation
-            ? `translate3d(${logoTarget.x}px, ${logoTarget.y}px, 0)`
-            : 'translate3d(0, 0, 0)',
-          transition:
-            phase === 'shrunk'
-              ? 'transform 0.8s cubic-bezier(0.65, 0, 0.35, 1)'
-              : 'none',
-          willChange: 'transform',
-        }}
-      >
-        <div
-          className="mx-auto flex h-full w-full items-center justify-center px-0 md:px-8 lg:max-w-[94%]"
-          style={{
-            transform: shouldAnchorAnimation
-              ? `scale(${shrinkScale})`
-              : 'scale(1)',
-            transition:
-              phase === 'shrunk'
-                ? 'transform 0.8s cubic-bezier(0.65, 0, 0.35, 1)'
-                : 'none',
-            transformOrigin: 'center center',
-            willChange: 'transform',
-          }}
-        >
-          {showFinalShowcase ? (
-            <div
-              className="relative w-full"
-              style={{
-                height: isExpanded ? 'min(85vh, 120vw)' : '0px',
-              }}
-            >
-              <div
-                className="absolute inset-0"
-                style={{
-                  opacity: showFinalColumns ? 0 : 1,
-                  transition: 'opacity 0.42s ease-out',
-                }}
-              >
-                {Array.from({ length: barCount }, (_, i) => {
-                  const target = barTargetStyles[i];
-                  return (
-                    <div
-                      key={`morph-${i}`}
-                      className="absolute top-0 overflow-hidden"
-                      style={{
-                        left: `${showFinalColumns ? target.targetLeft : target.startLeft}%`,
-                        width: `${showFinalColumns ? target.targetWidth : target.startWidth}%`,
-                        height: isExpanded ? 'min(85vh, 120vw)' : '0px',
-                        borderRadius: '8px',
-                        transition:
-                          'left 0.55s cubic-bezier(0.22, 1, 0.36, 1), width 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease-out',
-                        opacity: showFinalColumns ? 0 : 1,
-                      }}
-                    >
-                      <div
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          backgroundImage: 'url(/ThisIsAGreatOne.png)',
-                          backgroundSize: `${isMobile ? barCount * 155 : 1600}% 100%`,
-                          backgroundPosition: `${(i / (barCount - 1)) * (isMobile ? 70 : 100)}% center`,
-                          backgroundRepeat: 'no-repeat',
-                        }}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-
-              <div
-                className="absolute inset-0 grid"
-                style={{
-                  gridTemplateColumns: finalColumnWidths
-                    .map((width) => `${width}%`)
-                    .join(' '),
-                  gap: `${finalColumnGapPercent}%`,
-                  opacity: showFinalColumns ? 1 : 0,
-                  transform: showFinalColumns ? 'scale(1)' : 'scale(1.015)',
-                  transition: 'opacity 0.5s ease-out, transform 0.5s ease-out',
-                }}
-              >
-                {Array.from({ length: 5 }, (_, columnIndex) => {
-                  const isCenterColumn = columnIndex === 2;
-                  const isInnerColumn = columnIndex === 1 || columnIndex === 3;
-                  const isOuterColumn = columnIndex === 0 || columnIndex === 4;
-                  const sliceMetric = panelSliceMetrics[columnIndex];
-                  const blurPx = isOuterColumn
-                    ? isMobile
-                      ? 18
-                      : 22
-                    : isInnerColumn
-                      ? isMobile
-                        ? 4
-                        : 6
-                      : 0;
-                  const tintOpacity = isOuterColumn
-                    ? 0.16
-                    : isInnerColumn
-                      ? 0.1
-                      : 0;
-                  const edgeOverlayClass = isInnerColumn
-                    ? columnIndex === 1
-                      ? 'bg-gradient-to-r from-white/20 via-white/7 to-white/0 dark:from-black/20 dark:via-black/11 dark:to-black/0'
-                      : 'bg-gradient-to-l from-white/20 via-white/7 to-white/0 dark:from-black/20 dark:via-black/11 dark:to-black/0'
-                    : '';
-
-                  const panel = (
-                    <div
-                      className="relative h-full overflow-hidden"
-                    >
-                      {!isCenterColumn && (
-                        <div
-                          className="absolute inset-y-0"
-                          style={{
-                            left: `${sliceMetric.innerLeftPercent}%`,
-                            width: `${sliceMetric.innerWidthPercent}%`,
-                            backgroundImage: 'url(/ThisIsAGreatOne.png)',
-                            backgroundSize: '100% 100%',
-                            backgroundPosition: 'left center',
-                            backgroundRepeat: 'no-repeat',
-                            filter: isOuterColumn ? 'blur(8px)' : undefined,
-                            opacity: isOuterColumn ? 0.9 : 1,
-                            transform: isOuterColumn
-                              ? `scale(1.06) translateX(-${finalImageLeftShiftPercent}%)`
-                              : `translateX(-${finalImageLeftShiftPercent}%)`,
-                          }}
-                        />
-                      )}
-                      {!isCenterColumn && (
-                        <div
-                          className="absolute inset-0 dark:bg-black/18"
-                          style={{
-                            backgroundColor: `rgba(255,255,255,${tintOpacity})`,
-                            backdropFilter: `blur(${blurPx}px)`,
-                            WebkitBackdropFilter: `blur(${blurPx}px)`,
-                          }}
-                        />
-                      )}
-                      {!isCenterColumn && (
-                        <>
-                          <div
-                            className={`absolute inset-0 ${edgeOverlayClass}`}
-                            style={{
-                              filter: 'none',
-                            }}
-                          />
-                        </>
-                      )}
-                    </div>
-                  );
-
-                  if (isCenterColumn) {
-                    return (
-                      <motion.div
-                        key={`final-col-${columnIndex}`}
-                        className="relative h-full overflow-hidden"
-                        initial={false}
-                        animate={{
-                          scale: showFinalColumns ? 1 : 1.05,
-                        }}
-                        transition={{
-                          duration: 0.5,
-                          ease: [0.2, 0.8, 0.2, 1],
-                        }}
-                      >
-                        <div
-                          className="absolute inset-y-0"
-                          style={{
-                            left: `${sliceMetric.innerLeftPercent}%`,
-                            width: `${sliceMetric.innerWidthPercent}%`,
-                            backgroundImage: 'url(/ThisIsAGreatOne.png)',
-                            backgroundSize: '100% 100%',
-                            backgroundPosition: 'left center',
-                            backgroundRepeat: 'no-repeat',
-                            transform: `translateX(-${finalImageLeftShiftPercent}%)`,
-                          }}
-                        />
-                      </motion.div>
-                    );
-                  }
-
-                  return (
-                    <div key={`final-col-${columnIndex}`} className="h-full">
-                      {panel}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          ) : (
-            Array.from({ length: barCount }, (_, i) => (
-              <div
-                key={i}
-                style={{
-                  flex: 1,
-                  marginLeft: i === 0 ? 0 : activeBarGap,
-                  height: isExpanded ? 'min(85vh, 120vw)' : '0px',
-                  backgroundColor: 'currentColor',
-                  borderRadius: '8px',
-                  transition:
-                    'height 0.8s cubic-bezier(0.65, 0, 0.35, 1), margin-left 0.35s ease-out',
-                  overflow: 'hidden',
-                }}
-              >
-                {showImage && (
-                  <div
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      backgroundImage: 'url(/ThisIsAGreatOne.png)',
-                      backgroundSize: `${isMobile ? barCount * 155 : 1600}% 100%`,
-                      backgroundPosition: `${(i / (barCount - 1)) * (isMobile ? 70 : 100)}% center`,
-                      backgroundRepeat: 'no-repeat',
-                      animation:
-                        phase === 'done' ? 'none' : 'fadeIn 0.5s ease-in-out',
-                    }}
-                  />
-                )}
-              </div>
-            ))
-          )}
-        </div>
+    <div className="relative h-screen w-screen overflow-hidden bg-black text-[#f1efe8]">
+      <div className="pointer-events-none absolute inset-0 z-0 opacity-[0.85]">
+        <FluidCursor />
       </div>
 
-      {/* input + quick buttons — animates in after bars finish */}
-      <motion.div
-        variants={bottomElementVariants}
-        initial="hidden"
-        animate={phase === 'done' ? 'visible' : 'hidden'}
-        className="z-20 mb-10 flex w-full flex-col items-center justify-center sm:mb-16 md:mb-22 md:px-0 lg:mb-24 xl:mb-28"
-        style={{ marginTop: `${resolvedNavMarginTopPx}px` }}
-      >
-        {/* free-form question */}
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (input.trim()) handleQueryNavigation(input);
-          }}
-          className={`relative w-full ${searchWidthClass}`}
-        >
-          <div
-            className={`mx-auto flex items-center rounded-full border border-neutral-200 bg-white/30 pr-2 backdrop-blur-lg transition-all hover:border-neutral-300 dark:border-neutral-700 dark:bg-neutral-800 dark:hover:border-neutral-600 ${searchRowDensityClass}`}
-          >
-            <input
-              ref={inputRef}
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Jump to portfolio, skills, contact…"
-              className={`w-full border-none bg-transparent text-neutral-800 placeholder:text-neutral-500 focus:outline-none dark:text-neutral-200 dark:placeholder:text-neutral-500 ${searchInputTextClass}`}
-            />
-            <button
-              type="submit"
-              disabled={!input.trim()}
-              aria-label="Submit question"
-              className={`flex items-center justify-center rounded-full bg-[#0171E3] text-white transition-colors hover:bg-blue-600 disabled:opacity-70 dark:bg-blue-600 dark:hover:bg-blue-700 ${isCompactDesktopUi ? 'p-2' : 'p-2.5'}`}
-            >
-              <ArrowRight
-                className={isCompactDesktopUi ? 'h-4 w-4' : 'h-5 w-5'}
+      <div className="pointer-events-none absolute inset-0 z-10">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/82 via-black/54 to-black/15" />
+        <motion.div
+          className="absolute inset-x-0 bottom-0 h-[56vh] bg-gradient-to-t from-[#ff5a00]/92 via-[#db0000]/72 to-transparent"
+          initial={{ opacity: 0, y: 80 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, ease: [0.2, 0.8, 0.2, 1] }}
+        />
+        <motion.div
+          className="absolute -bottom-[20vh] left-[-12vw] h-[52vh] w-[44vw] rounded-full bg-[#ff2f00]/72 blur-[120px]"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.15, duration: 1.25, ease: [0.2, 0.8, 0.2, 1] }}
+        />
+        <motion.div
+          className="absolute -bottom-[24vh] right-[-8vw] h-[56vh] w-[48vw] rounded-full bg-[#ff7b00]/84 blur-[130px]"
+          initial={{ opacity: 0, scale: 0.92 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.3, duration: 1.25, ease: [0.2, 0.8, 0.2, 1] }}
+        />
+
+        {DESKTOP_LINE_POSITIONS.map((left, index) => (
+          <div key={left} className="absolute bottom-0 top-[76px] w-px" style={{ left: `${left}%` }}>
+            <span className="absolute inset-0 bg-white/25" />
+            <span className="absolute inset-y-0 left-1/2 w-[3px] -translate-x-1/2 bg-white/14 blur-[2px]" />
+            <span className="absolute bottom-0 left-0 right-0 h-[56%] bg-gradient-to-b from-white/0 via-white/12 to-white/24" />
+            {lineBursts[index].map((burst) => (
+              <span
+                key={burst.id}
+                className="desktop-fiber-burst absolute left-1/2 w-[3px] -translate-x-1/2 rounded-full bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.98)_52%,rgba(255,255,255,0)_100%)]"
+                style={
+                  {
+                    height: `${burst.height}px`,
+                    animationDuration: `${burst.duration}s`,
+                    animationDelay: `${burst.delay}s`,
+                    filter: `blur(${burst.blur}px)`,
+                    '--burst-opacity': `${burst.opacity}`,
+                  } as CSSProperties
+                }
               />
-            </button>
+            ))}
           </div>
-        </form>
+        ))}
+      </div>
 
-        {/* quick-question grid */}
-        <div className={`grid w-full grid-cols-5 ${navGridClass}`}>
-          {questionConfig.map(({ key, color, icon: Icon }) => (
-            <Button
-              key={key}
-              onClick={() => handleSectionNavigation(key)}
-              variant="outline"
-              className={`border-border hover:bg-border/30 w-full cursor-pointer rounded-2xl border bg-white/30 shadow-none backdrop-blur-lg active:scale-95 dark:border-neutral-700 dark:bg-neutral-800/50 dark:hover:bg-neutral-700/50 ${navButtonSizeClass}`}
+      <div className="desktop-no-ibeam relative z-20 flex h-full flex-col border-t border-white/12">
+        <motion.div
+          className={`${chromeFont.className} grid grid-cols-6 items-center px-6 pt-6 text-[clamp(17px,1.05vw,24px)] uppercase tracking-[0.055em] text-[#e6e4dc]`}
+          initial={{ opacity: 0, y: -18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
+        >
+          {desktopNavLinks.map((item) => (
+            <Link
+              key={item.label}
+              href={item.href}
+              className="desktop-nav-link pointer-events-auto justify-self-center rounded-md px-3 py-1.5 transition-transform duration-200 ease-out hover:scale-125 hover:text-white"
             >
-              <div className="flex h-full flex-col items-center justify-center gap-1 text-gray-700 dark:text-neutral-200">
-                <Icon size={navIconSize} strokeWidth={2} color={color} />
-                <span className={navLabelClass}>{key}</span>
-              </div>
-            </Button>
+              {`[ ${item.label} ]`}
+            </Link>
           ))}
-        </div>
-      </motion.div>
+        </motion.div>
 
-      <FluidCursor />
+        <motion.h1
+          className={`${chromeFont.className} pointer-events-none w-full select-none px-[0.35vw] pt-10 text-[13.85vw] leading-[0.84] tracking-[-0.025em] text-[#f4f3ef] uppercase whitespace-nowrap`}
+          initial={{ opacity: 0, y: -36 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.08, duration: 0.75, ease: [0.2, 0.8, 0.2, 1] }}
+        >
+          Jordan Hymas
+        </motion.h1>
+
+        <motion.div
+          className={`${bodyFont.className} mt-auto w-full px-[0.35vw] pb-12`}
+          initial={{ opacity: 0, y: 46 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25, duration: 0.85, ease: [0.2, 0.8, 0.2, 1] }}
+        >
+          <div className="max-w-[min(68vw,44rem)]">
+            <h2 className="max-w-[39rem] text-[clamp(56px,4.6vw,90px)] leading-[1.02] font-bold tracking-[-0.02em] text-[#f3f1eb]">
+              Building Secure
+              <br />
+              Digital Systems
+            </h2>
+            <p className="mt-4 max-w-[40rem] text-[clamp(24px,1.5vw,33px)] leading-[1.12] font-semibold tracking-[-0.008em] text-white/92">
+              From Cybersecurity, IT, to Networking and Full-stack development.
+            </p>
+          </div>
+
+          <div className="mt-9 grid w-full grid-cols-[auto_1fr_auto_1fr_auto] items-center text-[clamp(13px,0.74vw,16px)] font-semibold uppercase tracking-[0.07em] text-[#d6d3ca]">
+            <span className="col-[1] justify-self-start">©2026</span>
+            <span className="col-[3] justify-self-center">Based in US</span>
+            <span className="col-[5] justify-self-end">Developer</span>
+          </div>
+        </motion.div>
+      </div>
 
       <style jsx>{`
-        @keyframes fadeIn {
-          from {
+        .desktop-no-ibeam,
+        .desktop-no-ibeam * {
+          user-select: none;
+          cursor: default;
+        }
+
+        .desktop-no-ibeam .desktop-nav-link {
+          cursor: pointer;
+        }
+
+        .desktop-fiber-burst {
+          top: 0;
+          opacity: 0;
+          animation-name: desktopFiberDown;
+          animation-timing-function: cubic-bezier(0.28, 0.08, 0.26, 1);
+          animation-iteration-count: infinite;
+        }
+
+        @keyframes desktopFiberDown {
+          0% {
+            transform: translate(-50%, -8vh);
             opacity: 0;
           }
-          to {
-            opacity: 1;
+          8% {
+            opacity: var(--burst-opacity);
+          }
+          78% {
+            opacity: var(--burst-opacity);
+          }
+          100% {
+            transform: translate(-50%, 104vh);
+            opacity: 0;
           }
         }
       `}</style>

@@ -38,6 +38,10 @@ export function ThemeToggle() {
     return null;
   }
 
+  if (pathname === '/' && !isHomeMobile) {
+    return null;
+  }
+
   const isDark = theme === 'dark';
   const isCompactLaptopViewport =
     viewport.height > 0 &&
