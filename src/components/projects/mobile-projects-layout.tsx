@@ -66,7 +66,7 @@ export function MobileProjectsLayout({ embedded = false }: MobileProjectsLayoutP
       .map((src) => bySrc.get(src))
       .filter((project): project is ProjectCard => Boolean(project));
 
-    const prioritizedSrc = new Set(MOBILE_PROJECT_ORDER);
+    const prioritizedSrc = new Set<string>(MOBILE_PROJECT_ORDER);
     const remaining = source.filter((project) => !prioritizedSrc.has(project.src));
 
     return [...prioritized, ...remaining];

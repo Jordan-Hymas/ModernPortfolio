@@ -1,5 +1,4 @@
 import { Variants } from 'framer-motion';
-import { ANIMATION_TIMING } from './constants';
 
 // Section title animation variants - clean fade with Y-slide
 export const titleScrollVariants: Variants = {
@@ -11,8 +10,8 @@ export const titleScrollVariants: Variants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: ANIMATION_TIMING.duration.normal,
-      ease: ANIMATION_TIMING.easing.easeOut,
+      duration: 0.8,
+      ease: 'easeOut',
     },
   },
 };
@@ -27,9 +26,9 @@ export const minimalistCardVariants: Variants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: ANIMATION_TIMING.duration.normal,
-      delay: index * ANIMATION_TIMING.stagger.normal,
-      ease: ANIMATION_TIMING.easing.easeOut,
+      duration: 0.8,
+      delay: index * 0.15,
+      ease: 'easeOut',
     },
   }),
 };
@@ -42,8 +41,8 @@ export const containerScrollVariants: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      duration: ANIMATION_TIMING.duration.fast,
-      ease: ANIMATION_TIMING.easing.easeOut,
+      duration: 0.6,
+      ease: 'easeOut',
     },
   },
 };
