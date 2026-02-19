@@ -226,7 +226,7 @@ export default function MePage() {
             </div>
 
             <a
-              href="/resume.pdf"
+              href="/Jordan_Hymas_Resume_2025.pdf"
               download
               className="mt-4 inline-flex h-[42px] items-center justify-center gap-2 rounded-[11px] border border-black/65 bg-[#ecebe7] px-5 font-mono text-[12px] uppercase tracking-[0.08em] text-black shadow-[0_4px_0_rgba(0,0,0,0.2)] transition-transform hover:scale-[1.02] active:scale-95 dark:border-white/30 dark:bg-[#efeee9] dark:shadow-[0_4px_0_rgba(0,0,0,0.34)]"
             >
