@@ -15,7 +15,7 @@ const NAV_LINKS = [
 ];
 
 const socialLinks = [
-  { href: 'https://github.com/Jhymas20', icon: Github, label: 'GitHub' },
+  { href: 'https://github.com/Jordan-Hymas', icon: Github, label: 'GitHub' },
   {
     href: 'https://www.linkedin.com/in/jordan-hymas/',
     icon: Linkedin,

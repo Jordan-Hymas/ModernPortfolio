@@ -218,7 +218,7 @@ export const DEFAULT_ICON_POSITIONS: DesktopIconData[] = INITIAL_DESKTOP_ICONS;
 
 // Dock icons configuration
 export const DOCK_ICONS: DockIcon[] = [
-  { id: 'github', icon: '', label: 'GitHub', href: 'https://github.com/Jhymas20' },
+  { id: 'github', icon: '', label: 'GitHub', href: 'https://github.com/Jordan-Hymas' },
   { id: 'tiktok', icon: '', label: 'TikTok', href: 'https://www.tiktok.com/@node.io' },
   { id: 'instagram', icon: '', label: 'Instagram', href: 'https://www.instagram.com/jordan.hymas/' },
   { id: 'linkedin', icon: '', label: 'LinkedIn', href: 'https://www.linkedin.com/in/jordan-hymas/' },

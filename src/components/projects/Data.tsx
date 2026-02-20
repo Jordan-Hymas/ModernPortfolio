@@ -34,7 +34,7 @@ const PROJECT_CONTENT = [
     links: [
       {
         name: 'GitHub',
-        url: 'https://github.com/Jhymas20',
+        url: 'https://github.com/Jordan-Hymas',
       },
     ],
     images: [
@@ -339,7 +339,7 @@ const PROJECT_CONTENT = [
       },
       {
         name: 'GitHub',
-        url: 'https://github.com/Jhymas20',
+        url: 'https://github.com/Jordan-Hymas',
       },
     ],
     images: [

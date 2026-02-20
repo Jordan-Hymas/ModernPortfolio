@@ -12,7 +12,7 @@ const menuTitleFont = Anton({
 const email = 'jordanhymas24@gmail.com';
 
 const socialLinks = [
-  { label: 'GitHub', url: 'https://github.com/Jhymas20' },
+  { label: 'GitHub', url: 'https://github.com/Jordan-Hymas' },
   { label: 'TikTok', url: 'https://www.tiktok.com/@node.io' },
   { label: 'LinkedIn', url: 'https://www.linkedin.com/in/jordan-hymas/' },
   { label: 'Instagram', url: 'https://www.instagram.com/jordan.hymas/' },
