@@ -63,12 +63,12 @@ export function MobileMeLayout({ addHomeScrollGap = false }: MobileMeLayoutProps
 
   return (
     <div
-      className="relative min-h-[100dvh] overflow-x-hidden bg-[#e7e7e7] pb-6 pt-20 text-black dark:bg-[#0e1013] dark:text-white"
+      className="relative min-h-screen min-h-[100svh] overflow-x-hidden bg-[#e7e7e7] pb-6 pt-20 text-black dark:bg-[#0e1013] dark:text-white"
       style={
         applyAndroidHomeScrollFix
           ? {
               minHeight: '100svh',
-              overflowY: 'visible',
+              overflow: 'visible',
               touchAction: 'pan-y',
               overscrollBehaviorY: 'auto',
             }

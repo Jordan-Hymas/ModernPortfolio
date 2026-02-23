@@ -143,6 +143,7 @@ export default function MorePageContent({ embeddedHome = false }: FunPageProps =
               src="/sidewaysBlackWhite.webp"
               alt="Profile"
               fill
+              sizes="(max-width: 639px) 42vw, 65vw"
               className="object-contain"
               priority
             />

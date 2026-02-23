@@ -1,6 +1,6 @@
 'use client';
 
-import { startTransition, useEffect, useMemo, useRef, useState, type WheelEvent } from 'react';
+import { startTransition, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Anton } from 'next/font/google';
 import Image from 'next/image';
@@ -150,6 +150,24 @@ export function MobileProjectsLayout({ embedded = false }: MobileProjectsLayoutP
     };
   }, [openProjectIndex]);
 
+  useEffect(() => {
+    if (!embedded) return;
+
+    const container = trackRef.current;
+    if (!container) return;
+
+    const handleTrackWheel = (event: globalThis.WheelEvent) => {
+      if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+      event.preventDefault();
+      window.scrollBy({ top: event.deltaY, left: 0, behavior: 'auto' });
+    };
+
+    container.addEventListener('wheel', handleTrackWheel, { passive: false });
+    return () => {
+      container.removeEventListener('wheel', handleTrackWheel);
+    };
+  }, [embedded]);
+
   const handleOpenProject = (index: number) => {
     startTransition(() => {
       setOpenProjectIndex(index);
@@ -180,13 +198,6 @@ export function MobileProjectsLayout({ embedded = false }: MobileProjectsLayoutP
     if (clamped !== currentIndex) {
       setCurrentIndex(clamped);
     }
-  };
-
-  const onTrackWheel = (event: WheelEvent<HTMLDivElement>) => {
-    if (!embedded) return;
-    if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
-    event.preventDefault();
-    window.scrollBy({ top: event.deltaY, left: 0, behavior: 'auto' });
   };
 
   const modalContent = (
@@ -232,7 +243,7 @@ export function MobileProjectsLayout({ embedded = false }: MobileProjectsLayoutP
   const modalHost = typeof document !== 'undefined' ? document.body : null;
 
   return (
-    <div className="h-[100dvh] overflow-x-hidden bg-[#e7e7e7] pt-20 pb-3 text-black dark:bg-[#151515] dark:text-white">
+    <div className="h-screen h-[100svh] overflow-x-hidden bg-[#e7e7e7] pt-20 pb-3 text-black dark:bg-[#151515] dark:text-white">
       <div className="mx-auto flex h-full w-full max-w-md flex-col px-0">
         <div className="px-4">
           <h1 className={`${menuTitleFont.className} text-[52px] leading-[0.9] tracking-tight`}>
@@ -245,7 +256,6 @@ export function MobileProjectsLayout({ embedded = false }: MobileProjectsLayoutP
         <div
           ref={trackRef}
           onScroll={onTrackScroll}
-          onWheel={onTrackWheel}
           className="flex min-h-0 flex-1 snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {projects.map((project, index) => {

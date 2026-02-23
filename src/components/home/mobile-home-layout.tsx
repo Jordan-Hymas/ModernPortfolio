@@ -33,7 +33,7 @@ export function MobileHomeLayout({ extendedBottom = false }: MobileHomeLayoutPro
   return (
     <div
       className={`relative overflow-hidden bg-[#030303] text-[#f5f4ef] ${
-        extendedBottom ? 'h-[112dvh]' : 'h-[100dvh]'
+        extendedBottom ? 'h-[112vh] h-[112svh]' : 'h-screen h-[100svh]'
       }`}
     >
       <div className="pointer-events-none absolute inset-0 z-0">

@@ -31,8 +31,8 @@ export function MobileSkillsLayout({ homeScrollOnlyStyle = false }: MobileSkills
     <div
       className={`relative overflow-hidden bg-gradient-to-b from-white to-neutral-50 px-4 dark:from-neutral-900 dark:to-neutral-950 ${
         homeScrollOnlyStyle
-          ? 'min-h-[138dvh] supports-[height:1lvh]:min-h-[138lvh] pb-32 pt-28'
-          : 'min-h-[100dvh] pb-20 pt-20'
+          ? 'min-h-[138vh] min-h-[138svh] pb-32 pt-28'
+          : 'min-h-screen min-h-[100svh] pb-20 pt-20'
       }`}
     >
       {homeScrollOnlyStyle ? (

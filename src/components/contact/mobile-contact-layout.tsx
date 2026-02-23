@@ -42,7 +42,7 @@ export function MobileContactLayout({ desktopMode = false }: MobileContactLayout
 
   return (
     <div
-      className={`relative h-[100dvh] overflow-hidden text-white dark:text-[#f6f3ec] ${
+      className={`relative h-screen h-[100svh] overflow-hidden text-white dark:text-[#f6f3ec] ${
         desktopMode ? 'bg-black' : ''
       }`}
     >

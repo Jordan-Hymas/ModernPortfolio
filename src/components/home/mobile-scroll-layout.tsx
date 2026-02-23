@@ -13,13 +13,13 @@ const GAP_LINE_POSITIONS = [19, 39, 59, 79] as const;
 export function MobileScrollLayout() {
   return (
     <div className="relative">
-      <section className="min-h-[100dvh]">
+      <section className="min-h-screen min-h-[100svh]">
         <div className="dark">
           <MobileHomeLayout extendedBottom />
         </div>
       </section>
 
-      <section className="relative -mt-20 min-h-[100dvh]">
+      <section className="relative -mt-20 min-h-screen min-h-[100svh]">
         <MobileMeLayout addHomeScrollGap />
         <div
           aria-hidden="true"
@@ -39,21 +39,21 @@ export function MobileScrollLayout() {
         />
       </section>
 
-      <section className="relative -mt-20 min-h-[100dvh] [mask-image:linear-gradient(to_bottom,transparent_0px,black_88px,black_100%)]">
+      <section className="relative -mt-20 min-h-screen min-h-[100svh] [mask-image:linear-gradient(to_bottom,transparent_0px,black_88px,black_100%)]">
         <MobileProjectsLayout embedded />
       </section>
 
       <ProjectsToMoreGap />
 
-      <section className="relative -mt-20 min-h-[100dvh] [mask-image:linear-gradient(to_bottom,transparent_0px,black_88px,black_100%)]">
+      <section className="relative -mt-20 min-h-screen min-h-[100svh] [mask-image:linear-gradient(to_bottom,transparent_0px,black_88px,black_100%)]">
         <MorePageContent embeddedHome />
       </section>
 
-      <section className="relative -mt-20 min-h-[100dvh] [mask-image:linear-gradient(to_bottom,transparent_0px,black_88px,black_100%)]">
+      <section className="relative -mt-20 min-h-screen min-h-[100svh] [mask-image:linear-gradient(to_bottom,transparent_0px,black_88px,black_100%)]">
         <MobileSkillsLayout homeScrollOnlyStyle />
       </section>
 
-      <section className="relative -mt-20 min-h-[100dvh] [mask-image:linear-gradient(to_bottom,transparent_0px,black_88px,black_100%)]">
+      <section className="relative -mt-20 min-h-screen min-h-[100svh] [mask-image:linear-gradient(to_bottom,transparent_0px,black_88px,black_100%)]">
         <div className="dark">
           <MobileContactLayout />
         </div>
