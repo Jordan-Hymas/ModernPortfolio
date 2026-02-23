@@ -5,7 +5,7 @@ import { DesktopPageNav } from '@/components/desktop-page-nav';
 import { Download, Mail, MapPin } from 'lucide-react';
 import Image from 'next/image';
 import { Anton } from 'next/font/google';
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type MouseEvent } from 'react';
 
 const titleFont = Anton({
   subsets: ['latin'],
@@ -14,6 +14,8 @@ const titleFont = Anton({
 });
 
 const LINE_POSITIONS = [18, 38, 58, 78] as const;
+const RESUME_PATH = '/Jordan-Hymas-Resume-2026.pdf';
+const RESUME_FILENAME = 'Jordan-Hymas-Resume-2026.pdf';
 
 const highlights = [
   'Dual degrees in Cybersecurity & Computer Science',
@@ -55,6 +57,20 @@ export default function MePage() {
   const [isDesktop, setIsDesktop] = useState(false);
   const [mounted, setMounted] = useState(false);
   const desktopScrollRef = useRef<HTMLDivElement | null>(null);
+
+  const handleResumeClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+
+    window.open(RESUME_PATH, '_blank', 'noopener,noreferrer');
+
+    const downloadLink = document.createElement('a');
+    downloadLink.href = RESUME_PATH;
+    downloadLink.download = RESUME_FILENAME;
+    downloadLink.rel = 'noopener';
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  };
 
   const lineBursts = useMemo(
     () =>
@@ -226,8 +242,10 @@ export default function MePage() {
             </div>
 
             <a
-              href="/Jordan-Hymas-Resume-2026.pdf"
-              download
+              href={RESUME_PATH}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleResumeClick}
               className="mt-4 inline-flex h-[42px] items-center justify-center gap-2 rounded-[11px] border border-black/65 bg-[#ecebe7] px-5 font-mono text-[12px] uppercase tracking-[0.08em] text-black shadow-[0_4px_0_rgba(0,0,0,0.2)] transition-transform hover:scale-[1.02] active:scale-95 dark:border-white/30 dark:bg-[#efeee9] dark:shadow-[0_4px_0_rgba(0,0,0,0.34)]"
             >
               <Download className="h-4 w-4" />

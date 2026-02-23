@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useDragControls } from 'framer-motion';
 import { ReactNode, useRef } from 'react';
 
 interface MacOSWindowProps {
@@ -21,6 +21,7 @@ export function MacOSWindow({
   initialPosition = { x: 100, y: 50 },
 }: MacOSWindowProps) {
   const dragConstraintsRef = useRef(null);
+  const dragControls = useDragControls();
 
   return (
     <>
@@ -29,6 +30,8 @@ export function MacOSWindow({
 
       <motion.div
         drag
+        dragControls={dragControls}
+        dragListener={false}
         dragConstraints={dragConstraintsRef}
         dragElastic={0}
         dragMomentum={false}
@@ -47,26 +50,41 @@ export function MacOSWindow({
         }}
       >
         {/* Title Bar */}
-        <div className="h-10 bg-white dark:bg-neutral-800 flex items-center px-4 cursor-grab active:cursor-grabbing select-none border-b border-neutral-300 dark:border-neutral-700">
+        <div
+          className="h-10 bg-white dark:bg-neutral-800 flex items-center px-4 cursor-grab active:cursor-grabbing select-none border-b border-neutral-300 dark:border-neutral-700"
+          onPointerDown={(e) => dragControls.start(e)}
+        >
           {/* Window Control Buttons and Title */}
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-0">
               <button
+                type="button"
+                onPointerDown={(e) => e.stopPropagation()}
                 onClick={(e) => {
                   e.stopPropagation();
                   onClose();
                 }}
-                className="w-3 h-3 rounded-full bg-[#FF5F56] hover:bg-[#FF3B30] transition-colors"
+                className="flex h-5 w-5 items-center justify-center rounded-full"
                 aria-label="Close"
-              />
+              >
+                <span className="h-3 w-3 rounded-full bg-[#FF5F56] transition-colors hover:bg-[#FF3B30]" />
+              </button>
               <button
-                className="w-3 h-3 rounded-full bg-[#FFBD2E] hover:bg-[#FFB000] transition-colors"
+                type="button"
+                onPointerDown={(e) => e.stopPropagation()}
+                className="flex h-5 w-5 items-center justify-center rounded-full"
                 aria-label="Minimize"
-              />
+              >
+                <span className="h-3 w-3 rounded-full bg-[#FFBD2E] transition-colors hover:bg-[#FFB000]" />
+              </button>
               <button
-                className="w-3 h-3 rounded-full bg-[#27C93F] hover:bg-[#00D600] transition-colors"
+                type="button"
+                onPointerDown={(e) => e.stopPropagation()}
+                className="flex h-5 w-5 items-center justify-center rounded-full"
                 aria-label="Maximize"
-              />
+              >
+                <span className="h-3 w-3 rounded-full bg-[#27C93F] transition-colors hover:bg-[#00D600]" />
+              </button>
             </div>
 
             {/* Window Title */}
