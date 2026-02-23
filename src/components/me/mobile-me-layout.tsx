@@ -3,7 +3,7 @@
 import { Anton } from 'next/font/google';
 import Image from 'next/image';
 import { Download, Mail, MapPin } from 'lucide-react';
-import { useMemo, type CSSProperties } from 'react';
+import { useEffect, useMemo, useState, type CSSProperties } from 'react';
 
 const menuTitleFont = Anton({
   subsets: ['latin'],
@@ -30,6 +30,22 @@ type MobileMeLayoutProps = {
 };
 
 export function MobileMeLayout({ addHomeScrollGap = false }: MobileMeLayoutProps = {}) {
+  const [isAndroidMobile, setIsAndroidMobile] = useState(false);
+
+  useEffect(() => {
+    const updateAndroidViewport = () => {
+      const ua = window.navigator.userAgent || '';
+      const isAndroid = /android/i.test(ua);
+      const isMobileViewport = window.innerWidth < 768;
+      setIsAndroidMobile(isAndroid && isMobileViewport);
+    };
+
+    updateAndroidViewport();
+    window.addEventListener('resize', updateAndroidViewport);
+    return () => window.removeEventListener('resize', updateAndroidViewport);
+  }, []);
+
+  const applyAndroidHomeScrollFix = addHomeScrollGap && isAndroidMobile;
   const lineBursts = useMemo(
     () =>
       LINE_POSITIONS.map((_, lineIndex) =>
@@ -46,7 +62,19 @@ export function MobileMeLayout({ addHomeScrollGap = false }: MobileMeLayoutProps
   );
 
   return (
-    <div className="relative min-h-[100dvh] overflow-x-hidden bg-[#e7e7e7] pb-6 pt-20 text-black dark:bg-[#0e1013] dark:text-white">
+    <div
+      className="relative min-h-[100dvh] overflow-x-hidden bg-[#e7e7e7] pb-6 pt-20 text-black dark:bg-[#0e1013] dark:text-white"
+      style={
+        applyAndroidHomeScrollFix
+          ? {
+              minHeight: '100svh',
+              overflowY: 'visible',
+              touchAction: 'pan-y',
+              overscrollBehaviorY: 'auto',
+            }
+          : undefined
+      }
+    >
       <div className="pointer-events-none absolute inset-0">
         {LINE_POSITIONS.map((left, index) => (
           <div key={left} className="absolute bottom-0 top-0 w-px" style={{ left: `${left}%` }}>

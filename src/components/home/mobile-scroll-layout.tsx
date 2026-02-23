@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, type CSSProperties } from 'react';
-import MorePage from '@/app/more/page';
+import MorePageContent from '@/components/more/MorePageContent';
 import { MobileContactLayout } from '@/components/contact/mobile-contact-layout';
 import { MobileHomeLayout } from '@/components/home/mobile-home-layout';
 import { MobileMeLayout } from '@/components/me/mobile-me-layout';
@@ -46,7 +46,7 @@ export function MobileScrollLayout() {
       <ProjectsToMoreGap />
 
       <section className="relative -mt-20 min-h-[100dvh] [mask-image:linear-gradient(to_bottom,transparent_0px,black_88px,black_100%)]">
-        <MorePage />
+        <MorePageContent embeddedHome />
       </section>
 
       <section className="relative -mt-20 min-h-[100dvh] [mask-image:linear-gradient(to_bottom,transparent_0px,black_88px,black_100%)]">

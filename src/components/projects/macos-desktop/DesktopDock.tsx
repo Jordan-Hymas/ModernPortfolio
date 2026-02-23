@@ -50,7 +50,6 @@ const AppIcon = ({ icon, label }: { icon: string; label: string }) => {
           height={96}
           quality={100}
           className="h-full w-full object-cover"
-          unoptimized
         />
       </div>
     );
@@ -99,7 +98,6 @@ const AppIcon = ({ icon, label }: { icon: string; label: string }) => {
           height={96}
           quality={100}
           className="h-full w-full object-cover"
-          unoptimized
         />
       </div>
     );
@@ -116,7 +114,6 @@ const AppIcon = ({ icon, label }: { icon: string; label: string }) => {
           height={96}
           quality={100}
           className="h-full w-full object-cover"
-          unoptimized
         />
       </div>
     );

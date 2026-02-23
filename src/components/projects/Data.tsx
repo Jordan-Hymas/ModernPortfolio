@@ -80,24 +80,24 @@ const PROJECT_CONTENT = [
     ],
     images: [
       {
-        src: '/Projects/Cybercodex.io/cyberCodex.mp4',
+        src: '/Projects/CyberCodex.io/cyberCodex.mp4',
         alt: 'CyberCodex.io demo video',
         type: 'video',
       },
       {
-        src: '/Projects/Cybercodex.io/homepage.webp',
+        src: '/Projects/CyberCodex.io/homepage.webp',
         alt: 'CyberCodex.io homepage',
       },
       {
-        src: '/Projects/Cybercodex.io/dashboard.webp',
+        src: '/Projects/CyberCodex.io/dashboard.webp',
         alt: 'CyberCodex.io dashboard',
       },
       {
-        src: '/Projects/Cybercodex.io/community.webp',
+        src: '/Projects/CyberCodex.io/community.webp',
         alt: 'CyberCodex.io community',
       },
       {
-        src: '/Projects/Cybercodex.io/courses.webp',
+        src: '/Projects/CyberCodex.io/courses.webp',
         alt: 'CyberCodex.io courses page',
       },
     ],
@@ -231,31 +231,31 @@ const PROJECT_CONTENT = [
     links: [],
     images: [
       {
-        src: '/projects/BGCLCV/teenCenterPc.webp',
+        src: '/Projects/BGCLCV/teenCenterPc.webp',
         alt: 'Teen Center PC Setup',
       },
       {
-        src: '/projects/BGCLCV/serverRoom.webp',
+        src: '/Projects/BGCLCV/serverRoom.webp',
         alt: 'Server Room',
       },
       {
-        src: '/projects/BGCLCV/serverRoomAngle.webp',
+        src: '/Projects/BGCLCV/serverRoomAngle.webp',
         alt: 'Server Room Angle View',
       },
       {
-        src: '/projects/BGCLCV/serverSonicwall.webp',
+        src: '/Projects/BGCLCV/serverSonicwall.webp',
         alt: 'Server Sonicwall Setup',
       },
       {
-        src: '/projects/BGCLCV/esportsRoom.webp',
+        src: '/Projects/BGCLCV/esportsRoom.webp',
         alt: 'Esports Room',
       },
       {
-        src: '/projects/BGCLCV/teenCenter.webp',
+        src: '/Projects/BGCLCV/teenCenter.webp',
         alt: 'Teen Center',
       },
       {
-        src: '/projects/BGCLCV/gymHoop.webp',
+        src: '/Projects/BGCLCV/gymHoop.webp',
         alt: 'Gym Basketball Hoop',
       }
     ],
@@ -669,7 +669,7 @@ const ProjectContent = ({ project }: { project: ProjectProps }) => {
                       loop
                       playsInline
                       className="w-full h-full object-cover"
-                      preload="metadata"
+                      preload="none"
                     >
                       Your browser does not support the video tag.
                     </video>
@@ -703,8 +703,8 @@ export const data = [
   {
     category: 'Cybersecurity Platform',
     title: 'CyberCodex.io',
-    src: '/Projects/Cybercodex.io/courses.webp',
-    content: <ProjectContent project={{ title: 'CyberCodex.io', category: 'Cybersecurity Platform', thumbnail: '/Projects/Cybercodex.io/courses.webp' }} />,
+    src: '/Projects/CyberCodex.io/courses.webp',
+    content: <ProjectContent project={{ title: 'CyberCodex.io', category: 'Cybersecurity Platform', thumbnail: '/Projects/CyberCodex.io/courses.webp' }} />,
   },
   {
     category: 'Web Development',
@@ -722,8 +722,8 @@ export const data = [
   {
     category: 'Enterprise Networking',
     title: 'Infrastructure Deployment (NPCE)',
-    src: '/projects/BGCLCV/teenCenterPc.webp',
-    content: <ProjectContent project={{ title: 'Infrastructure Deployment (NPCE)', category: 'Enterprise Networking', thumbnail: '/projects/BGCLCV/teenCenterPc.webp' }} />,
+    src: '/Projects/BGCLCV/teenCenterPc.webp',
+    content: <ProjectContent project={{ title: 'Infrastructure Deployment (NPCE)', category: 'Enterprise Networking', thumbnail: '/Projects/BGCLCV/teenCenterPc.webp' }} />,
   },
   {
     category: 'Infrastructure & Networking',

@@ -3,7 +3,7 @@
 import { Anton } from 'next/font/google';
 import { useMemo, type CSSProperties } from 'react';
 
-const LINE_POSITIONS = [18, 38, 58, 78] as const;
+const LINE_POSITIONS = [19, 39, 59, 79] as const;
 const titleFont = Anton({
   subsets: ['latin'],
   weight: '400',

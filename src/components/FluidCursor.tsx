@@ -5,7 +5,12 @@ import fluidCursor from '@/hooks/use-FluidCursor';
 
 const FluidCursor = () => {
   useEffect(() => {
-    fluidCursor();
+    const cleanup = fluidCursor();
+    return () => {
+      if (typeof cleanup === 'function') {
+        cleanup();
+      }
+    };
   }, []);
 
   return (

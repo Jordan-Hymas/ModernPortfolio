@@ -1,6 +1,7 @@
 'use client';
 
-import { startTransition, useEffect, useMemo, useRef, useState } from 'react';
+import { startTransition, useEffect, useMemo, useRef, useState, type WheelEvent } from 'react';
+import { createPortal } from 'react-dom';
 import { Anton } from 'next/font/google';
 import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -23,13 +24,13 @@ const menuTitleFont = Anton({
 const SUMMARY_BY_SRC: Record<string, string> = {
   '/Projects/LiquidPortfolio/projects.webp':
     'Liquid Portfolio is my Mark One personal portfolio with motion-driven UI, AI chat integration, and responsive sections for my work and background.',
-  '/Projects/Cybercodex.io/courses.webp':
+  '/Projects/CyberCodex.io/courses.webp':
     'A cybersecurity learning platform with structured courses, practical labs, and an interactive experience built for real skill progression.',
   '/Projects/OldPortfolio/home.webp':
     'My first portfolio built with HTML, CSS, and JavaScript. It marks the start of my development journey and growth in interface design.',
   '/Projects/HomeLab/Main.webp':
     'A full home-lab infrastructure with virtualization, networking, Linux servers, and AI experiments designed like a small enterprise environment.',
-  '/projects/BGCLCV/teenCenterPc.webp':
+  '/Projects/BGCLCV/teenCenterPc.webp':
     'Designed and deployed a full enterprise-grade server room and esports network for the Boys & Girls Clubs of the Lewis-Clark Valley, transforming an empty space into a secure, high-performance infrastructure supporting daily operations and youth programs.',
   '/Projects/Ubiquiti/unifi_main.webp':
     'A collection of real-world UniFi networks I designed and deployed with performance, segmentation, security, and scalability across multiple environments.',
@@ -47,9 +48,9 @@ const TITLE_BY_SRC: Record<string, string> = {
 };
 
 const MOBILE_PROJECT_ORDER = [
-  '/projects/BGCLCV/teenCenterPc.webp', // Infrastructure Deployment (NPCE)
+  '/Projects/BGCLCV/teenCenterPc.webp', // Infrastructure Deployment (NPCE)
   '/Projects/LiquidPortfolio/projects.webp', // Liquid Portfolio
-  '/Projects/Cybercodex.io/courses.webp', // cybercodex.io
+  '/Projects/CyberCodex.io/courses.webp', // cybercodex.io
   '/Projects/ModernPortfolio/home_page.webp', // Modern Portfolio
   '/Projects/HomeLab/Main.webp', // homelab
   '/Projects/Ubiquiti/unifi_main.webp', // ubiquiti unifi
@@ -181,8 +182,57 @@ export function MobileProjectsLayout({ embedded = false }: MobileProjectsLayoutP
     }
   };
 
+  const onTrackWheel = (event: WheelEvent<HTMLDivElement>) => {
+    if (!embedded) return;
+    if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+    event.preventDefault();
+    window.scrollBy({ top: event.deltaY, left: 0, behavior: 'auto' });
+  };
+
+  const modalContent = (
+    <AnimatePresence>
+      {openProject !== null && (
+        <motion.div
+          className="fixed inset-0 z-[85] bg-black/55 backdrop-blur-[2px] will-change-[opacity]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={() => setOpenProjectIndex(null)}
+        >
+          <motion.div
+            className="absolute inset-x-0 bottom-0 top-[7dvh] overflow-hidden rounded-t-[24px] border border-black/70 bg-[#f5f4f0] text-black transform-gpu will-change-transform dark:border-white/25 dark:bg-[#121214] dark:text-white"
+            initial={{ y: '100%' }}
+            animate={{ y: 0 }}
+            exit={{ y: '100%' }}
+            transition={{ type: 'spring', stiffness: 220, damping: 28 }}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-black/60 px-4 py-3 dark:border-white/20">
+              <p className={`${menuTitleFont.className} text-[34px] leading-none tracking-tight`}>
+                {openProject.title}
+              </p>
+              <button
+                type="button"
+                onClick={() => setOpenProjectIndex(null)}
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-black text-white dark:bg-white dark:text-black"
+                aria-label="Close project details"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="h-[calc(93dvh-69px)] overflow-y-auto overscroll-y-contain">
+              {detailContentReady ? openProject.content : <div className="h-full w-full" />}
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+
+  const modalHost = typeof document !== 'undefined' ? document.body : null;
+
   return (
-    <div className="h-[100dvh] overflow-hidden overscroll-y-none bg-[#e7e7e7] pt-20 pb-3 text-black dark:bg-[#151515] dark:text-white">
+    <div className="h-[100dvh] overflow-x-hidden bg-[#e7e7e7] pt-20 pb-3 text-black dark:bg-[#151515] dark:text-white">
       <div className="mx-auto flex h-full w-full max-w-md flex-col px-0">
         <div className="px-4">
           <h1 className={`${menuTitleFont.className} text-[52px] leading-[0.9] tracking-tight`}>
@@ -195,6 +245,7 @@ export function MobileProjectsLayout({ embedded = false }: MobileProjectsLayoutP
         <div
           ref={trackRef}
           onScroll={onTrackScroll}
+          onWheel={onTrackWheel}
           className="flex min-h-0 flex-1 snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {projects.map((project, index) => {
@@ -274,50 +325,7 @@ export function MobileProjectsLayout({ embedded = false }: MobileProjectsLayoutP
           View all projects
         </div>
       </div>
-
-      <AnimatePresence>
-        {openProject !== null && (
-          <motion.div
-            className="fixed inset-0 z-[85] bg-black/55 backdrop-blur-[2px] will-change-[opacity]"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => {
-              if (!embedded) {
-                setOpenProjectIndex(null);
-              }
-            }}
-          >
-            <motion.div
-              className={`absolute inset-x-0 bottom-0 overflow-hidden rounded-t-[24px] border border-black/70 bg-[#f5f4f0] text-black transform-gpu will-change-transform dark:border-white/25 dark:bg-[#121214] dark:text-white ${
-                embedded ? 'top-[9dvh]' : 'top-[7dvh]'
-              }`}
-              initial={{ y: '100%' }}
-              animate={{ y: 0 }}
-              exit={{ y: '100%' }}
-              transition={{ type: 'spring', stiffness: 220, damping: 28 }}
-              onClick={(event) => event.stopPropagation()}
-            >
-              <div className="flex items-center justify-between border-b border-black/60 px-4 py-3 dark:border-white/20">
-                <p className={`${menuTitleFont.className} text-[34px] leading-none tracking-tight`}>
-                  {openProject.title}
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setOpenProjectIndex(null)}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-black text-white dark:bg-white dark:text-black"
-                  aria-label="Close project details"
-                >
-                  <X className="h-5 w-5" />
-                </button>
-              </div>
-              <div className="h-[calc(93dvh-69px)] overflow-y-auto overscroll-y-contain">
-                {detailContentReady ? openProject.content : <div className="h-full w-full" />}
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {embedded && modalHost ? createPortal(modalContent, modalHost) : modalContent}
     </div>
   );
 }

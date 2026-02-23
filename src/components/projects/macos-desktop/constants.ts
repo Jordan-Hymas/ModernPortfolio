@@ -70,7 +70,7 @@ export const ICON_CONFIGS: IconConfig[] = [
     id: 'cybercodex',
     title: 'CyberCodex.io',
     projectIndex: 1,
-    icon: '/Projects/Cybercodex.io/courses.webp',
+    icon: '/Projects/CyberCodex.io/courses.webp',
     size: { width: 55, height: 80 },
     positions: {
       mobile: { x: 14, y: 42 },
@@ -145,7 +145,7 @@ export const ICON_CONFIGS: IconConfig[] = [
     id: 'serverRoom',
     title: 'Infrastructure Deployment (NPCE)',
     projectIndex: 4,
-    icon: '/projects/BGCLCV/teenCenterPc.webp',
+    icon: '/Projects/BGCLCV/teenCenterPc.webp',
     size: { width: 80, height: 80 },
     positions: {
       mobile: { x: 80, y: 42 },
