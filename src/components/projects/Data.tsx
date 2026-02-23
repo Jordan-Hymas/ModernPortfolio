@@ -261,6 +261,65 @@ const PROJECT_CONTENT = [
     ],
   },
   {
+    title: 'Auction Tracker (NPCE)',
+    description:
+      '"Auction Tracker" is my first official software project built for an organization and deployed for production use. It manages live auction bidding with instant total updates on large display screens to keep attendees engaged during fundraising events. The platform is designed for Boys & Girls Clubs across the United States, supporting approximately 86 sites, and packaged with ElectronJS so staff can run it as a standalone desktop app without technical setup.',
+    typeLabel: 'Enterprise Application > Next.js + Electron',
+    techStack: [
+      'Next.js',
+      'React',
+      'React Router 6',
+      'Node.js',
+      'Tailwind CSS',
+      'Framer Motion',
+      'Lucide Icons',
+      'Vite',
+      'Turbopack',
+      'Open Graph',
+      'ElectronJS',
+      'Priority Hints',
+    ],
+    date: '2026',
+    features: [
+      'Live auction bid tracking',
+      'Real-time display output for large screens',
+      'Desktop app packaging with ElectronJS',
+      'Clean, event-friendly UI',
+      'Performance-optimized frontend',
+      'Designed for multi-site deployment',
+      'Mobile view for placing bids',
+    ],
+    links: [
+      {
+        name: 'GitHub',
+        url: 'https://github.com/Jordan-Hymas',
+      },
+    ],
+    images: [
+      {
+        src: '/Projects/AuctionSoftware/animation.mp4',
+        alt: 'Auction Tracker live animation preview',
+        type: 'video',
+      },
+      {
+        src: '/Projects/AuctionSoftware/mainBGCA.webp',
+        alt: 'Auction Tracker BGCA main interface',
+      },
+      {
+        src: '/Projects/AuctionSoftware/setupControl.webp',
+        alt: 'Auction Tracker setup control screen',
+      },
+      {
+        src: '/Projects/AuctionSoftware/liveEventControl.webp',
+        alt: 'Auction Tracker live event control',
+      },
+      {
+        src: '/Projects/AuctionSoftware/mainNPCE.webp',
+        alt: 'Auction Tracker NPCE main interface',
+      },
+    ],
+  },
+  {
     title: 'Ubiquiti UniFi',
     description:
       'This project represents multiple production networks I built from the ground up using UniFi hardware. My work covered network design, hardware deployment, IP addressing, VLAN segmentation, and SonicWall edge firewall configuration. I also handled rack installs, switch provisioning, access point placement, camera infrastructure, and NVR storage, with segmented traffic for staff devices, security systems, phones, and infrastructure. Alongside UniFi, I integrated RFID access control and IP security systems, reinforcing a full-stack infrastructure approach from cabling through firewall policy.',
@@ -724,6 +783,12 @@ export const data = [
     title: 'Infrastructure Deployment (NPCE)',
     src: '/Projects/BGCLCV/teenCenterPc.webp',
     content: <ProjectContent project={{ title: 'Infrastructure Deployment (NPCE)', category: 'Enterprise Networking', thumbnail: '/Projects/BGCLCV/teenCenterPc.webp' }} />,
+  },
+  {
+    category: 'Enterprise Software',
+    title: 'Auction Tracker (NPCE)',
+    src: '/Projects/AuctionSoftware/mainBGCA.webp',
+    content: <ProjectContent project={{ title: 'Auction Tracker (NPCE)', category: 'Enterprise Software', thumbnail: '/Projects/AuctionSoftware/mainBGCA.webp' }} />,
   },
   {
     category: 'Infrastructure & Networking',

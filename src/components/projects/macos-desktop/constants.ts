@@ -80,11 +80,26 @@ export const ICON_CONFIGS: IconConfig[] = [
       ultrawide: { x: 14, y: 42 }
     }
   },
+  // LEFT SIDE - Column 2 (Row 2)
+  {
+    id: 'auctiontrackernpce',
+    title: 'Auction Tracker (NPCE)',
+    projectIndex: 5,
+    icon: '/Projects/AuctionSoftware/mainBGCA.webp',
+    size: { width: 80, height: 80 },
+    positions: {
+      mobile: { x: 21, y: 42 },
+      tablet: { x: 21, y: 42 },
+      laptop: { x: 21, y: 42 },
+      desktop: { x: 21, y: 42 },
+      ultrawide: { x: 21, y: 42 }
+    }
+  },
   // RIGHT SIDE - Column 1 (Row 1)
   {
     id: 'modernportfolio',
     title: 'Modern Portfolio',
-    projectIndex: 6,
+    projectIndex: 7,
     icon: '/Projects/ModernPortfolio/home_page.webp',
     size: { width: 80, height: 80 },
     positions: {
@@ -99,7 +114,7 @@ export const ICON_CONFIGS: IconConfig[] = [
   {
     id: 'ubiquitiunifi',
     title: 'Ubiquiti UniFi',
-    projectIndex: 5,
+    projectIndex: 6,
     icon: '/Projects/Ubiquiti/unifi_main.webp',
     size: { width: 80, height: 80 },
     positions: {
@@ -114,7 +129,7 @@ export const ICON_CONFIGS: IconConfig[] = [
   {
     id: 'retrosnake',
     title: 'Retro Snake',
-    projectIndex: 7,
+    projectIndex: 8,
     icon: '/Projects/Snake/snake.webp',
     size: { width: 90, height: 80 },
     positions: {
@@ -129,7 +144,7 @@ export const ICON_CONFIGS: IconConfig[] = [
   {
     id: 'proxmoxcluster',
     title: 'Proxmox Cluster',
-    projectIndex: 8,
+    projectIndex: 9,
     icon: '/Projects/Proxmox/mainProxmox.webp',
     size: { width: 100, height: 80 },
     positions: {

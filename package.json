@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "optimize:images": "node scripts/optimize.js",
-    "optimize:svg": "node scripts/optimize-svg.js"
+    "optimize:svg": "node scripts/optimize-svg.js",
+    "optimize:auction-software": "node scripts/optimize-auction-software.js"
   },
   "dependencies": {
     "@radix-ui/react-icons": "^1.3.2",
