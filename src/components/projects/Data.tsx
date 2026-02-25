@@ -723,12 +723,13 @@ const ProjectContent = ({ project }: { project: ProjectProps }) => {
                   {'type' in image && image.type === 'video' ? (
                     <video
                       src={image.src}
-                      autoPlay
+                      autoPlay={index === 0}
+                      controls
                       muted
-                      loop
+                      loop={index === 0}
                       playsInline
                       className="w-full h-full object-cover"
-                      preload="none"
+                      preload={index === 0 ? 'metadata' : 'none'}
                     >
                       Your browser does not support the video tag.
                     </video>
@@ -737,6 +738,8 @@ const ProjectContent = ({ project }: { project: ProjectProps }) => {
                       src={image.src}
                       alt={image.alt}
                       fill
+                      loading={index === 0 ? 'eager' : 'lazy'}
+                      fetchPriority={index === 0 ? 'high' : 'auto'}
                       sizes="(max-width: 768px) 100vw, 50vw"
                       className="object-contain"
                     />
