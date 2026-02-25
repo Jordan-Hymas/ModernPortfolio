@@ -85,7 +85,7 @@ export const ICON_CONFIGS: IconConfig[] = [
     id: 'auctiontrackernpce',
     title: 'Auction Tracker (NPCE)',
     projectIndex: 5,
-    icon: '/Projects/AuctionSoftware/mainBGCA.webp',
+    icon: '/Projects/AuctionSoftware/mainNPCE.webp',
     size: { width: 80, height: 80 },
     positions: {
       mobile: { x: 21, y: 42 },

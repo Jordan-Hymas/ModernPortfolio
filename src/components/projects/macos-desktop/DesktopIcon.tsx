@@ -1,56 +1,53 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useMotionValue } from 'framer-motion';
 import Image from 'next/image';
-import { useState, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { DesktopIconData } from './types';
 
 interface DesktopIconProps {
   icon: DesktopIconData;
-  onOpen: (position: { x: number; y: number }) => void;
+  onOpen: () => void;
   onPositionChange?: (id: string, x: number, y: number) => void;
 }
 
 export function DesktopIcon({ icon, onOpen, onPositionChange }: DesktopIconProps) {
   const [isDragging, setIsDragging] = useState(false);
-  const [currentPosition, setCurrentPosition] = useState(icon.position);
-  const dragStartPos = useRef({ x: 0, y: 0 });
   const dragStartTime = useRef(0);
-  const clickTimer = useRef<NodeJS.Timeout | null>(null);
 
   // Default size if not specified
   const iconSize = icon.size || { width: 80, height: 80 };
   const maxDimension = Math.max(iconSize.width, iconSize.height);
+  const x = useMotionValue(icon.position.x - maxDimension / 2);
+  const y = useMotionValue(icon.position.y - maxDimension / 2);
+
+  useEffect(() => {
+    x.set(icon.position.x - maxDimension / 2);
+    y.set(icon.position.y - maxDimension / 2);
+  }, [icon.position.x, icon.position.y, maxDimension, x, y]);
 
   return (
     <motion.div
       drag
       dragMomentum={false}
       dragElastic={0}
-      dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
-      onDragStart={(_, info) => {
+      onDragStart={() => {
         setIsDragging(true);
-        dragStartPos.current = { x: info.point.x, y: info.point.y };
         dragStartTime.current = Date.now();
       }}
-      onDrag={(_, info) => {
-        // Update current position during drag
-        setCurrentPosition({ x: info.point.x, y: info.point.y });
-      }}
       onDragEnd={(_, info) => {
-        const dragDistance = Math.sqrt(
-          Math.pow(info.point.x - dragStartPos.current.x, 2) +
-          Math.pow(info.point.y - dragStartPos.current.y, 2)
-        );
+        const dragDistance = Math.hypot(info.offset.x, info.offset.y);
         const dragDuration = Date.now() - dragStartTime.current;
 
-        // Update final position
-        const finalPos = { x: info.point.x, y: info.point.y };
-        setCurrentPosition(finalPos);
+        const finalPos = {
+          x: x.get() + maxDimension / 2,
+          y: y.get() + maxDimension / 2,
+        };
+        onPositionChange?.(icon.id, finalPos.x, finalPos.y);
 
         // Only open if it was a very short click-like action (not a real drag)
         if (dragDuration < 200 && dragDistance < 5) {
-          onOpen(finalPos);
+          onOpen();
         }
 
         // Small delay before allowing clicks again
@@ -60,15 +57,15 @@ export function DesktopIcon({ icon, onOpen, onPositionChange }: DesktopIconProps
         // Single click to open (only if not dragging)
         if (!isDragging) {
           e.stopPropagation();
-          onOpen(currentPosition);
+          onOpen();
         }
       }}
       style={{
         position: 'absolute',
         zIndex: 3,
-        left: icon.position.x - maxDimension / 2,
-        top: icon.position.y - maxDimension / 2,
-        width: `${maxDimension}px`
+        width: `${maxDimension}px`,
+        x,
+        y,
       }}
       whileHover={{ scale: 1.05 }}
       whileDrag={{ scale: 1.1, cursor: 'grabbing' }}

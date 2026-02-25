@@ -787,8 +787,8 @@ export const data = [
   {
     category: 'Enterprise Software',
     title: 'Auction Tracker (NPCE)',
-    src: '/Projects/AuctionSoftware/mainBGCA.webp',
-    content: <ProjectContent project={{ title: 'Auction Tracker (NPCE)', category: 'Enterprise Software', thumbnail: '/Projects/AuctionSoftware/mainBGCA.webp' }} />,
+    src: '/Projects/AuctionSoftware/mainNPCE.webp',
+    content: <ProjectContent project={{ title: 'Auction Tracker (NPCE)', category: 'Enterprise Software', thumbnail: '/Projects/AuctionSoftware/mainNPCE.webp' }} />,
   },
   {
     category: 'Infrastructure & Networking',
