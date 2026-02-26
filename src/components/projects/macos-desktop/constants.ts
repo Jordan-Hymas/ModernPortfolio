@@ -239,7 +239,7 @@ export const DOCK_ICONS: DockIcon[] = [
   { id: 'linkedin', icon: '', label: 'LinkedIn', href: 'https://www.linkedin.com/in/jordan-hymas/' },
   { id: 'notes', icon: '', label: 'Notes', href: '#', separator: true },
   { id: 'photos', icon: '', label: 'Photos', href: '#' },
-  { id: 'email', icon: '', label: 'Mail', href: 'mailto:jordanhymas24@gmail.com' },
+  { id: 'email', icon: '', label: 'Mail', href: 'mailto:jordan@jordanhymas.com' },
   { id: 'trash', icon: '🗑️', label: 'Trash', href: '#', separator: true },
 ];
 

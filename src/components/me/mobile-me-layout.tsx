@@ -131,7 +131,7 @@ export function MobileMeLayout({ addHomeScrollGap = false }: MobileMeLayoutProps
               <div className="mt-2 space-y-1.5">
                 <p className="flex items-center gap-2 font-mono text-[11px] text-black/78 dark:text-white/82">
                   <Mail className="h-3.5 w-3.5" />
-                  jordanhymas24@gmail.com
+                  jordan@jordanhymas.com
                 </p>
                 <p className="flex items-center gap-2 font-mono text-[11px] text-black/78 dark:text-white/82">
                   <MapPin className="h-3.5 w-3.5" />

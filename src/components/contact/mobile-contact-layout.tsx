@@ -9,7 +9,7 @@ const menuTitleFont = Anton({
   display: 'swap',
 });
 
-const email = 'jordanhymas24@gmail.com';
+const email = 'jordan@jordanhymas.com';
 
 const socialLinks = [
   { label: 'GitHub', url: 'https://github.com/Jordan-Hymas' },

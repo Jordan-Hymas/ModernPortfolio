@@ -210,7 +210,7 @@ export default function MePage() {
                 <div className="mt-3 space-y-2">
                   <p className="flex items-center gap-2 font-mono text-[12px] text-black/78 dark:text-white/80">
                     <Mail className="h-4 w-4" />
-                    jordanhymas24@gmail.com
+                    jordan@jordanhymas.com
                   </p>
                   <p className="flex items-center gap-2 font-mono text-[12px] text-black/78 dark:text-white/80">
                     <MapPin className="h-4 w-4" />
