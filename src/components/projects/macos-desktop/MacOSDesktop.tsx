@@ -94,6 +94,10 @@ export function MacOSDesktop() {
     [viewport.height, viewport.width]
   );
 
+  const getProjectIndexByTitle = useCallback((title: string) => {
+    return projectsData.findIndex((project) => project.title === title);
+  }, []);
+
   // Trash interaction state machine
   const {
     trashState,
@@ -171,11 +175,18 @@ export function MacOSDesktop() {
     (icon: DesktopIconData) => {
       // Check if window is already open
       const existingWindow = openWindows.find((w) => w.id === icon.id);
+      const resolvedProjectIndex = getProjectIndexByTitle(icon.title);
+      const projectIndex =
+        resolvedProjectIndex >= 0 ? resolvedProjectIndex : icon.projectIndex;
 
       if (existingWindow) {
         // Bring to front
         setOpenWindows((prev) =>
-          prev.map((w) => (w.id === icon.id ? { ...w, zIndex: nextZIndex } : w))
+          prev.map((w) =>
+            w.id === icon.id
+              ? { ...w, zIndex: nextZIndex, projectIndex }
+              : w
+          )
         );
         setNextZIndex((prev) => prev + 1);
       } else {
@@ -186,7 +197,7 @@ export function MacOSDesktop() {
           {
             id: icon.id,
             title: icon.title,
-            projectIndex: icon.projectIndex,
+            projectIndex,
             zIndex: nextZIndex,
             position: spawnPosition,
           },
@@ -194,7 +205,7 @@ export function MacOSDesktop() {
         setNextZIndex((prev) => prev + 1);
       }
     },
-    [getCenteredWindowPosition, openWindows, nextZIndex]
+    [getCenteredWindowPosition, getProjectIndexByTitle, openWindows, nextZIndex]
   );
 
   const handleWindowClose = useCallback((windowId: string) => {
@@ -389,7 +400,16 @@ export function MacOSDesktop() {
             }
 
             // Handle project windows
-            const project = projectsData[window.projectIndex];
+            const indexedProject = projectsData[window.projectIndex];
+            const project =
+              indexedProject && indexedProject.title === window.title
+                ? indexedProject
+                : projectsData.find((entry) => entry.title === window.title);
+
+            if (!project) {
+              return null;
+            }
+
             return (
               <MacOSWindow
                 key={window.id}

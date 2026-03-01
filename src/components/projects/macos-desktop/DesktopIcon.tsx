@@ -14,6 +14,7 @@ interface DesktopIconProps {
 export function DesktopIcon({ icon, onOpen, onPositionChange }: DesktopIconProps) {
   const [isDragging, setIsDragging] = useState(false);
   const dragStartTime = useRef(0);
+  const iconObjectPosition = icon.id === 'autotrack' ? 'center top' : 'center';
 
   // Default size if not specified
   const iconSize = icon.size || { width: 80, height: 80 };
@@ -83,6 +84,7 @@ export function DesktopIcon({ icon, onOpen, onPositionChange }: DesktopIconProps
           height={iconSize.height}
           sizes="80px"
           className="w-full h-full object-cover"
+          style={{ objectPosition: iconObjectPosition }}
           draggable={false}
         />
       </div>

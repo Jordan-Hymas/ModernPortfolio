@@ -34,6 +34,8 @@ const SUMMARY_BY_SRC: Record<string, string> = {
     'Designed and deployed a full enterprise-grade server room and esports network for the Boys & Girls Clubs of the Lewis-Clark Valley, transforming an empty space into a secure, high-performance infrastructure supporting daily operations and youth programs.',
   '/Projects/AuctionSoftware/mainNPCE.webp':
     'My first officially deployed production application, built to track live auction bids and display real-time totals on large screens for major fundraising events across the United States.',
+  '/Projects/AutoTrack/dashboard.webp':
+    'A mobile-first PWA for tracking rotations, oil changes, odometer history, and maintenance schedules with server-driven Web Push notifications.',
   '/Projects/Ubiquiti/unifi_main.webp':
     'A collection of real-world UniFi networks I designed and deployed with performance, segmentation, security, and scalability across multiple environments.',
   '/Projects/ModernPortfolio/home_page.webp':
@@ -53,6 +55,7 @@ const MOBILE_PROJECT_ORDER = [
   '/Projects/BGCLCV/teenCenterPc.webp', // Infrastructure Deployment (NPCE)
   '/Projects/LiquidPortfolio/projects.webp', // Liquid Portfolio
   '/Projects/AuctionSoftware/mainNPCE.webp', // Auction Tracker (NPCE)
+  '/Projects/AutoTrack/dashboard.webp', // AutoTrack
   '/Projects/CyberCodex.io/courses.webp', // cybercodex.io
   '/Projects/ModernPortfolio/home_page.webp', // Modern Portfolio
   '/Projects/HomeLab/Main.webp', // homelab
@@ -299,7 +302,7 @@ export function MobileProjectsLayout({ embedded = false }: MobileProjectsLayoutP
                       alt={displayTitle}
                       fill
                       sizes="104px"
-                      className="object-cover"
+                      className={project.src === '/Projects/AutoTrack/dashboard.webp' ? 'object-cover object-top' : 'object-cover'}
                     />
                   </div>
                   <span className="pb-1 font-mono text-[20px] uppercase tracking-[0.08em] text-black/88 dark:text-white/86">

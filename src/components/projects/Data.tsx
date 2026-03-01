@@ -320,6 +320,85 @@ const PROJECT_CONTENT = [
     ],
   },
   {
+    title: 'AutoTrack',
+    subtitle: 'Mobile PWA Vehicle Maintenance Tracker',
+    description:
+      'A mobile-first Progressive Web App designed to track tire rotations, oil changes, and vehicle service history, built specifically for real-world iPhone usage and server-driven push notifications.',
+    fullDescription: [
+      'AutoTrack is a mobile-first vehicle maintenance tracker built as a Progressive Web App (PWA). The goal of the application is simple: track when each vehicle is due for tire rotation, monitor oil change intervals, and keep service history organized in one centralized system.',
+      'The app is currently used as an internal tool for managing my family vehicles and is being actively prepared for broader production use. It features per-vehicle dashboards, maintenance countdown timers, odometer tracking, and a calendar-based planning system, all optimized for iPhone tab-based navigation.',
+      'The system runs on a VPS-backed API with SQLite storage and delivers real push notifications using the Web Push standard. Notifications are triggered by scheduled server-side sweeps and are delivered by the operating system even when the app is closed.',
+      'This project strengthened my understanding of PWA architecture, service workers, mobile-first design, reverse proxy deployment (Nginx), security headers (HSTS), and production push infrastructure.',
+    ],
+    typeLabel: 'Web Application > PWA (Next.js)',
+    techStack: [
+      'Next.js 15.5.12',
+      'React',
+      'Radix UI',
+      'SQLite',
+      'better-sqlite3',
+      'Service Worker',
+      'Web Push API',
+      'Nginx',
+      'HSTS',
+      'Google Analytics (GA4)',
+      'Priority Hints',
+      'PWA',
+    ],
+    date: '2025',
+    featuresTitle: 'Main Features:',
+    features: [
+      'Multi-vehicle dashboard with maintenance countdowns',
+      'Tire rotation and oil change tracking',
+      'Odometer logging + service history',
+      'Calendar view for upcoming maintenance',
+      'Light and dark mode',
+      'iPhone-optimized tab navigation',
+      'VPS-triggered Web Push notifications',
+    ],
+    notificationsTitle: 'How Notifications Work:',
+    notifications: [
+      'User installs the PWA to Home Screen and enables notifications',
+      'App creates push subscription and stores it server-side',
+      'VPS runs scheduled sweep against /api/push/sweep',
+      'Sweep checks maintenance states and triggers push alerts',
+      'Notifications are delivered even when the app is closed',
+    ],
+    previewLayout: 'mobile-grid-3',
+    links: [
+      {
+        name: 'GitHub',
+        url: 'https://github.com/Jordan-Hymas',
+      },
+    ],
+    images: [
+      {
+        src: '/Projects/AutoTrack/dashboard.webp',
+        alt: 'AutoTrack dashboard view',
+      },
+      {
+        src: '/Projects/AutoTrack/darkModeRam.webp',
+        alt: 'AutoTrack dark mode dashboard',
+      },
+      {
+        src: '/Projects/AutoTrack/vehicleInfo.webp',
+        alt: 'AutoTrack vehicle details view',
+      },
+      {
+        src: '/Projects/AutoTrack/calendar.webp',
+        alt: 'AutoTrack maintenance calendar',
+      },
+      {
+        src: '/Projects/AutoTrack/vehicles.webp',
+        alt: 'AutoTrack vehicles list',
+      },
+      {
+        src: '/Projects/AutoTrack/settings.webp',
+        alt: 'AutoTrack settings screen',
+      },
+    ],
+  },
+  {
     title: 'Ubiquiti UniFi',
     description:
       'This project represents multiple production networks I built from the ground up using UniFi hardware. My work covered network design, hardware deployment, IP addressing, VLAN segmentation, and SonicWall edge firewall configuration. I also handled rack installs, switch provisioning, access point placement, camera infrastructure, and NVR storage, with segmented traffic for staff devices, security systems, phones, and infrastructure. Alongside UniFi, I integrated RFID access control and IP security systems, reinforcing a full-stack infrastructure approach from cabling through firewall policy.',
@@ -522,6 +601,8 @@ const ProjectContent = ({ project }: { project: ProjectProps }) => {
     'typeLabel' in projectData && projectData.typeLabel
       ? projectData.typeLabel
       : `${categoryString} > ${projectData.techStack[0] || 'Development'}`;
+  const thumbnailObjectPosition =
+    projectData.title === 'AutoTrack' ? 'center top' : 'center';
 
   return (
     <div className="h-full w-full overflow-y-auto bg-[#f5f4f0] dark:bg-[#1D1D1F]">
@@ -538,6 +619,7 @@ const ProjectContent = ({ project }: { project: ProjectProps }) => {
                   fill
                   sizes="64px"
                   className="object-cover"
+                  style={{ objectPosition: thumbnailObjectPosition }}
                 />
               </div>
             ) : projectData.images && projectData.images[0] ? (
@@ -548,6 +630,7 @@ const ProjectContent = ({ project }: { project: ProjectProps }) => {
                   fill
                   sizes="64px"
                   className="object-cover"
+                  style={{ objectPosition: thumbnailObjectPosition }}
                 />
               </div>
             ) : (
@@ -563,7 +646,9 @@ const ProjectContent = ({ project }: { project: ProjectProps }) => {
               {projectData.title}
             </h1>
             <p className="text-sm text-neutral-600 dark:text-neutral-400">
-              {project.category || 'Project'}
+              {'subtitle' in projectData && projectData.subtitle
+                ? projectData.subtitle
+                : project.category || 'Project'}
             </p>
           </div>
         </div>
@@ -574,6 +659,19 @@ const ProjectContent = ({ project }: { project: ProjectProps }) => {
             {projectData.description}
           </p>
         </div>
+
+        {/* Extended Description */}
+        {'fullDescription' in projectData &&
+          Array.isArray(projectData.fullDescription) &&
+          projectData.fullDescription.length > 0 && (
+            <CollapsibleSection title="Description:" defaultOpen={true}>
+              <div className="space-y-3 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+                {projectData.fullDescription.map((paragraph: string, index: number) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
+              </div>
+            </CollapsibleSection>
+          )}
 
         {/* Details Section */}
         <CollapsibleSection title="Details:" defaultOpen={true}>
@@ -637,6 +735,29 @@ const ProjectContent = ({ project }: { project: ProjectProps }) => {
             </div>
           </CollapsibleSection>
         )}
+
+        {/* Notification Flow Section */}
+        {'notifications' in projectData &&
+          Array.isArray(projectData.notifications) &&
+          projectData.notifications.length > 0 && (
+            <CollapsibleSection
+              title={
+                'notificationsTitle' in projectData && projectData.notificationsTitle
+                  ? projectData.notificationsTitle
+                  : 'How Notifications Work:'
+              }
+              defaultOpen={true}
+            >
+              <div className="space-y-2 text-sm">
+                {projectData.notifications.map((step: string, index: number) => (
+                  <div key={index} className="flex items-start gap-2">
+                    <span className="text-orange-500">●</span>
+                    <span className="text-neutral-600 dark:text-neutral-400">{step}</span>
+                  </div>
+                ))}
+              </div>
+            </CollapsibleSection>
+          )}
 
         {/* Equipment Section (for Home-Lab style projects) */}
         {projectData.details?.equipment && (
@@ -712,41 +833,62 @@ const ProjectContent = ({ project }: { project: ProjectProps }) => {
         {/* Preview Section */}
         {projectData.images && projectData.images.length > 0 && (
           <CollapsibleSection title="Preview:" defaultOpen={true}>
-            <div className="space-y-4">
-              {projectData.images.map((image, index) => (
-                <div
-                  key={index}
-                  className={`relative overflow-hidden rounded-lg border border-neutral-300 dark:border-neutral-600 ${
-                    'orientation' in image && image.orientation === 'vertical' ? 'aspect-[3/4]' : 'aspect-video'
-                  }`}
-                >
-                  {'type' in image && image.type === 'video' ? (
-                    <video
-                      src={image.src}
-                      autoPlay={index === 0}
-                      controls
-                      muted
-                      loop={index === 0}
-                      playsInline
-                      className="w-full h-full object-cover"
-                      preload={index === 0 ? 'metadata' : 'none'}
-                    >
-                      Your browser does not support the video tag.
-                    </video>
-                  ) : (
+            {'previewLayout' in projectData && projectData.previewLayout === 'mobile-grid-3' ? (
+              <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+                {projectData.images.map((image, index) => (
+                  <div
+                    key={index}
+                    className="relative aspect-[9/19.5] overflow-hidden rounded-lg border border-neutral-300 bg-neutral-100 dark:border-neutral-600 dark:bg-neutral-900"
+                  >
                     <Image
                       src={image.src}
                       alt={image.alt}
                       fill
                       loading={index === 0 ? 'eager' : 'lazy'}
                       fetchPriority={index === 0 ? 'high' : 'auto'}
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-contain"
+                      sizes="(max-width: 768px) 50vw, 33vw"
+                      className="object-contain p-1"
                     />
-                  )}
-                </div>
-              ))}
-            </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {projectData.images.map((image, index) => (
+                  <div
+                    key={index}
+                    className={`relative overflow-hidden rounded-lg border border-neutral-300 dark:border-neutral-600 ${
+                      'orientation' in image && image.orientation === 'vertical' ? 'aspect-[3/4]' : 'aspect-video'
+                    }`}
+                  >
+                    {'type' in image && image.type === 'video' ? (
+                      <video
+                        src={image.src}
+                        autoPlay={index === 0}
+                        controls
+                        muted
+                        loop={index === 0}
+                        playsInline
+                        className="w-full h-full object-cover"
+                        preload={index === 0 ? 'metadata' : 'none'}
+                      >
+                        Your browser does not support the video tag.
+                      </video>
+                    ) : (
+                      <Image
+                        src={image.src}
+                        alt={image.alt}
+                        fill
+                        loading={index === 0 ? 'eager' : 'lazy'}
+                        fetchPriority={index === 0 ? 'high' : 'auto'}
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="object-contain"
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
           </CollapsibleSection>
         )}
       </div>
@@ -792,6 +934,12 @@ export const data = [
     title: 'Auction Tracker (NPCE)',
     src: '/Projects/AuctionSoftware/mainNPCE.webp',
     content: <ProjectContent project={{ title: 'Auction Tracker (NPCE)', category: 'Enterprise Software', thumbnail: '/Projects/AuctionSoftware/mainNPCE.webp' }} />,
+  },
+  {
+    category: 'Web Application > PWA',
+    title: 'AutoTrack',
+    src: '/Projects/AutoTrack/dashboard.webp',
+    content: <ProjectContent project={{ title: 'AutoTrack', category: 'Web Application > PWA', thumbnail: '/Projects/AutoTrack/dashboard.webp' }} />,
   },
   {
     category: 'Infrastructure & Networking',
