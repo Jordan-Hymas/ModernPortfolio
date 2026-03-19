@@ -44,6 +44,8 @@ const SUMMARY_BY_SRC: Record<string, string> = {
     'A nostalgic C++ Snake project from my early programming years that reflects where my systems and game development path began.',
   '/Projects/Proxmox/mainProxmox.webp':
     'A multi-node Proxmox cluster with shared storage, remote access, and controlled VM environments for infrastructure and security testing.',
+  '/Projects/MarchMadness/main.webp':
+    'An AI-powered NCAA tournament predictor using a 12-signal weighted model, Monte Carlo simulation, and a full interactive bracket web app built on real 2026 season data.',
 };
 
 const TITLE_BY_SRC: Record<string, string> = {
@@ -52,17 +54,18 @@ const TITLE_BY_SRC: Record<string, string> = {
 };
 
 const MOBILE_PROJECT_ORDER = [
-  '/Projects/BGCLCV/teenCenterPc.webp', // Infrastructure Deployment (NPCE)
+  '/Projects/BGCLCV/teenCenterPc.webp', // 1 - Infrastructure Deployment (NPCE)
+  '/Projects/AutoTrack/dashboard.webp', // 2 - AutoTrack
+  '/Projects/AuctionSoftware/mainNPCE.webp', // 3 - Auction Tracker (NPCE)
+  '/Projects/MarchMadness/main.webp', // 4 - NCAA Bracket Predictor 2026
+  '/Projects/CyberCodex.io/courses.webp', // 5 - CyberCodex.io
+  '/Projects/ModernPortfolio/home_page.webp', // 6 - Modern Portfolio
+  '/Projects/HomeLab/Main.webp', // 7 - Home-Lab
   '/Projects/LiquidPortfolio/projects.webp', // Liquid Portfolio
-  '/Projects/AuctionSoftware/mainNPCE.webp', // Auction Tracker (NPCE)
-  '/Projects/AutoTrack/dashboard.webp', // AutoTrack
-  '/Projects/CyberCodex.io/courses.webp', // cybercodex.io
-  '/Projects/ModernPortfolio/home_page.webp', // Modern Portfolio
-  '/Projects/HomeLab/Main.webp', // homelab
-  '/Projects/Ubiquiti/unifi_main.webp', // ubiquiti unifi
-  '/Projects/OldPortfolio/home.webp', // first portfolio
-  '/Projects/Proxmox/mainProxmox.webp', // proxmox
-  '/Projects/Snake/snake.webp', // retro snake
+  '/Projects/Ubiquiti/unifi_main.webp', // Ubiquiti UniFi
+  '/Projects/OldPortfolio/home.webp', // First Portfolio
+  '/Projects/Proxmox/mainProxmox.webp', // Proxmox Cluster
+  '/Projects/Snake/snake.webp', // last - Retro Snake
 ] as const;
 
 type MobileProjectsLayoutProps = {

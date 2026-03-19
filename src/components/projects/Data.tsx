@@ -527,6 +527,70 @@ const PROJECT_CONTENT = [
     ],
   },
   {
+    title: 'NCAA Bracket Predictor 2026',
+    subtitle: 'AI-Powered Tournament Prediction Engine',
+    description:
+      'A data-driven NCAA tournament predictor that combines real season stats, advanced efficiency metrics, and expert bracket analysis to generate full bracket predictions and championship odds through simulation.',
+    fullDescription: [
+      'This project is an AI-powered NCAA tournament prediction system built using real 2026 season data, advanced efficiency metrics, and expert bracket inputs. The model evaluates each matchup using a weighted system of 12 different signals, including head-to-head results, common opponents, strength of schedule, offensive and defensive ratings, and historical seed performance.',
+      'Each factor is converted into probability space and combined into a final prediction using a logit-based model. To simulate real tournament variability, the system runs Monte Carlo simulations that introduce controlled randomness, allowing it to estimate championship and Final Four probabilities across multiple runs.',
+      'On top of the prediction engine, I built a full interactive web application where users can view AI-generated brackets, explore team paths to the championship, and compare their own picks against the model. The app includes real-time probability insights and dynamically updates as users interact with the bracket.',
+      'This project pushed my skills in data processing, statistical modeling, backend API design, and frontend interactivity — tying together a complete pipeline from raw data to user-facing application.',
+    ],
+    typeLabel: 'Data Science + Web Application',
+    techStack: [
+      'Python',
+      'FastAPI',
+      'React',
+      'Vite',
+      'NumPy',
+      'Pandas',
+      'Monte Carlo Simulation',
+      'SQLite / CSV Data Pipelines',
+      'Node.js',
+      'Next.js',
+      'Tailwind CSS',
+    ],
+    date: '2026',
+    featuresTitle: 'Main Features:',
+    features: [
+      '12-signal weighted prediction model',
+      'Monte Carlo simulation for tournament outcomes',
+      'Full bracket prediction with win probabilities',
+      'Interactive web app with AI Picks and My Picks modes',
+      'Team path visualization (click-to-follow bracket paths)',
+      'Top contenders panel with championship odds',
+      'FastAPI backend with precomputed simulation caching',
+    ],
+    dataSourcesTitle: 'Data Sources:',
+    dataSources: [
+      '2,100+ real game logs from 2026 season',
+      '68 tournament teams with full efficiency stats',
+      '360+ D1 team dataset for broader comparisons',
+      '9 ESPN/media expert brackets',
+    ],
+    links: [
+      {
+        name: 'GitHub',
+        url: 'https://github.com/Jordan-Hymas/NCAA-bracket-predictor-2026',
+      },
+    ],
+    images: [
+      {
+        src: '/Projects/MarchMadness/main.webp',
+        alt: 'NCAA Bracket Predictor main bracket view',
+      },
+      {
+        src: '/Projects/MarchMadness/data.webp',
+        alt: 'NCAA Bracket Predictor data analysis view',
+      },
+      {
+        src: '/Projects/MarchMadness/percent.webp',
+        alt: 'NCAA Bracket Predictor championship odds view',
+      },
+    ],
+  },
+  {
     title: 'Proxmox Cluster',
     description:
       'A multi-node Proxmox VE virtualization cluster used to manage virtual machines for security testing, system administration, and infrastructure experimentation. The cluster is designed to resemble a small enterprise environment, providing centralized VM management, shared storage, and remote accessibility.',
@@ -759,6 +823,29 @@ const ProjectContent = ({ project }: { project: ProjectProps }) => {
             </CollapsibleSection>
           )}
 
+        {/* Data Sources Section */}
+        {'dataSources' in projectData &&
+          Array.isArray(projectData.dataSources) &&
+          projectData.dataSources.length > 0 && (
+            <CollapsibleSection
+              title={
+                'dataSourcesTitle' in projectData && projectData.dataSourcesTitle
+                  ? projectData.dataSourcesTitle
+                  : 'Data Sources:'
+              }
+              defaultOpen={true}
+            >
+              <div className="space-y-2 text-sm">
+                {projectData.dataSources.map((source: string, index: number) => (
+                  <div key={index} className="flex items-start gap-2">
+                    <span className="text-orange-500">●</span>
+                    <span className="text-neutral-600 dark:text-neutral-400">{source}</span>
+                  </div>
+                ))}
+              </div>
+            </CollapsibleSection>
+          )}
+
         {/* Equipment Section (for Home-Lab style projects) */}
         {projectData.details?.equipment && (
           <CollapsibleSection title="Lab Equipment:" defaultOpen={true}>
@@ -964,5 +1051,11 @@ export const data = [
     title: 'Proxmox Cluster',
     src: '/Projects/Proxmox/mainProxmox.webp',
     content: <ProjectContent project={{ title: 'Proxmox Cluster', category: 'Infrastructure & Virtualization', thumbnail: '/Projects/Proxmox/mainProxmox.webp' }} />,
+  },
+  {
+    category: 'Data Science + Web Application',
+    title: 'NCAA Bracket Predictor 2026',
+    src: '/Projects/MarchMadness/main.webp',
+    content: <ProjectContent project={{ title: 'NCAA Bracket Predictor 2026', category: 'Data Science + Web Application', thumbnail: '/Projects/MarchMadness/main.webp' }} />,
   },
 ];

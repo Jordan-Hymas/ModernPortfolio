@@ -95,6 +95,21 @@ export const ICON_CONFIGS: IconConfig[] = [
       ultrawide: { x: 21, y: 42 }
     }
   },
+  // LEFT SIDE - Column 3 (Row 2)
+  {
+    id: 'ncaabracketpredictor',
+    title: 'NCAA Bracket Predictor 2026',
+    projectIndex: 11,
+    icon: '/Projects/MarchMadness/main.webp',
+    size: { width: 80, height: 80 },
+    positions: {
+      mobile: { x: 28, y: 42 },
+      tablet: { x: 28, y: 42 },
+      laptop: { x: 28, y: 42 },
+      desktop: { x: 28, y: 42 },
+      ultrawide: { x: 28, y: 42 }
+    }
+  },
   // RIGHT SIDE - Column 1 (Row 1)
   {
     id: 'modernportfolio',
